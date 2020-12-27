@@ -37,8 +37,8 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.sliderHolder>
     public void onBindViewHolder(sliderHolder viewHolder, final int position) {
 
         Slider slider = mSliderModel.get(position);
-        /*viewHolder.textViewDescription.setText(slider.getDescription());
-        viewHolder.imageViewBackground.setImageResource(slider.getUrl());*/
+        viewHolder.textViewDescription.setText(slider.getAbc());
+        viewHolder.imageViewBackground.setImageResource(slider.getUrl());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
