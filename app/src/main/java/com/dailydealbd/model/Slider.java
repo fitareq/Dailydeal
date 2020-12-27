@@ -11,7 +11,6 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = ConstantsResources.TABLE_HOMEPAGE_SLIDER)
 public class Slider {
-
 @PrimaryKey
 @NonNull
 @ColumnInfo(name = "id")

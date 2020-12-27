@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
     tools:context=".view.MainActivity">
 
 <RelativeLayout
@@ -24,11 +23,9 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_nav">
-
-        <include
-            android:id="@+id/main_toolbar"
-            layout="@layout/toolbar" />
+        android:layout_below="@+id/main_toolbar"
+        android:layout_above="@+id/bottom_nav"
+        >
 
     </FrameLayout>
 
@@ -40,8 +37,7 @@
         android:layout_alignParentBottom="true"
         app:elevation="@dimen/_5sdp"
         app:labelVisibilityMode="labeled"
-        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-        app:menu="@menu/nav_menu" />
+         app:menu="@menu/nav_menu" />
 </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
