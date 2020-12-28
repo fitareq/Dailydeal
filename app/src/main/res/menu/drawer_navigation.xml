@@ -38,11 +38,11 @@
             <item
                 android:id="@+id/nav_contact"
                 android:icon="@drawable/phone"
-                android:title="Contact Us" />
+                android:title="@string/contact_us" />
             <item
                 android:id="@+id/share"
                 android:icon="@drawable/share"
-                android:title="Share" />
+                android:title="@string/share" />
 
 
         </menu>

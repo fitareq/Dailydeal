@@ -32,17 +32,23 @@ android {
 
 dependencies {
 
+    // Java language implementation
+    implementation "androidx.fragment:fragment:1.2.5"
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    //scalable dp for responsiveness
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    //image load
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    //rest api call
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //automatic image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
-
+    //edit text spinner
     implementation 'com.reginald:editspinner:1.1.0'
 
     //room database
@@ -51,16 +57,21 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:2.2.6"
 
     // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     annotationProcessor "androidx.lifecycle:lifecycle-common-java8:2.2.0"
+    //view model
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
+    //live data
+    implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
 
-
+    //multi dex
+    implementation "androidx.multidex:multidex:2.0.1"
+    //fragment
+    implementation "androidx.fragment:fragment:1.2.5"
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-    implementation 'com.reginald:editspinner:1.1.0'
-
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
 }
