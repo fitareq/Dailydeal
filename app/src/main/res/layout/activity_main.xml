@@ -37,7 +37,7 @@
         android:layout_alignParentBottom="true"
         app:elevation="@dimen/_5sdp"
         app:labelVisibilityMode="labeled"
-         app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu" />
 </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
