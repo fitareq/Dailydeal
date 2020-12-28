@@ -43,8 +43,9 @@
         </androidx.cardview.widget.CardView>
 
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/banner_container"
+            android:id="@+id/categories_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/slider_container"
@@ -52,24 +53,78 @@
             app:cardElevation="20dp"
             app:cardPreventCornerOverlap="true">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/banner_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
-                app:sliderAnimationDuration="800"
-                app:sliderAutoCycleDirection="right"
-                app:sliderIndicatorAnimationDuration="800"
-                app:sliderScrollTimeInSec="3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categories"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Show All"
+                android:textSize="@dimen/_10sdp" />
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal">
+
+           </androidx.recyclerview.widget.RecyclerView>
+
         </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/products_container"
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_below="@+id/categories_container">
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:background="@color/grey"
+                app:sliderAnimationDuration="1000"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="800"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="@color/blue_light"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="3"
+                app:sliderStartAutoCycle="true" />
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/week_deals_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/banner_container"
             android:layout_margin="@dimen/_5sdp"
             app:cardElevation="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="week Deals"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -77,6 +132,61 @@
                 android:padding="@dimen/_5sdp" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/top_rated_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/week_deals_container"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Rated"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/Just_for_you_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/top_rated_container"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Just For You"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </androidx.cardview.widget.CardView>
+
     </RelativeLayout>
+
+
 
 </androidx.core.widget.NestedScrollView>
