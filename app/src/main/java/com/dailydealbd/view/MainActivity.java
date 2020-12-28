@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getMenuInflater().inflate(R.menu.toolbar_search_menu,menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView =(SearchView) menuItem.getActionView();
+
+        searchView =(SearchView) menuItem.getActionView();
         searchView.setQueryHint("What would you like to buy?");
 
 
