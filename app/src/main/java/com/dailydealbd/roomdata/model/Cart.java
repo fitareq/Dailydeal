@@ -1,4 +1,4 @@
-package com.dailydealbd.model;
+package com.dailydealbd.roomdata.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

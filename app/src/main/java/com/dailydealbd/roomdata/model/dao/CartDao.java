@@ -1,4 +1,4 @@
-package com.dailydealbd.model.dao;
+package com.dailydealbd.roomdata.model.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.dailydealbd.model.Cart;
+import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.utils.ConstantsResources;
 
 import java.util.List;

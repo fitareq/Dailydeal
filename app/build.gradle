@@ -33,7 +33,6 @@ android {
 dependencies {
 
     // Java language implementation
-    implementation "androidx.fragment:fragment:1.2.5"
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -53,6 +52,7 @@ dependencies {
 
     //room database
     implementation "androidx.room:room-runtime:2.2.6"
+    implementation "androidx.room:room-common:2.2.6"
     annotationProcessor "androidx.room:room-compiler:2.2.6"
     androidTestImplementation "androidx.room:room-testing:2.2.6"
 
