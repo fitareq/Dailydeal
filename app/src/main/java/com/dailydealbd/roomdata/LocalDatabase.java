@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
 
 import java.util.concurrent.ExecutorService;
@@ -18,6 +19,7 @@ public abstract class LocalDatabase extends RoomDatabase {
 
 
 public abstract SliderDao sliderDao();
+public abstract ProductsDao productsDao();
 private static volatile LocalDatabase INSTANCE;
 public static final int NUMBER_OF_THREAD = 4;
 public static final ExecutorService databaseWriteExecutors = Executors.newFixedThreadPool(NUMBER_OF_THREAD);

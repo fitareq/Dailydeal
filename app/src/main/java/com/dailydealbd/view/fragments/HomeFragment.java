@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.SliderAdapter;
+import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -47,7 +48,10 @@ public HomeFragment(HomeViewModel homeViewModel) {
 
     //mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
     if (savedInstanceState==null)
-        mViewModel.fetchDataFromRemote();
+    {
+        mViewModel.fetchProductsDataFromRemote();
+        mViewModel.fetchSliderDataFromRemote();
+    }
     View rootView = inflater.inflate(R.layout.fragment_home, container, false);
     sliderView = rootView.findViewById(R.id.slider);
     sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
@@ -64,6 +68,12 @@ public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceStat
 
 
 
+    mViewModel.getProductsList().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
+        @Override
+        public void onChanged(List<Products> products) {
+
+        }
+    });
     mViewModel.getSliderList().observe(getViewLifecycleOwner(), new Observer<List<Slider>>() {
         @Override
         public void onChanged(List<Slider> sliders) {
