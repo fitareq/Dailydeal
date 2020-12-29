@@ -1,5 +1,6 @@
 package com.dailydealbd.view;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -190,6 +192,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 @Override
 public void onClick(View v) {
 
+}
+
+
+
+/**
+ * Called when the activity has detected the user's press of the back
+ * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
+ * chance to handle the back button before the default behavior of
+ * {@link Activity#onBackPressed()} is invoked.
+ *
+ * @see #getOnBackPressedDispatcher()
+ */
+@Override
+public void onBackPressed() {
+
+    if (drawerLayout.isDrawerOpen(GravityCompat.START))
+        drawerLayout.closeDrawer(GravityCompat.START);
+    else super.onBackPressed();
 }
 
 
