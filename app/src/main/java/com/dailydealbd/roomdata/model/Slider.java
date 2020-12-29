@@ -1,6 +1,15 @@
-package com.dailydealbd.model;
+package com.dailydealbd.roomdata.model;
 
-/*@Entity(tableName = ConstantsResources.TABLE_HOMEPAGE_SLIDER)
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.dailydealbd.utils.ConstantsResources;
+import com.google.gson.annotations.SerializedName;
+
+
+@Entity(tableName = ConstantsResources.TABLE_HOMEPAGE_SLIDER)
 public class Slider {
     @PrimaryKey
     @NonNull
@@ -59,8 +68,7 @@ public class Slider {
     @ColumnInfo(name = "image_reverse")
     @SerializedName("image_reverse")
     private final Integer sliderImageReverse;
-    private String Abc;
-    private int Url;
+
 
 
     public Slider(@NonNull Integer sliderId, String sliderTitle,
@@ -176,9 +184,9 @@ public class Slider {
 
 
 
-}*/
+}
 
-public class Slider
+/*public class Slider
 {
     private String Abc;
     private int Url;
@@ -203,4 +211,4 @@ public class Slider
     public void setUrl(int url) {
         Url = url;
     }
-}
+}*/

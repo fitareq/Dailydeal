@@ -9,26 +9,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dailydealbd.R;
-import com.dailydealbd.model.Slider;
+import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.utils.ConstantsResources;
 import com.smarteist.autoimageslider.SliderViewAdapter;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.sliderHolder> {
 
-    private List<Slider> mSliderModel = new ArrayList<>();
+    private List<Slider> mSliderModel;
     private Context context;
 
-    public SliderAdapter(Context context, List<Slider> mSliderModel) {
-        this.context = context;
+    public SliderAdapter( List<Slider> mSliderModel) {
         this.mSliderModel = mSliderModel;
-
     }
 
 
     @Override
     public sliderHolder onCreateViewHolder(ViewGroup parent) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_slider_layout_item, parent, false);
         return new sliderHolder(view);
     }
@@ -36,22 +36,25 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.sliderHolder>
     @Override
     public void onBindViewHolder(sliderHolder viewHolder, final int position) {
 
-        Slider slider = mSliderModel.get(position);
-        viewHolder.textViewDescription.setText(slider.getAbc());
-        viewHolder.imageViewBackground.setImageResource(slider.getUrl());
+        Slider current = mSliderModel.get(position);
+        String image = current.getSliderImage();
+        String title = current.getSliderTitle();
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (!title.isEmpty())
+            viewHolder.textViewDescription.setText(current.getSliderTitle());
+        if (!image.isEmpty())
+        {
+            image = ConstantsResources.SLIDER_IMAGE_BASE_URL+image;
+            Picasso.get().load(image).into(viewHolder.imageViewBackground);
+        }
+
+
+        viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }
 
     @Override
     public int getCount() {
-
-        return mSliderModel.size();
+            return mSliderModel.size();
     }
 
     public class sliderHolder extends SliderViewAdapter.ViewHolder {
