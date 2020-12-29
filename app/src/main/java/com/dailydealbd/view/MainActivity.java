@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
         drawerLayout = findViewById(R.id.drawerLayoutId);
         NavigationView navigationView = findViewById(R.id.navigation_drawer);
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        //setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setSupportActionBar(toolbar);
 
         navigationView.setNavigationItemSelectedListener(this);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
