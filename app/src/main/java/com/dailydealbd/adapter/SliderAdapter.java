@@ -48,7 +48,6 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.sliderHolder>
             Picasso.get().load(image).into(viewHolder.imageViewBackground);
         }
 
-
         viewHolder.itemView.setOnClickListener(v -> Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show());
     }
 
