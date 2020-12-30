@@ -182,8 +182,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
-
 /**
  * Called when a view has been clicked.
  *

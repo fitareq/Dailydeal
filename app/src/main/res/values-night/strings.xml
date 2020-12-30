@@ -12,4 +12,6 @@
     <string name="wishlist">Wishlist</string>
     <string name="terms_conditions">Terms Conditions</string>
     <string name="communicate">Communicate</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Email</string>
 </resources>
