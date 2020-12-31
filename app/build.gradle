@@ -38,12 +38,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
     //scalable dp for responsiveness
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     //image load
     implementation 'com.squareup.picasso:picasso:2.71828'
     //rest api call
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //automatic image slider
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
@@ -64,7 +66,7 @@ dependencies {
     //live data
     implementation "androidx.lifecycle:lifecycle-livedata:2.2.0"
     // Saved state module for ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
+    //implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
 
     //multi dex
     implementation "androidx.multidex:multidex:2.0.1"

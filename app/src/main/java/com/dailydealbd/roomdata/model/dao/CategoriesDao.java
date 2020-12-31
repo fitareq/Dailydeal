@@ -1,5 +1,6 @@
 package com.dailydealbd.roomdata.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -14,15 +15,20 @@ import java.util.List;
 @Dao
 public interface CategoriesDao {
 
-@Insert(onConflict = OnConflictStrategy.REPLACE)
-void insertCategoryList(List<Categories> categories);
 
-@Query("SELECT * FROM "+ ConstantsResources.TABLE_CATEGORIES+" WHERE id LIKE :cId")
-Categories getSingleCategory(int cId);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertCategoryList(List<Categories> categories);
 
-@Query("SELECT * FROM "+ConstantsResources.TABLE_CATEGORIES)
-List<Categories> getAllCategory();
+    @Query("SELECT * FROM " + ConstantsResources.TABLE_CATEGORIES + " WHERE id LIKE :cId")
+    Categories getSingleCategory(int cId);
 
-@Query("DELETE FROM "+ConstantsResources.TABLE_CATEGORIES)
-void deleteAllCategory();
+    @Query("SELECT * FROM " + ConstantsResources.TABLE_CATEGORIES)
+    LiveData<List<Categories>> getAllCategory();
+
+    @Query("DELETE FROM " + ConstantsResources.TABLE_CATEGORIES)
+    void deleteAllCategory();
+
+
+
+
 }

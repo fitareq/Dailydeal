@@ -1,5 +1,6 @@
 package com.dailydealbd.network;
 
+import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
 
@@ -18,7 +19,8 @@ Call<List<Products>> getAllProducts();
 @GET("slider")
 Call<List<Slider>> getAllSlider();
 
-
+@GET("categoryAll")
+Call<List<Categories>> getAllCategories();
 
 
 }

@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".view.fragments.HomeFragment">
+    android:layout_height="match_parent">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/appbar_layout">
-
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/slider_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            app:cardElevation="20dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardCornerRadius="@dimen/_5sdp">
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="20dp">
 
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/slider"
@@ -51,27 +46,35 @@
             app:cardElevation="20dp"
             app:cardPreventCornerOverlap="true">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Categories"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
+                android:padding="@dimen/_5sdp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Show All"
-                android:textSize="@dimen/_10sdp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Categories"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
 
-           <androidx.recyclerview.widget.RecyclerView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/show_all_category_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Show All"
+                    android:textSize="@dimen/_10sdp" />
 
-           </androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/categories_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -80,11 +83,11 @@
             android:id="@+id/banner_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/categories_container"
             android:layout_margin="@dimen/_5sdp"
-            app:cardElevation="20dp"
-            app:cardPreventCornerOverlap="true"
             app:cardCornerRadius="@dimen/_5sdp"
-            android:layout_below="@+id/categories_container">
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="true">
 
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/banner"
@@ -107,7 +110,6 @@
         </androidx.cardview.widget.CardView>
 
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/week_deals_container"
             android:layout_width="match_parent"
@@ -116,18 +118,25 @@
             android:layout_margin="@dimen/_5sdp"
             app:cardElevation="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="week Deals"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                />
-
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="week Deals"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/week_deals_rview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -139,20 +148,25 @@
             app:cardElevation="20dp"
             app:cardPreventCornerOverlap="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Top Rated"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                />
-
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Top Rated"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/top_rated_rview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
 
         </androidx.cardview.widget.CardView>
 
@@ -163,26 +177,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/top_rated_container"
             android:layout_margin="@dimen/_5sdp"
-            app:cardElevation="20dp"
-            app:cardPreventCornerOverlap="true">
+            app:cardElevation="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Just For You"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                />
-
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Just For You"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/just_for_you_rview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
 
 

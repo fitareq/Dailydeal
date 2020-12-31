@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
 import com.dailydealbd.network.APIInstance;
@@ -19,96 +21,144 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeRepository
-{
-
-private DailyDealApi api;
-private LiveData<List<Slider>> sliderList;
-private LiveData<List<Products>> productsList;
-private LocalDatabase db;
-private SliderDao sliderDao;
-private ProductsDao productsDao;
-
-public HomeRepository(Application application) {
-
-    api = APIInstance.retroInstance().create(DailyDealApi.class);
-    db = LocalDatabase.getINSTANCE(application);
-    sliderDao = db.sliderDao();
-    productsDao = db.productsDao();
-    productsList = productsDao.getAllProducts();
-    sliderList = sliderDao.getAllSlider();
-}
+public class HomeRepository {
 
 
-public void fetchSliderDataFromRemote()
-{
+    private final DailyDealApi api;
+    private LiveData<List<Slider>> sliderList;
+    private LiveData<List<Products>> productsList;
+    private LiveData<List<Categories>> categoriesList;
 
-    Call<List<Slider>> call = api.getAllSlider();
-    call.enqueue(new Callback<List<Slider>>() {
-        @Override
-        public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
-            if (response.isSuccessful())
-            {
-                insertSliderList(response.body());
+    private LocalDatabase db;
+    private SliderDao sliderDao;
+    private ProductsDao productsDao;
+    private CategoriesDao categoriesDao;
+
+
+
+    public HomeRepository(Application application) {
+
+        api = APIInstance.retroInstance().create(DailyDealApi.class);
+        db = LocalDatabase.getINSTANCE(application);
+        sliderDao = db.sliderDao();
+        productsDao = db.productsDao();
+        categoriesDao = db.categoriesDao();
+        productsList = productsDao.getAllProducts();
+        sliderList = sliderDao.getAllSlider();
+        categoriesList = categoriesDao.getAllCategory();
+    }
+
+
+
+    public void fetchSliderDataFromRemote() {
+
+        Call<List<Slider>> call = api.getAllSlider();
+        call.enqueue(new Callback<List<Slider>>() {
+            @Override
+            public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
+
+                if (response.isSuccessful()) {
+                    insertSliderList(response.body());
+                }
             }
-        }
 
 
 
-        @Override
-        public void onFailure(Call<List<Slider>> call, Throwable t) {
-        }
-    });
-}
-public void fetchProductsDataFromRemote()
-{
+            @Override
+            public void onFailure(Call<List<Slider>> call, Throwable t) {
 
-    Call<List<Products>> call = api.getAllProducts();
-    call.enqueue(new Callback<List<Products>>() {
-        @Override
-        public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
-            if (response.isSuccessful())
-            {
-                insertProductsList(response.body());
             }
-        }
+        });
+    }
 
 
 
-        @Override
-        public void onFailure(Call<List<Products>> call, Throwable t) {
-        }
-    });
-}
+    public void fetchProductsDataFromRemote() {
+
+        Call<List<Products>> call = api.getAllProducts();
+        call.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+
+                if (response.isSuccessful()) {
+                    insertProductsList(response.body());
+                }
+            }
 
 
 
-public LiveData<List<Slider>> getSliderList() {
-    return sliderList;
-}
-public LiveData<List<Products>> getProductsList()
-{
-    return productsList;
-}
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
 
-private void insertProductsList(List<Products> products)
-{
-    LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
-        @Override
-        public void run() {
-            productsDao.insertProductList(products);
-        }
-    });
-}
+            }
+        });
+    }
 
-private void insertSliderList(List<Slider> slider) {
-    LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
-        @Override
-        public void run() {
-            sliderDao.insertSliderList(slider);
-        }
-    });
-}
+
+
+    public void fetchCategoriesDataFromRemote() {
+
+        Call<List<Categories>> call = api.getAllCategories();
+        call.enqueue(new Callback<List<Categories>>() {
+            @Override
+            public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
+
+                if (response.isSuccessful()) {
+                    insertCategoriesList(response.body());
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<List<Categories>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+
+    public LiveData<List<Slider>> getSliderList() {
+        return sliderList;
+    }
+
+
+
+    public LiveData<List<Products>> getProductsList() {
+        return productsList;
+    }
+
+
+
+    public LiveData<List<Categories>> getCategoriesList() {
+        return categoriesList;
+    }
+
+
+    private void insertCategoriesList(List<Categories> categories)
+    {
+        LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
+            @Override
+            public void run() {
+                categoriesDao.insertCategoryList(categories);
+            }
+        });
+    }
+
+    private void insertProductsList(List<Products> products) {
+
+        LocalDatabase.databaseWriteExecutors.execute(() -> productsDao.insertProductList(products));
+    }
+
+
+
+    private void insertSliderList(List<Slider> slider) {
+
+        LocalDatabase.databaseWriteExecutors.execute(() -> sliderDao.insertSliderList(slider));
+    }
+
+
 
 
 

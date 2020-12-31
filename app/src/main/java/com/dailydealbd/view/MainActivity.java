@@ -17,30 +17,45 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
+import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private SearchView searchView;
-    private NavigationView navigationView;
+    private NavigationView navigationDrawer;
     private BottomNavigationView bottomNav;
     private HomeViewModel homeViewModel;
+    private Fragment selectedFragment;
+
+    private final int NAV_HOME = R.id.nav_home;
+    private final int DRW_HOME = R.id.nav_home1;
+    private final int NAV_ACC = R.id.nav_account;
+    private final int DRW_ACC = R.id.nav_account1;
+    private final int DRW_ORDER = R.id.nav_order1;
+    private final int DRW_CART = R.id.nav_cart1;
+    private final int NAV_CART = R.id.nav_cart;
+    private final int DRW_WISHLIST = R.id.nav_wishlist1;
+    private final int DRW_CONTACT = R.id.nav_contact;
+    private final int DRW_CONDITION = R.id.nav_conditions;
+    private final int NAV_CATEGORY = R.id.nav_category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerLayoutId);
-        navigationView = findViewById(R.id.navigation_drawer);
+        navigationDrawer = findViewById(R.id.navigation_drawer);
         bottomNav = findViewById(R.id.bottom_nav);
 
 
@@ -48,108 +63,86 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case DRW_ACC:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case DRW_CART:
+                        selectedFragment = new CartFragment();
+                        break;
+                    case DRW_CONDITION:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case DRW_CONTACT:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case DRW_HOME:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case DRW_WISHLIST:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case DRW_ORDER:
+                        selectedFragment = new HomeFragment();
+                        break;
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return loadFragments();
+            }
+        });
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        navigationView.setNavigationItemSelectedListener(this);
-        bottomNav.setOnNavigationItemSelectedListener(this);
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        loadFragments(new HomeFragment(homeViewModel));
+
+        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case NAV_ACC:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case NAV_CART:
+                        selectedFragment = new CartFragment();
+                        break;
+                    case NAV_CATEGORY:
+                        selectedFragment = new HomeFragment();
+                        break;
+                    case NAV_HOME:
+                        selectedFragment = new HomeFragment();
+                        break;
+
+                }
+                return loadFragments();
+            }
+        });
+
+
+
+        loadFragments();
 
     }
 
-    //for toolbar
-    /*@Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        //drawerLayout.closeDrawer(GravityCompat.START);
-        return super.onOptionsItemSelected(item);
-    }*/
 
-    /*private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment SelectedFragment = null;
-
-                    switch (item.getItemId()) {
-                        case R.id.nav_home:
-                        case R.id.nav_account:
-                        case R.id.nav_category:
-                        case R.id.nav_cart:
-                            Toast.makeText(MainActivity.this, "sunam", Toast.LENGTH_SHORT).show();
-                            break;
-                    }
-
-                    return loadFragments(SelectedFragment);
-                }
-            };*/
 
     //common loadFragments method
-    private boolean loadFragments(Fragment fragment) {
-        if (fragment != null) {
+    private boolean loadFragments() {
+        if (selectedFragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.fragment_container, selectedFragment)
                     .commit();
             return true;
+        }else {
+            selectedFragment = new HomeFragment();
+            loadFragments();
         }
         return false;
-    }
-
-    //for Drawer Navigation
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        Fragment fragment = null;
-        final int NAV_HOME = R.id.nav_home;
-        final int DRW_HOME = R.id.nav_home1;
-
-        final int NAV_ACC = R.id.nav_account;
-        final int DRW_ACC = R.id.nav_account1;
-
-        final int DRW_ORDER = R.id.nav_order1;
-
-        final int DRW_CART = R.id.nav_cart1;
-        final int NAV_CART = R.id.nav_cart;
-
-        final int DRW_WISHLIST = R.id.nav_wishlist1;
-        final int DRW_CONTACT = R.id.nav_contact;
-        final int DRW_CONDITION = R.id.nav_conditions;
-        final int NAV_CATEGORY = R.id.nav_category;
-        int itemId = item.getItemId();
-        if (itemId==NAV_HOME || itemId==DRW_HOME)
-        {
-            fragment = new HomeFragment(homeViewModel);
-        }else if (itemId==DRW_ACC || itemId==NAV_ACC)
-        {
-
-        }else if (itemId==DRW_ORDER)
-        {
-
-        }else if (itemId==DRW_CART || itemId==NAV_CART)
-        {
-
-        }else if (itemId==DRW_WISHLIST)
-        {
-
-        }else if (itemId==DRW_CONTACT)
-        {
-
-        }else if (itemId==DRW_CONDITION)
-        {
-
-        }else if (itemId==NAV_CATEGORY)
-        {
-
-        }
-
-        return loadFragments(fragment);
     }
 
 
