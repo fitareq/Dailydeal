@@ -56,12 +56,14 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
     private List<Products> allProducts;
     private List<Products> topRatedProducts = new ArrayList<>();
     private List<Products> weekDealsProducts = new ArrayList<>();
+
+    private OnClickRoutes.loadCategoryFromHome loadcategory;
     //private LiveData<List<Slider>> sliderList;
 
 
 
-    public HomeFragment() {
-
+    public HomeFragment(OnClickRoutes.loadCategoryFromHome loadcategory) {
+        this.loadcategory = loadcategory;
 
     }
 
@@ -190,7 +192,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
 
     @Override
     public void categoryClickFCAdapterTCFragment(int cId, String cTitle) {
-
+        loadcategory.homeToCategory(cId,cTitle);
     }
 
 

@@ -40,9 +40,15 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
     private TextView categoryTitle;
 
     private HomeViewModel mViewModel;
+    private int categoryId = 0;
 
     public CategoryFragment() {
-        // Required empty public constructor
+
+    }
+
+    public CategoryFragment(int categoryId)
+    {
+        this.categoryId = categoryId;
     }
 
 
@@ -77,9 +83,9 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
             categoryListRView.setAdapter(categoryListAdapter);
             if (categories!=null)
                 if (categories.size()>0) {
-                    int id = categories.get(0).getCategoryId();
+                    categoryId = categories.get(0).getCategoryId();
                     String title = categories.get(0).getCategoryName();
-                    LoadCategoryProducts(id, title);
+                    LoadCategoryProducts(categoryId, title);
                 }
         });
 

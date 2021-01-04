@@ -5,4 +5,7 @@ public interface OnClickRoutes {
     {
         void categoryClickFCAdapterTCFragment(int cId,String cTitle);
     }
+    interface loadCategoryFromHome{
+        void homeToCategory(int cId, String cTitle);
+    }
 }

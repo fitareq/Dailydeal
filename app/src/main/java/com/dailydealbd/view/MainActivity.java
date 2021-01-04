@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
@@ -23,7 +24,7 @@ import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.loadCategoryFromHome{
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -69,25 +70,25 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case DRW_ACC:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case DRW_CART:
                         selectedFragment = new CartFragment();
                         break;
                     case DRW_CONDITION:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case DRW_CONTACT:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case DRW_HOME:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case DRW_WISHLIST:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case DRW_ORDER:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case NAV_ACC:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
                     case NAV_CART:
                         selectedFragment = new CartFragment();
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         selectedFragment = new CategoryFragment();
                         break;
                     case NAV_HOME:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
                         break;
 
                 }
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     .commit();
             return true;
         }else {
-            selectedFragment = new HomeFragment();
+            selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) this);
             loadFragments();
         }
         return false;
@@ -202,6 +203,15 @@ public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);
     else super.onBackPressed();
 }
+
+
+
+    @Override
+    public void homeToCategory(int cId, String cTitle) {
+
+    }
+
+
 
 
 }
