@@ -209,6 +209,7 @@ public void onBackPressed() {
     @Override
     public void homeToCategory(int cId, String cTitle) {
     selectedFragment = new CategoryFragment(cId,cTitle);
+    bottomNav.setSelectedItemId(NAV_CATEGORY);
     loadFragments();
     }
 
