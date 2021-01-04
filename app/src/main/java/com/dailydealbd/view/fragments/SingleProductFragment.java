@@ -25,7 +25,6 @@ public class SingleProductFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,8 +41,6 @@ public class SingleProductFragment extends Fragment {
         myCart = v.findViewById(R.id.my_cart);
         addToCart = v.findViewById(R.id.add_to_cart);
         ivWishlist = v.findViewById(R.id.ivWishlist);
-
-
 
 
         return v;
