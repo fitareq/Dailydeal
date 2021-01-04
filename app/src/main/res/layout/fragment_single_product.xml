@@ -186,7 +186,6 @@
             android:layout_marginLeft="@dimen/_2sdp"
             android:layout_marginStart="@dimen/_2sdp" />
 
-
     </LinearLayout>
 
 </LinearLayout>
