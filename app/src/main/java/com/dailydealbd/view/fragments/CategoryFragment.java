@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CategoryFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment{
+public class CategoryFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment {
 
 
     private RecyclerView categoryListRView;
@@ -41,15 +41,17 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
 
     private HomeViewModel mViewModel;
     private int categoryId = 0;
+    private String cTitle;
 
-    public CategoryFragment() {
 
-    }
+public CategoryFragment(){}
 
-    public CategoryFragment(int categoryId)
-    {
+    public CategoryFragment(int categoryId, String cTitle) {
+
         this.categoryId = categoryId;
+        this.cTitle = cTitle;
     }
+
 
 
     @Override
@@ -60,12 +62,12 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
         categoryTitle = v.findViewById(R.id.category_title);
         categoryListRView = v.findViewById(R.id.all_category_list);
         categoryListRView.setHasFixedSize(true);
-        categoryListManager = new GridLayoutManager(getContext(),1,RecyclerView.HORIZONTAL,false);
+        categoryListManager = new GridLayoutManager(getContext(), 1, RecyclerView.HORIZONTAL, false);
         categoryListRView.setLayoutManager(categoryListManager);
 
         categoryProductsRView = v.findViewById(R.id.category_products);
         categoryProductsRView.setHasFixedSize(true);
-        categoryProductsManager = new GridLayoutManager(getContext(),2,RecyclerView.VERTICAL,false);
+        categoryProductsManager = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
         categoryProductsRView.setLayoutManager(categoryProductsManager);
         return v;
     }
@@ -81,38 +83,42 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
         mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), categories -> {
             categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryOnClickFromCategoryFragment) this);
             categoryListRView.setAdapter(categoryListAdapter);
-            if (categories!=null)
-                if (categories.size()>0) {
-                    categoryId = categories.get(0).getCategoryId();
-                    String title = categories.get(0).getCategoryName();
-                    LoadCategoryProducts(categoryId, title);
-                }
+            if (categoryId == 0)
+                if (categories != null)
+                    if (categories.size() > 0) {
+                        categoryId = categories.get(0).getCategoryId();
+                        cTitle = categories.get(0).getCategoryName();
+                        LoadCategoryProducts(categoryId, cTitle);
+                    }
         });
 
 
-
     }
 
 
-    private void setCategoryTitleText(String titleText)
-    {
+
+    private void setCategoryTitleText(String titleText) {
+
         categoryTitle.setText(titleText);
     }
 
+
+
     @Override
     public void categoryClickFCAdapterTCFragment(int cId, String title) {
+
         LoadCategoryProducts(cId, title);
     }
 
 
 
-    private void LoadCategoryProducts(int cId, String title)
-    {
+    private void LoadCategoryProducts(int cId, String title) {
+
         setCategoryTitleText(title);
-        mViewModel.getProductsList().observe(getViewLifecycleOwner(), product-> {
+        mViewModel.getProductsList().observe(getViewLifecycleOwner(), product -> {
             List<Products> categoryProducts = new ArrayList<>();
-            if (product!=null)
-                if (product.size()>=0) {
+            if (product != null)
+                if (product.size() > 0) {
                     for (Products p : product) {
                         if (p.getProductCategoryId() == cId) {
                             categoryProducts.add(p);
@@ -124,5 +130,8 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
                 }
         });
     }
+
+
+
 
 }

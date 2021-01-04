@@ -208,7 +208,8 @@ public void onBackPressed() {
 
     @Override
     public void homeToCategory(int cId, String cTitle) {
-
+    selectedFragment = new CategoryFragment(cId);
+    loadFragments();
     }
 
 
