@@ -36,6 +36,14 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
+        backButton = v.findViewById(R.id.back_btn);
+        userPhoneNumber = v.findViewById(R.id.login_phone_number);
+        userPassword = v.findViewById(R.id.login_password);
+        loginButton = v.findViewById(R.id.login_button);
+        forgotPassword = v.findViewById(R.id.login_forgot_password);
+        registerTview = v.findViewById(R.id.login_register_textview);
+
+
         return v;
     }
 
