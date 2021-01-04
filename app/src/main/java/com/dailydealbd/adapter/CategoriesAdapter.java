@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.utils.ConstantsResources;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,10 +21,14 @@ import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
     private List<Categories> categories;
+    private OnClickRoutes.categoryOnClickFromCategoryFragment onClickFromCategoryFragment;
+    private View itemV;
 
-    public CategoriesAdapter(List<Categories> categories)
+    public CategoriesAdapter(List<Categories> categories, OnClickRoutes.categoryOnClickFromCategoryFragment onClickFromCategoryFragment)
     {
         this.categories = categories;
+        this.onClickFromCategoryFragment = onClickFromCategoryFragment;
+
     }
 
     @NonNull
@@ -42,16 +47,24 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         Categories current = categories.get(position);
         String image = current.getCategoryImage();
         String title = current.getCategoryName();
+        int id = current.getCategoryId();
 
         if (image!=null)
         {
             image = ConstantsResources.CATEGORY_IMAGE_BASE_URL+image;
-            Picasso.get().load(image).into(holder.categoryImage);
+            Picasso.get().load(image).placeholder(R.drawable.place_holder).noFade().into(holder.categoryImage);
         }
         if (title!=null)
         {
             holder.categoryTitle.setText(title);
         }else holder.categoryTitle.setVisibility(View.GONE);
+
+        itemV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickFromCategoryFragment.categoryClickFCAdapterTCFragment(id,title);
+            }
+        });
 
     }
 
@@ -75,6 +88,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         super(itemView);
         categoryImage = itemView.findViewById(R.id.category_image);
         categoryTitle = itemView.findViewById(R.id.category_title);
+        itemV = itemView;
     }
 
 

@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
 import com.dailydealbd.view.fragments.CartFragment;
+import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         selectedFragment = new CartFragment();
                         break;
                     case NAV_CATEGORY:
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = new CategoryFragment();
                         break;
                     case NAV_HOME:
                         selectedFragment = new HomeFragment();

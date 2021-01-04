@@ -60,7 +60,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         if (image!=null)
         {
             image = ConstantsResources.PRODUCT_IMAGE_BASE_URL+image;
-            Picasso.get().load(image).into(holder.productImage);
+            Picasso.get().load(image).placeholder(R.drawable.place_holder).noFade().into(holder.productImage);
         }
 
     }

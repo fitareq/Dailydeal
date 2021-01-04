@@ -10,22 +10,22 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/category_image_container"
         android:gravity="center"
         android:padding="@dimen/_5sdp">
-        <ImageView
-            android:id="@+id/category_image"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:src="@drawable/place_holder"
-            />
+            <ImageView
+                android:id="@+id/category_image"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:src="@drawable/place_holder"
+                />
+
         <TextView
             android:id="@+id/category_title"
-            android:layout_width="@dimen/_60sdp"
+            android:layout_width="@dimen/_40sdp"
             android:layout_height="wrap_content"
             android:text="@string/category"
             android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_10sdp"
             android:maxLines="1"
             android:gravity="center"
             android:layout_below="@+id/category_image"/>

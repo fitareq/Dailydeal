@@ -20,15 +20,17 @@ import com.dailydealbd.adapter.SliderAdapter;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment{
 
 
     SliderView sliderView;
@@ -39,11 +41,21 @@ public class HomeFragment extends Fragment {
     private ProductsAdapter productsAdapter;
     private RecyclerView.LayoutManager productsManager;
 
+    private RecyclerView weekDealsRView;
+    private ProductsAdapter weekDealsAdapter;
+    private RecyclerView.LayoutManager weekDealsManager;
+
+    private RecyclerView topRatedRView;
+    private ProductsAdapter topRatedAdapter;
+    private RecyclerView.LayoutManager topRatedManager;
+
     private RecyclerView CategoryRView;
     private CategoriesAdapter categoriesAdapter;
     private RecyclerView.LayoutManager categoriesManager;
 
     private List<Products> allProducts;
+    private List<Products> topRatedProducts = new ArrayList<>();
+    private List<Products> weekDealsProducts = new ArrayList<>();
     //private LiveData<List<Slider>> sliderList;
 
 
@@ -63,9 +75,24 @@ public class HomeFragment extends Fragment {
 
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+
+        sliderView = rootView.findViewById(R.id.slider);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.startAutoCycle();
+
         ProductsRView = rootView.findViewById(R.id.just_for_you_rview);
         ProductsRView.setHasFixedSize(true);
         ProductsRView.setNestedScrollingEnabled(false);
+
+        weekDealsRView = rootView.findViewById(R.id.week_deals_rview);
+        weekDealsRView.setHasFixedSize(true);
+        weekDealsRView.setNestedScrollingEnabled(false);
+
+        topRatedRView = rootView.findViewById(R.id.top_rated_rview);
+        topRatedRView.setHasFixedSize(true);
+        topRatedRView.setNestedScrollingEnabled(false);
 
         CategoryRView = rootView.findViewById(R.id.categories_recyclerview);
         CategoryRView.setHasFixedSize(true);
@@ -76,12 +103,12 @@ public class HomeFragment extends Fragment {
         CategoryRView.setLayoutManager(categoriesManager);
         productsManager = new GridLayoutManager(getContext(), 2);
         ProductsRView.setLayoutManager(productsManager);
+        weekDealsManager = new GridLayoutManager(getContext(),2);
+        weekDealsRView.setLayoutManager(weekDealsManager);
+        topRatedManager = new GridLayoutManager(getContext(),2);
+        topRatedRView.setLayoutManager(topRatedManager);
 
-        sliderView = rootView.findViewById(R.id.slider);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
-        sliderView.startAutoCycle();
+
         mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
         if (savedInstanceState == null) {
             mViewModel.fetchProductsDataFromRemote();
@@ -102,7 +129,9 @@ public class HomeFragment extends Fragment {
         mViewModel.getProductsList().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
             @Override
             public void onChanged(List<Products> products) {
-                //allProducts = products;
+                if (!products.isEmpty())
+                    if (products.size()>0)
+                        initializeProducts(products);
                 productsAdapter = new ProductsAdapter(products);
                 ProductsRView.setAdapter(productsAdapter);
             }
@@ -110,23 +139,57 @@ public class HomeFragment extends Fragment {
         mViewModel.getSliderList().observe(getViewLifecycleOwner(), new Observer<List<Slider>>() {
             @Override
             public void onChanged(List<Slider> sliders) {
-
                 adapter = new SliderAdapter(sliders);
                 sliderView.setSliderAdapter(adapter);
             }
         });
 
-        mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), new Observer<List<Categories>>() {
-            @Override
-            public void onChanged(List<Categories> categories) {
-                categoriesAdapter = new CategoriesAdapter(categories);
+        mViewModel.getCategoriesList().observe(getViewLifecycleOwner(),categories-> {
+                categoriesAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryOnClickFromCategoryFragment) this);
                 CategoryRView.setAdapter(categoriesAdapter);
-            }
+
         });
+
+
+
 
 
         //sliderList = viewModel.getSliderList();
 
+
+    }
+
+
+
+    private void initializeProducts(List<Products> products)
+    {
+        for (Products p: products)
+        {
+            if (p.getProductToprated()==1)
+                topRatedProducts.add(p);
+            if (p.getProductWeekDeals()==1)
+                weekDealsProducts.add(p);
+        }
+        weekDealsAdapter = new ProductsAdapter(weekDealsProducts);
+        topRatedAdapter = new ProductsAdapter(topRatedProducts);
+        if (weekDealsProducts!=null)
+        weekDealsRView.setAdapter(weekDealsAdapter);
+        if (topRatedProducts!=null)
+        topRatedRView.setAdapter(topRatedAdapter);
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        mViewModel.getSliderList().removeObservers(this);
+        super.onDestroy();
+    }
+
+
+
+    @Override
+    public void categoryClickFCAdapterTCFragment(int cId, String cTitle) {
 
     }
 
