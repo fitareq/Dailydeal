@@ -24,4 +24,6 @@
     <string name="already_have_account">already have account?</string>
     <string name="login">Login</string>
     <string name="welcome_to_daily_deal">Welcome To Daily Deal</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="my_cart">My Cart</string>
 </resources>

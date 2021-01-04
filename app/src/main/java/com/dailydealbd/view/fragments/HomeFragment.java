@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailydealbd.R;
+import com.dailydealbd.adapter.BannerAdapter;
 import com.dailydealbd.adapter.CategoriesAdapter;
 import com.dailydealbd.adapter.ProductsAdapter;
 import com.dailydealbd.adapter.SliderAdapter;
@@ -33,9 +34,11 @@ import java.util.List;
 public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment{
 
 
-    SliderView sliderView;
+    private SliderView sliderView;
+    private SliderView bannerView;
     private HomeViewModel mViewModel;
     private SliderAdapter adapter;
+    private BannerAdapter bannerAdapter;
 
     private RecyclerView ProductsRView;
     private ProductsAdapter productsAdapter;
@@ -79,8 +82,11 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         sliderView = rootView.findViewById(R.id.slider);
+        bannerView = rootView.findViewById(R.id.banner);
+        bannerView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        bannerView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
         sliderView.startAutoCycle();
 
@@ -111,7 +117,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
         topRatedRView.setLayoutManager(topRatedManager);
 
 
-        mViewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         if (savedInstanceState == null) {
             mViewModel.fetchProductsDataFromRemote();
             mViewModel.fetchSliderDataFromRemote();
@@ -128,26 +134,21 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
         super.onViewCreated(view, savedInstanceState);
 
 
-        mViewModel.getProductsList().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
-            @Override
-            public void onChanged(List<Products> products) {
-                if (!products.isEmpty())
-                    if (products.size()>0)
-                        initializeProducts(products);
-                productsAdapter = new ProductsAdapter(products);
-                ProductsRView.setAdapter(productsAdapter);
+        mViewModel.getProductsList().observe(getViewLifecycleOwner(), products -> {
+            if (!products.isEmpty()) {
+                products.size();
+                initializeProducts(products);
             }
+            productsAdapter = new ProductsAdapter(products);
+            ProductsRView.setAdapter(productsAdapter);
         });
-        mViewModel.getSliderList().observe(getViewLifecycleOwner(), new Observer<List<Slider>>() {
-            @Override
-            public void onChanged(List<Slider> sliders) {
-                adapter = new SliderAdapter(sliders);
-                sliderView.setSliderAdapter(adapter);
-            }
+        mViewModel.getSliderList().observe(getViewLifecycleOwner(), sliders -> {
+            adapter = new SliderAdapter(sliders);
+            sliderView.setSliderAdapter(adapter);
         });
 
         mViewModel.getCategoriesList().observe(getViewLifecycleOwner(),categories-> {
-                categoriesAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryOnClickFromCategoryFragment) this);
+                categoriesAdapter = new CategoriesAdapter(categories, this);
                 CategoryRView.setAdapter(categoriesAdapter);
 
         });
@@ -185,6 +186,8 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
     @Override
     public void onDestroy() {
         mViewModel.getSliderList().removeObservers(this);
+        mViewModel.getProductsList().removeObservers(this);
+        mViewModel.getCategoriesList().removeObservers(this);
         super.onDestroy();
     }
 

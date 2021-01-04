@@ -13,14 +13,19 @@ import retrofit2.http.GET;
 public interface DailyDealApi {
 
 
-@GET("products")
-Call<List<Products>> getAllProducts();
+    @GET("products")
+    Call<List<Products>> getAllProducts();
 
-@GET("slider")
-Call<List<Slider>> getAllSlider();
+    @GET("slider")
+    Call<List<Slider>> getAllSlider();
 
-@GET("categoryAll")
-Call<List<Categories>> getAllCategories();
+    @GET("categoryAll")
+    Call<List<Categories>> getAllCategories();
+
+    @GET("banner")
+    Call<List<Slider>> getAllBanner();
+
+
 
 
 }
