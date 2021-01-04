@@ -40,7 +40,7 @@ public class BannerAdapter extends SliderViewAdapter<BannerAdapter.BannerViewHol
         if (image!=null)
         {
             image = ConstantsResources.BANNER_IMAGE_BASE_URL+image;
-            Picasso.get().load(image).placeholder(R.drawable.place_holder).into(viewHolder.imageView);
+            Picasso.get().load(image).into(viewHolder.imageView);
         }
     }
 

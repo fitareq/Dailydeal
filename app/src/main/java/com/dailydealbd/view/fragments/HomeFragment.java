@@ -18,6 +18,7 @@ import com.dailydealbd.adapter.BannerAdapter;
 import com.dailydealbd.adapter.CategoriesAdapter;
 import com.dailydealbd.adapter.ProductsAdapter;
 import com.dailydealbd.adapter.SliderAdapter;
+import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
@@ -122,6 +123,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
             mViewModel.fetchProductsDataFromRemote();
             mViewModel.fetchSliderDataFromRemote();
             mViewModel.fetchCategoriesDataFromRemote();
+            mViewModel.fetchBannerDataFromRemote();
         }
         return rootView;
     }
@@ -154,7 +156,13 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
         });
 
 
-
+        mViewModel.getBannerList().observe(getViewLifecycleOwner(), new Observer<List<Banner>>() {
+            @Override
+            public void onChanged(List<Banner> bannerList) {
+                bannerAdapter = new BannerAdapter(bannerList);
+                bannerView.setSliderAdapter(bannerAdapter);
+            }
+        });
 
 
         //sliderList = viewModel.getSliderList();

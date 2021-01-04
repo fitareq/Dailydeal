@@ -8,10 +8,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CartDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
@@ -21,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Slider.class, Products.class, Cart.class, Categories.class}, version = 1, exportSchema = false)
+@Database(entities = {Slider.class, Products.class, Cart.class, Categories.class, Banner.class}, version = 1, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
 
 
@@ -30,6 +32,8 @@ public abstract class LocalDatabase extends RoomDatabase {
     public abstract ProductsDao productsDao();
 
     public abstract CategoriesDao categoriesDao();
+
+    public abstract BannerDao bannerDao();
 
     public abstract CartDao cartDao();
 

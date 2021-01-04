@@ -1,5 +1,6 @@
 package com.dailydealbd.network;
 
+import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
@@ -23,7 +24,7 @@ public interface DailyDealApi {
     Call<List<Categories>> getAllCategories();
 
     @GET("banner")
-    Call<List<Slider>> getAllBanner();
+    Call<List<Banner>> getAllBanner();
 
 
 

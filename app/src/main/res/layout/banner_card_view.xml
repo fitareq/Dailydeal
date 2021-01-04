@@ -7,5 +7,11 @@
     android:id="@+id/banner_slider_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/place_holder"/>
+    android:src="@drawable/place_holder"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/bg_overlay"
+        android:layout_gravity="bottom"/>
 </FrameLayout>

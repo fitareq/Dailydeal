@@ -1,5 +1,6 @@
 package com.dailydealbd.roomdata.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -18,6 +19,6 @@ void insertBannerList(List<Banner> banners);
 @Query("DELETE FROM "+ ConstantsResources.TABLE_HOMEPAGE_BANNER)
 void deleteAllBanner();
 @Query("SELECT * FROM "+ConstantsResources.TABLE_HOMEPAGE_BANNER)
-List<Banner> getAllBanner();
+LiveData<List<Banner>> getAllBanner();
 
 }

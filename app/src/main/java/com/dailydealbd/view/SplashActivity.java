@@ -23,7 +23,7 @@ protected void onCreate(Bundle savedInstanceState) {
         {
 
             try {
-                sleep(3*1000);
+                sleep(2*700);
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

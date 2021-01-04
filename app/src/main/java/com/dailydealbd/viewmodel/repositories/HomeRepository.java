@@ -4,9 +4,11 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
@@ -28,11 +30,13 @@ public class HomeRepository {
     private LiveData<List<Slider>> sliderList;
     private LiveData<List<Products>> productsList;
     private LiveData<List<Categories>> categoriesList;
+    private LiveData<List<Banner>> bannerList;
 
     private LocalDatabase db;
     private SliderDao sliderDao;
     private ProductsDao productsDao;
     private CategoriesDao categoriesDao;
+    private BannerDao bannerDao;
 
 
 
@@ -43,6 +47,8 @@ public class HomeRepository {
         sliderDao = db.sliderDao();
         productsDao = db.productsDao();
         categoriesDao = db.categoriesDao();
+        bannerDao = db.bannerDao();
+        bannerList = bannerDao.getAllBanner();
         productsList = productsDao.getAllProducts();
         sliderList = sliderDao.getAllSlider();
         categoriesList = categoriesDao.getAllCategory();
@@ -72,7 +78,26 @@ public class HomeRepository {
     }
 
 
+    public void fetchBannerDataFromRemote()
+    {
+        Call<List<Banner>> call = api.getAllBanner();
+        call.enqueue(new Callback<List<Banner>>() {
+            @Override
+            public void onResponse(Call<List<Banner>> call, Response<List<Banner>> response) {
+                if (response.isSuccessful())
+                {
+                    insertBannerList(response.body());
+                }
+            }
 
+
+
+            @Override
+            public void onFailure(Call<List<Banner>> call, Throwable t) {
+
+            }
+        });
+    }
     public void fetchProductsDataFromRemote() {
 
         Call<List<Products>> call = api.getAllProducts();
@@ -135,7 +160,18 @@ public class HomeRepository {
         return categoriesList;
     }
 
+    public LiveData<List<Banner>> getBannerList(){return bannerList;}
 
+
+    private void insertBannerList(List<Banner> banners)
+    {
+        LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
+            @Override
+            public void run() {
+                bannerDao.insertBannerList(banners);
+            }
+        });
+    }
     private void insertCategoriesList(List<Categories> categories)
     {
         LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
