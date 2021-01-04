@@ -57,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Categories"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
@@ -66,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Show All"
                     android:textSize="@dimen/_10sdp" />
 
@@ -127,6 +129,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="week Deals"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
@@ -157,6 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Top Rated"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
@@ -188,6 +192,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Just For You"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />

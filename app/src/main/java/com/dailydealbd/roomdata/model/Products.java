@@ -166,20 +166,15 @@ public Integer getProductId() {
     return productId;
 }
 
-
-
 public Integer getProductCategoryId() {
 
     return productCategoryId;
 }
 
-
-
 public Integer getProductBrandId() {
 
     return productBrandId;
 }
-
 
 
 public Integer getProductAdminId() {

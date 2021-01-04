@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
 import com.dailydealbd.view.fragments.CartFragment;
@@ -203,8 +202,6 @@ public void onBackPressed() {
         drawerLayout.closeDrawer(GravityCompat.START);
     else super.onBackPressed();
 }
-
-
 
 
 }
