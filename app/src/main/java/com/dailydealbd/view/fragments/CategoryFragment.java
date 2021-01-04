@@ -92,6 +92,10 @@ public CategoryFragment(){}
                     }
         });
 
+        if (categoryId!=0)
+        {
+            LoadCategoryProducts(categoryId,cTitle);
+        }
 
     }
 
