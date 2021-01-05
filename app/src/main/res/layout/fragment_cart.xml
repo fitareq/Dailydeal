@@ -104,8 +104,8 @@
                         android:id="@+id/btnCheckout"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_marginStart="@dimen/_60sdp"
-                        android:layout_marginLeft="@dimen/_60sdp"
+                        android:layout_marginStart="@dimen/_58sdp"
+                        android:layout_marginLeft="@dimen/_58sdp"
                         android:text="@string/checkout"
                         android:textAllCaps="false"
                         android:textSize="@dimen/_10sdp" />
