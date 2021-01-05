@@ -219,15 +219,10 @@ public void onBackPressed() {
     @Override
     public void loadSingleProductData(String slug) {
         selectedFragment = new SingleProductFragment(slug);
-        bottomNav.setVisibility(View.GONE);
         loadFragments();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (bottomNav.getVisibility()==View.GONE)
-            bottomNav.setVisibility(View.VISIBLE);
-    }
+
+
 
 }
