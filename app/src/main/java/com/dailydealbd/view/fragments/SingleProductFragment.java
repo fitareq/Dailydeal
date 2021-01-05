@@ -67,7 +67,19 @@ public class SingleProductFragment extends Fragment {
 
         viewModel.getProducts(slug).observe(getViewLifecycleOwner(), products -> {
             String title = products.getProductTitle();
-            singleProductTitle.setText(title);
+            String description = products.getProductDescription();
+            String sku = products.getProductSku();
+            String price = products.getProductPrice();
+            int quantity = products.getProductQuantity();
+            if (title!=null)
+                singleProductTitle.setText(title);
+            if (description!=null)
+                singleProductDescription.setText(description);
+            if (sku!=null)
+                singleProductSku.setText(sku);
+            if (price!=null)
+
+            singleProductStock.setText(String.valueOf(quantity));
         });
 
 
