@@ -82,13 +82,15 @@ public class SingleProductFragment extends Fragment {
                 singleProductDescription.setText(description);
             else singleProductDescription.setVisibility(View.GONE);
 
-            if (sku!=null)
+            if (sku!=null) {
+                sku = "SKU: " + sku;
                 singleProductSku.setText(sku);
-            else singleProductSku.setVisibility(View.GONE);
+            }
+            else singleProductSku.setText("SKU: null");
 
             if (price!=null)
                 singleProductPrice.setText(price);
-            else singleProductPrice.setVisibility(View.GONE);
+            else singleProductPrice.setText("null");
 
             if (offerPrice!=null){
                 singleProductOfferPrice.setText(offerPrice);
