@@ -8,4 +8,8 @@ public interface OnClickRoutes {
     interface loadCategoryFromHome{
         void homeToCategory(int cId, String cTitle);
     }
+    interface loadSingleProduct
+    {
+        void loadSingleProductData(String slug);
+    }
 }

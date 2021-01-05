@@ -31,6 +31,7 @@ public class HomeRepository {
     private LiveData<List<Products>> productsList;
     private LiveData<List<Categories>> categoriesList;
     private LiveData<List<Banner>> bannerList;
+    private LiveData<Products> product;
 
     private LocalDatabase db;
     private SliderDao sliderDao;
@@ -55,6 +56,23 @@ public class HomeRepository {
     }
 
 
+    private void fetchSingleProductDataFromRemote(String slug)
+    {
+        Call<Products> call = api.getSingleProduct(slug);
+        call.enqueue(new Callback<Products>() {
+            @Override
+            public void onResponse(Call<Products> call, Response<Products> response) {
+                if (response.isSuccessful())
+                {
+                    //setProducts(response.body());
+                }
+            }
+            @Override
+            public void onFailure(Call<Products> call, Throwable t) {
+
+            }
+        });
+    }
 
     public void fetchSliderDataFromRemote() {
 
@@ -143,6 +161,11 @@ public class HomeRepository {
     }
 
 
+    public LiveData<Products> getProducts(String slug)
+    {
+        product = productsDao.getSingleProduct(slug);
+        return product;
+    }
 
     public LiveData<List<Slider>> getSliderList() {
         return sliderList;
@@ -193,8 +216,6 @@ public class HomeRepository {
 
         LocalDatabase.databaseWriteExecutors.execute(() -> sliderDao.insertSliderList(slider));
     }
-
-
 
 
 

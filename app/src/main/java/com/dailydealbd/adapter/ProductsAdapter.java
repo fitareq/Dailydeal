@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.utils.ConstantsResources;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,11 +22,14 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder> {
 
     private List<Products> products;
+    private OnClickRoutes.loadSingleProduct singleProduct;
+    private View view;
 
 
 
-    public ProductsAdapter(List<Products> products) {
+    public ProductsAdapter(List<Products> products, OnClickRoutes.loadSingleProduct singleProduct) {
 
+        this.singleProduct = singleProduct;
         this.products = products;
     }
 
@@ -44,6 +48,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         Products current = products.get(position);
 
+        String slug = current.getProductSlug();
         String title = current.getProductTitle();
         String price = current.getProductPrice();
         String offerPrice = current.getProductOfferPrice();
@@ -63,6 +68,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             Picasso.get().load(image).placeholder(R.drawable.place_holder).noFade().into(holder.productImage);
         }
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                singleProduct.loadSingleProductData(slug);
+            }
+        });
     }
 
     @Override
@@ -77,7 +88,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     }
 
 
-    public static class ProductsViewHolder extends RecyclerView.ViewHolder
+    public class ProductsViewHolder extends RecyclerView.ViewHolder
 {
 
    ImageView productImage;
@@ -93,6 +104,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         productPrice = itemView.findViewById(R.id.product_price);
         productOfferPrice = itemView.findViewById(R.id.product_previous_price);
         productRating = itemView.findViewById(R.id.product_rating);
+        view = itemView;
     }
 }
 

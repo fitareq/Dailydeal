@@ -7,9 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
+import com.dailydealbd.roomdata.model.Products;
+import com.dailydealbd.viewmodel.HomeViewModel;
 import com.smarteist.autoimageslider.SliderView;
 
 public class SingleProductFragment extends Fragment {
@@ -19,10 +25,13 @@ public class SingleProductFragment extends Fragment {
                      singleProductDescription, singleProductSku,
                      singleProductQuantityTview, singleProductQuantity,myCart, addToCart ;
     private ImageView ivWishlist;
+    private final String slug;
+    private Products products;
+    HomeViewModel viewModel;
 
 
-    public SingleProductFragment() {
-        // Required empty public constructor
+    public SingleProductFragment(String slug) {
+        this.slug = slug;
     }
 
     @Override
@@ -43,8 +52,32 @@ public class SingleProductFragment extends Fragment {
         ivWishlist = v.findViewById(R.id.ivWishlist);
 
 
+        viewModel= new ViewModelProvider(this).get(HomeViewModel.class);
         return v;
+
+    }
+
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        viewModel.getProducts(slug).observe(getViewLifecycleOwner(), products -> {
+            String title = products.getProductTitle();
+            singleProductTitle.setText(title);
+        });
+
+
+
+
 
 
     }
+
+
+
+
+
 }

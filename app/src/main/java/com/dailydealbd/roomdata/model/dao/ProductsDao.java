@@ -18,8 +18,8 @@ public interface ProductsDao {
 @Insert(onConflict = OnConflictStrategy.REPLACE)
 void insertProductList(List<Products> products);
 
-@Query("SELECT * FROM "+ ConstantsResources.TABLE_ALL_PRODUCT+" WHERE id=:id")
-Products getSingleProduct(int id);
+@Query("SELECT * FROM "+ ConstantsResources.TABLE_ALL_PRODUCT+" WHERE slug=:slug")
+LiveData<Products> getSingleProduct(String slug);
 
 @Query("SELECT * FROM "+ConstantsResources.TABLE_ALL_PRODUCT)
 LiveData<List<Products>> getAllProducts();

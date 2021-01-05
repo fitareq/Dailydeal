@@ -21,6 +21,7 @@ private LiveData<List<Slider>> sliderList;
 private LiveData<List<Products>> productsList;
 private LiveData<List<Categories>> categoriesList;
 private LiveData<List<Banner>> bannerList;
+private Products products;
 
 
 public HomeViewModel(@NonNull Application application) {
@@ -52,6 +53,8 @@ public void fetchCategoriesDataFromRemote()
 {
     repository.fetchCategoriesDataFromRemote();
 }
+public LiveData<Products> getProducts(String slug){
+    return repository.getProducts(slug); }
 
 
 

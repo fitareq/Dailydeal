@@ -129,7 +129,7 @@ public CategoryFragment(){}
                         }
                     }
 
-                    categoryProductsAdapter = new ProductsAdapter(categoryProducts);
+                    categoryProductsAdapter = new ProductsAdapter(categoryProducts, (OnClickRoutes.loadSingleProduct) getActivity());
                     categoryProductsRView.setAdapter(categoryProductsAdapter);
                 }
         });

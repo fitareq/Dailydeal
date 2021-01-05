@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
                 products.size();
                 initializeProducts(products);
             }
-            productsAdapter = new ProductsAdapter(products);
+            productsAdapter = new ProductsAdapter(products, (OnClickRoutes.loadSingleProduct) getActivity());
             ProductsRView.setAdapter(productsAdapter);
         });
         mViewModel.getSliderList().observe(getViewLifecycleOwner(), sliders -> {
@@ -181,8 +181,8 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
             if (p.getProductWeekDeals()==1)
                 weekDealsProducts.add(p);
         }
-        weekDealsAdapter = new ProductsAdapter(weekDealsProducts);
-        topRatedAdapter = new ProductsAdapter(topRatedProducts);
+        weekDealsAdapter = new ProductsAdapter(weekDealsProducts, (OnClickRoutes.loadSingleProduct) getActivity());
+        topRatedAdapter = new ProductsAdapter(topRatedProducts, (OnClickRoutes.loadSingleProduct) getActivity());
         if (weekDealsProducts!=null)
         weekDealsRView.setAdapter(weekDealsAdapter);
         if (topRatedProducts!=null)

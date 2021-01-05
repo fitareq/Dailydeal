@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.ProductsAdapter;
 import com.dailydealbd.roomdata.model.Products;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.HomeViewModel;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class CartFragment extends Fragment {
        homeViewModel.getProductsList().observe(getViewLifecycleOwner(), new Observer<List<Products>>() {
            @Override
            public void onChanged(List<Products> products) {
-               adapter = new ProductsAdapter(products);
+               adapter = new ProductsAdapter(products, (OnClickRoutes.loadSingleProduct) getActivity());
                recyclerView.setAdapter(adapter);
            }
        });

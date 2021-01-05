@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 
 public interface DailyDealApi {
@@ -25,6 +26,9 @@ public interface DailyDealApi {
 
     @GET("banner")
     Call<List<Banner>> getAllBanner();
+
+    @GET("product/{slug}")
+    Call<Products> getSingleProduct(@Path("slug") String slug);
 
 
 

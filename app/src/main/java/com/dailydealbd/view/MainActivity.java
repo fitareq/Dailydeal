@@ -20,11 +20,12 @@ import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
+import com.dailydealbd.view.fragments.SingleProductFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.loadCategoryFromHome{
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.loadSingleProduct, OnClickRoutes.loadCategoryFromHome{
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -211,6 +212,15 @@ public void onBackPressed() {
     selectedFragment = new CategoryFragment(cId,cTitle);
     bottomNav.setSelectedItemId(NAV_CATEGORY);
     loadFragments();
+    }
+
+
+
+    @Override
+    public void loadSingleProductData(String slug) {
+        selectedFragment = new SingleProductFragment(slug);
+        bottomNav.setVisibility(View.GONE);
+        loadFragments();
     }
 
 }
