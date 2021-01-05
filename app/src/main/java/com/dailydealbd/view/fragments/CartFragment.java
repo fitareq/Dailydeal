@@ -41,9 +41,9 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.fragment_cart, container, false);
-       recyclerView = v.findViewById(R.id.review);
+       //recyclerView = v.findViewById(R.id.review);
 
-       manager = new GridLayoutManager(getContext(),2);
+       /*manager = new GridLayoutManager(getContext(),2);
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(manager);
        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -53,7 +53,7 @@ public class CartFragment extends Fragment {
                adapter = new ProductsAdapter(products, (OnClickRoutes.loadSingleProduct) getActivity());
                recyclerView.setAdapter(adapter);
            }
-       });
+       });*/
         return v;
     }
 
