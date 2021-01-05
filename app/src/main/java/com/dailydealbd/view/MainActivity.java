@@ -223,4 +223,11 @@ public void onBackPressed() {
         loadFragments();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (bottomNav.getVisibility()==View.GONE)
+            bottomNav.setVisibility(View.VISIBLE);
+    }
+
 }
