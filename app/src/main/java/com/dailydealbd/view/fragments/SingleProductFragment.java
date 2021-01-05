@@ -1,5 +1,6 @@
 package com.dailydealbd.view.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,7 @@ public class SingleProductFragment extends Fragment {
     private SliderView sliderView;
     private TextView singleProductTitle,singleProductStock,
                      singleProductDescription, singleProductSku,
-                     singleProductQuantityTview, singleProductQuantity,myCart, addToCart, tvPrice, tvPrice1 ;
+                     singleProductQuantityTview, singleProductQuantity,myCart, addToCart, singleProductPrice, singleProductOfferPrice;
     private ImageView ivWishlist;
     private final String slug;
     private Products products;
@@ -46,8 +47,8 @@ public class SingleProductFragment extends Fragment {
         singleProductSku = v.findViewById(R.id.single_product_sku);
         singleProductQuantityTview = v.findViewById(R.id.single_product_quantity_tview);
         singleProductQuantity = v.findViewById(R.id.single_product_quantity);
-        tvPrice = v.findViewById(R.id.tvPrice);
-        tvPrice1 = v.findViewById(R.id.tvPrice1);
+        singleProductPrice = v.findViewById(R.id.tvPrice);
+        singleProductOfferPrice = v.findViewById(R.id.tvPrice1);
         myCart = v.findViewById(R.id.my_cart);
         addToCart = v.findViewById(R.id.add_to_cart);
         ivWishlist = v.findViewById(R.id.ivWishlist);
@@ -70,16 +71,39 @@ public class SingleProductFragment extends Fragment {
             String description = products.getProductDescription();
             String sku = products.getProductSku();
             String price = products.getProductPrice();
+            String offerPrice = products.getProductOfferPrice();
+            String qt = "Available: ";
             int quantity = products.getProductQuantity();
             if (title!=null)
                 singleProductTitle.setText(title);
+            else singleProductTitle.setVisibility(View.GONE);
+
             if (description!=null)
                 singleProductDescription.setText(description);
+            else singleProductDescription.setVisibility(View.GONE);
+
             if (sku!=null)
                 singleProductSku.setText(sku);
-            if (price!=null)
+            else singleProductSku.setVisibility(View.GONE);
 
-            singleProductStock.setText(String.valueOf(quantity));
+            if (price!=null)
+                singleProductPrice.setText(price);
+            else singleProductPrice.setVisibility(View.GONE);
+
+            if (offerPrice!=null){
+                singleProductOfferPrice.setText(offerPrice);
+                singleProductPrice.setText(price);
+                singleProductPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            }else {
+                singleProductPrice.setText(price);
+                singleProductOfferPrice.setVisibility(View.GONE);
+            }
+
+
+            if (quantity>0)
+                qt = qt + quantity+ " piece(s).";
+            else qt = "Out of Stock";
+            singleProductStock.setText(qt);
         });
 
 
