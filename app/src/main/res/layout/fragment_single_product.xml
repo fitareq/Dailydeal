@@ -46,6 +46,18 @@
                 android:textSize="@dimen/_16sdp" />
 
             <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/price" />
+
+            <TextView
+                android:id="@+id/tvPrice1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Offer Price" />
+
+            <TextView
                 android:id="@+id/single_product_stock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

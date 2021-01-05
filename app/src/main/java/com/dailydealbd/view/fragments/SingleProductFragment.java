@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
@@ -23,7 +22,7 @@ public class SingleProductFragment extends Fragment {
     private SliderView sliderView;
     private TextView singleProductTitle,singleProductStock,
                      singleProductDescription, singleProductSku,
-                     singleProductQuantityTview, singleProductQuantity,myCart, addToCart ;
+                     singleProductQuantityTview, singleProductQuantity,myCart, addToCart, tvPrice, tvPrice1 ;
     private ImageView ivWishlist;
     private final String slug;
     private Products products;
@@ -47,6 +46,8 @@ public class SingleProductFragment extends Fragment {
         singleProductSku = v.findViewById(R.id.single_product_sku);
         singleProductQuantityTview = v.findViewById(R.id.single_product_quantity_tview);
         singleProductQuantity = v.findViewById(R.id.single_product_quantity);
+        tvPrice = v.findViewById(R.id.tvPrice);
+        tvPrice1 = v.findViewById(R.id.tvPrice1);
         myCart = v.findViewById(R.id.my_cart);
         addToCart = v.findViewById(R.id.add_to_cart);
         ivWishlist = v.findViewById(R.id.ivWishlist);
