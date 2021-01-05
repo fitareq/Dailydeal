@@ -2,17 +2,17 @@
     <string name="app_name">Dailydeal</string>
     <string name="start">Start</string>
     <string name="close">Close</string>
-    <string name="home">home</string>
-    <string name="cart">cart</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
     <string name="category">category</string>
     <string name="account">account</string>
     <string name="dashboard">Dashboard</string>
     <string name="order">Order</string>
     <string name="wishlist">Wishlist</string>
-    <string name="terms_conditions">Terms Conditions</string>
+    <string name="terms_conditions">Terms and Conditions</string>
     <string name="communicate">Communicate</string>
     <string name="contact_us">Contact Us</string>
-    <string name="share">Share</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
@@ -21,9 +21,15 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
-    <string name="already_have_account">already have account?</string>
+    <string name="already_have_account">already have an account?</string>
     <string name="login">Login</string>
     <string name="welcome_to_daily_deal">Welcome To Daily Deal</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="my_cart">My Cart</string>
+    <string name="categories">Categories</string>
+    <string name="show_all">Show All</string>
+    <string name="this_is_splash_activity">This is splash activity</string>
+    <string name="remove">Remove</string>
+    <string name="_1">1</string>
+    <string name="checkout">Checkout</string>
 </resources>

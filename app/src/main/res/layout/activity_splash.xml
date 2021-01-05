@@ -10,9 +10,9 @@
 
     <ImageView
         android:id="@+id/daily_deal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/splash" />
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/splash"
+        android:contentDescription="@string/this_is_splash_activity" />
 
 </RelativeLayout>

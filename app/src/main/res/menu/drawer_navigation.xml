@@ -40,8 +40,6 @@
                 android:icon="@drawable/phone"
                 android:title="@string/contact_us" />
 
-
-
         </menu>
 
 

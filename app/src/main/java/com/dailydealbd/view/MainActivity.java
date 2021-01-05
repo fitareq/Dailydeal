@@ -213,7 +213,4 @@ public void onBackPressed() {
     loadFragments();
     }
 
-
-
-
 }

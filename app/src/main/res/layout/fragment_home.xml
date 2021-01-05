@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -58,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Categories"
+                    android:text="@string/categories"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
@@ -68,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Show All"
+                    android:text="@string/show_all"
                     android:textSize="@dimen/_10sdp" />
 
 
