@@ -17,6 +17,12 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/single_product_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_170sdp"
+                android:src="@drawable/place_holder"/>
+
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/single_product_slider"
                 android:layout_width="match_parent"
@@ -34,7 +40,8 @@
                 app:sliderIndicatorSelectedColor="@color/blue_light"
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="3"
-                app:sliderStartAutoCycle="true" />
+                app:sliderStartAutoCycle="true"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/single_product_title"

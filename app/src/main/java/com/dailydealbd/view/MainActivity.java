@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.dailydealbd.R;
 import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
+import com.dailydealbd.view.fragments.AccountFragment;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
@@ -80,8 +81,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case DRW_ACC:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
+                        selectedFragment = new AccountFragment();
+                        tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         break;
                     case DRW_CART:
                         selectedFragment = new CartFragment();
@@ -122,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case NAV_ACC:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
+                        selectedFragment = new AccountFragment();
+                        tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         break;
                     case NAV_CART:
                         selectedFragment = new CartFragment();
