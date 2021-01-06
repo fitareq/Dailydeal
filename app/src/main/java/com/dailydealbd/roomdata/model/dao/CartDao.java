@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.dailydealbd.roomdata.model.Cart;
@@ -15,7 +16,7 @@ import java.util.List;
 @Dao
 public interface CartDao {
 
-@Insert
+@Insert(onConflict = OnConflictStrategy.REPLACE)
 void addProductToCart(Cart cart);
 @Delete
 void deleteORCheckoutSingleCart(Cart cart);

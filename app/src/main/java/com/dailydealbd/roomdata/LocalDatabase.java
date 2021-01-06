@@ -21,6 +21,7 @@ import com.dailydealbd.roomdata.model.dao.SliderDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 @Database(entities = {Slider.class, Products.class, Cart.class, Categories.class, Banner.class}, version = 1, exportSchema = false)
@@ -40,9 +41,8 @@ public abstract class LocalDatabase extends RoomDatabase {
 
 
     private static volatile LocalDatabase INSTANCE;
-    public static final int NUMBER_OF_THREAD = 4;
+    public static final int NUMBER_OF_THREAD = 6;
     public static final ExecutorService databaseWriteExecutors = Executors.newFixedThreadPool(NUMBER_OF_THREAD);
-
 
 
     public static LocalDatabase getINSTANCE(Application application) {

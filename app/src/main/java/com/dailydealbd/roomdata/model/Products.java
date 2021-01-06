@@ -24,12 +24,12 @@ public class Products {
     private final Integer productCategoryId;
 
     @ColumnInfo(name = "brand_id")
-    @SerializedName("brand_id")
-    private final Integer productBrandId;
+    @SerializedName("offer_id")
+    private final Integer productOfferId;
 
     @ColumnInfo(name = "admin_id")
-    @SerializedName("admin_id")
-    private final Integer productAdminId;
+    @SerializedName("is_add_to_offer")
+    private final Integer productOffer;
 
     @ColumnInfo(name = "vendor_id")
     @SerializedName("vendor_id")
@@ -118,7 +118,7 @@ public class Products {
 
 
 public Products(@NonNull Integer productId, Integer productCategoryId,
-                Integer productBrandId, Integer productAdminId,
+                Integer productOfferId, Integer productOffer,
                 String productVendorId, String productTitle,
                 String productTitleBd, String productDescription,
                 String productDescriptionBd, String productSpecifications,
@@ -133,8 +133,8 @@ public Products(@NonNull Integer productId, Integer productCategoryId,
 
     this.productId = productId;
     this.productCategoryId = productCategoryId;
-    this.productBrandId = productBrandId;
-    this.productAdminId = productAdminId;
+    this.productOfferId = productOfferId;
+    this.productOffer = productOffer;
     this.productVendorId = productVendorId;
     this.productTitle = productTitle;
     this.productTitleBd = productTitleBd;
@@ -171,15 +171,15 @@ public Integer getProductCategoryId() {
     return productCategoryId;
 }
 
-public Integer getProductBrandId() {
+public Integer getProductOfferId() {
 
-    return productBrandId;
+    return productOfferId;
 }
 
 
-public Integer getProductAdminId() {
+public Integer getProductOffer() {
 
-    return productAdminId;
+    return productOffer;
 }
 
 

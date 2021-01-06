@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
+import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
@@ -24,6 +25,10 @@ import com.dailydealbd.view.fragments.SingleProductFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.loadSingleProduct, OnClickRoutes.loadCategoryFromHome{
 
@@ -35,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private BottomNavigationView bottomNav;
     private HomeViewModel homeViewModel;
     private Fragment selectedFragment;
+    private String tag;
 
     private final int NAV_HOME = R.id.nav_home;
     private final int DRW_HOME = R.id.nav_home1;
@@ -47,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private final int DRW_CONTACT = R.id.nav_contact;
     private final int DRW_CONDITION = R.id.nav_conditions;
     private final int NAV_CATEGORY = R.id.nav_category;
+
+    private List<Fragment> fragmentList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,24 +81,31 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 {
                     case DRW_ACC:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_CART:
                         selectedFragment = new CartFragment();
+                        tag = ConstantsResources.CART_FRAGMENT;
                         break;
                     case DRW_CONDITION:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_CONTACT:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_HOME:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_WISHLIST:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_ORDER:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -107,21 +123,26 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 {
                     case NAV_ACC:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case NAV_CART:
                         selectedFragment = new CartFragment();
+                        tag = ConstantsResources.CART_FRAGMENT;
                         break;
                     case NAV_CATEGORY:
                         selectedFragment = new CategoryFragment();
+                        tag = ConstantsResources.CATEGORY_FRAGMENT;
                         break;
                     case NAV_HOME:
                         selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;
                         break;
 
                 }
                 return loadFragments();
             }
         });
+
 
 
 
@@ -135,6 +156,10 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     //common loadFragments method
     private boolean loadFragments() {
         if (selectedFragment != null) {
+
+            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT))
+                bottomNav.setVisibility(View.GONE);
+            else bottomNav.setVisibility(View.VISIBLE);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, selectedFragment)
@@ -142,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             return true;
         }else {
             selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) this);
+            tag = ConstantsResources.HOME_FRAGMENT;
             loadFragments();
         }
         return false;
@@ -202,6 +228,15 @@ public void onBackPressed() {
 
     if (drawerLayout.isDrawerOpen(GravityCompat.START))
         drawerLayout.closeDrawer(GravityCompat.START);
+
+    if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)) {
+        selectedFragment = new HomeFragment(this);
+        tag = ConstantsResources.HOME_FRAGMENT;
+        loadFragments();
+    }
+
+   /* else if (getSupportFragmentManager().getBackStackEntryCount()>0)
+        getSupportFragmentManager().popBackStack();*/
     else super.onBackPressed();
 }
 
@@ -211,6 +246,7 @@ public void onBackPressed() {
     public void homeToCategory(int cId, String cTitle) {
     selectedFragment = new CategoryFragment(cId,cTitle);
     bottomNav.setSelectedItemId(NAV_CATEGORY);
+        tag = ConstantsResources.CATEGORY_FRAGMENT;
     loadFragments();
     }
 
@@ -219,6 +255,7 @@ public void onBackPressed() {
     @Override
     public void loadSingleProductData(String slug) {
         selectedFragment = new SingleProductFragment(slug);
+        tag = ConstantsResources.SINGLE_PRODUCT_FRAGMENT;
         loadFragments();
     }
 
