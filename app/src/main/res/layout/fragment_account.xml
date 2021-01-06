@@ -54,7 +54,7 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/account_my_wish"
+                    android:id="@+id/account_my_wishList"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
@@ -81,19 +81,29 @@
                 android:padding="@dimen/_10sdp"
                 android:weightSum="1">
 
-                <TextView
+                <Button
+                    android:id="@+id/account_wishlist_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
                     android:gravity="center"
-                    android:text="@string/view_wishlistt"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:drawableLeft="@drawable/filled_favorite"
+                    android:text="@string/view_wishlist"
                     android:textSize="@dimen/_14sdp" />
 
-                <TextView
+                <Button
+                    android:id="@+id/account_order_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
                     android:gravity="center"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/black"
+                    android:textAllCaps="false"
+                    android:drawableLeft="@drawable/order"
                     android:text="@string/view_order"
                     android:textSize="@dimen/_14sdp" />
 
@@ -153,7 +163,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/account_btn"
+                android:id="@+id/account_submit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/submit"
@@ -168,11 +178,10 @@
     </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/account_pic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_50sdp"
             android:src="@drawable/bg"
-            android:layout_marginTop="@dimen/_100sdp"/>
+            android:layout_marginTop="@dimen/_80sdp"/>
 
 
 </LinearLayout>

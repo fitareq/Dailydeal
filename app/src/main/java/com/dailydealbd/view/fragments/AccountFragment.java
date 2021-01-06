@@ -4,12 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
 
 public class AccountFragment extends Fragment {
+
+    private TextView AccountUserName, AccountWishList, AccountOder;
+    private ImageView AccountSettingsBtn;
+    private Button AccountWishListBtn, AccountOrderBtn, AccountSubmitBtn;
+
+
 
 
     public AccountFragment() {
@@ -28,7 +37,13 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
-
+        AccountUserName = v.findViewById(R.id.account_user_name);
+        AccountWishList = v.findViewById(R.id.account_my_wishList);
+        AccountOder = v.findViewById(R.id.account_my_order);
+        AccountSettingsBtn = v.findViewById(R.id.account_settings_btn);
+        AccountWishListBtn = v.findViewById(R.id.account_wishlist_btn);
+        AccountOrderBtn = v.findViewById(R.id.account_order_btn);
+        AccountSubmitBtn = v.findViewById(R.id.account_submit_btn);
 
 
         return v;

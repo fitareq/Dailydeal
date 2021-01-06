@@ -21,7 +21,6 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/ivPic"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_150sdp"
             android:src="@drawable/splash"/>
@@ -67,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -91,7 +90,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginTop="40dp"
-                    android:text="Login"
+                    android:text="@string/login"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -102,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Forgot Password?"
+                    android:text="@string/forgot_password"
                     android:textColor="#0000ff" />
 
 
@@ -116,13 +115,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Don't have an Account?" />
+                        android:text="@string/don_t_have_an_account" />
 
                     <TextView
                         android:id="@+id/login_register_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Register"
+                        android:text="@string/register"
                         android:textColor="#0000ff"
                         android:textStyle="bold" />
 

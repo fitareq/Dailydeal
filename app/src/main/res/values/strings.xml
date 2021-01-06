@@ -49,6 +49,12 @@
     <string name="reset_password">Reset Password</string>
     <string name="enter_password">Enter Password</string>
     <string name="view_order">View Order</string>
-    <string name="view_wishlistt">View WishListt</string>
+    <string name="view_wishlist">View WishList</string>
     <string name="submit">Submit</string>
+    <string name="todo">TODO</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an Account?</string>
+    <string name="register">Register</string>
 </resources>

@@ -147,9 +147,10 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="@dimen/_300sdp"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/bg" />
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginBottom="@dimen/_19sdp"
+            android:src="@drawable/bg"/>
 
     </LinearLayout>
 
