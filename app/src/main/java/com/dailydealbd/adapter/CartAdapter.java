@@ -3,6 +3,7 @@ package com.dailydealbd.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public class CartViewHolder extends RecyclerView.ViewHolder
 {
+
+    ImageView cartProductImage;
 
 
     public CartViewHolder(@NonNull View itemView) {
