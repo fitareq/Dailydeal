@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements OnClickRoutes.cartClickListener{
 
 
 
@@ -53,10 +53,17 @@ public class CartFragment extends Fragment {
        recyclerView.setLayoutManager(manager);
        viewModel = new ViewModelProvider(this).get(CartViewModel.class);
        viewModel.getAllCart().observe(getViewLifecycleOwner(), carts -> {
-           adapter = new CartAdapter(carts);
+           adapter = new CartAdapter(carts, CartFragment.this);
            recyclerView.setAdapter(adapter);
        });
         return v;
+    }
+
+
+
+    @Override
+    public void deleteCart(Cart cart) {
+        viewModel.deleteCart(cart);
     }
 
 

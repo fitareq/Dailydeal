@@ -1,15 +1,22 @@
 package com.dailydealbd.utils;
 
+import com.dailydealbd.roomdata.model.Cart;
+
+
 public interface OnClickRoutes {
-    interface categoryOnClickFromCategoryFragment
+    interface categoryClickListener
     {
         void categoryClickFCAdapterTCFragment(int cId,String cTitle);
     }
-    interface loadCategoryFromHome{
+    interface homeClickListener {
         void homeToCategory(int cId, String cTitle);
     }
-    interface loadSingleProduct
+    interface singleProductClickListener
     {
         void loadSingleProductData(String slug);
+    }
+    interface cartClickListener
+    {
+        void deleteCart(Cart cart);
     }
 }

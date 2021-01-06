@@ -19,9 +19,7 @@ import com.dailydealbd.adapter.CategoriesAdapter;
 import com.dailydealbd.adapter.ProductsAdapter;
 import com.dailydealbd.adapter.SliderAdapter;
 import com.dailydealbd.roomdata.model.Banner;
-import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
-import com.dailydealbd.roomdata.model.Slider;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -32,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment{
+public class HomeFragment extends Fragment implements OnClickRoutes.categoryClickListener {
 
 
     private SliderView sliderView;
@@ -61,12 +59,12 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
     private List<Products> topRatedProducts = new ArrayList<>();
     private List<Products> weekDealsProducts = new ArrayList<>();
 
-    private OnClickRoutes.loadCategoryFromHome loadcategory;
+    private OnClickRoutes.homeClickListener loadcategory;
     //private LiveData<List<Slider>> sliderList;
 
 
 
-    public HomeFragment(OnClickRoutes.loadCategoryFromHome loadcategory) {
+    public HomeFragment(OnClickRoutes.homeClickListener loadcategory) {
         this.loadcategory = loadcategory;
 
     }
@@ -141,7 +139,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
                 products.size();
                 initializeProducts(products);
             }
-            productsAdapter = new ProductsAdapter(products, (OnClickRoutes.loadSingleProduct) getActivity());
+            productsAdapter = new ProductsAdapter(products, (OnClickRoutes.singleProductClickListener) getActivity());
             ProductsRView.setAdapter(productsAdapter);
         });
         mViewModel.getSliderList().observe(getViewLifecycleOwner(), sliders -> {
@@ -181,8 +179,8 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryOnCl
             if (p.getProductWeekDeals()==1)
                 weekDealsProducts.add(p);
         }
-        weekDealsAdapter = new ProductsAdapter(weekDealsProducts, (OnClickRoutes.loadSingleProduct) getActivity());
-        topRatedAdapter = new ProductsAdapter(topRatedProducts, (OnClickRoutes.loadSingleProduct) getActivity());
+        weekDealsAdapter = new ProductsAdapter(weekDealsProducts, (OnClickRoutes.singleProductClickListener) getActivity());
+        topRatedAdapter = new ProductsAdapter(topRatedProducts, (OnClickRoutes.singleProductClickListener) getActivity());
         if (weekDealsProducts!=null)
         weekDealsRView.setAdapter(weekDealsAdapter);
         if (topRatedProducts!=null)

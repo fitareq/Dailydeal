@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.loadSingleProduct, OnClickRoutes.loadCategoryFromHome{
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case DRW_ACC:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_CART:
@@ -88,23 +88,23 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         tag = ConstantsResources.CART_FRAGMENT;
                         break;
                     case DRW_CONDITION:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_CONTACT:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_HOME:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_WISHLIST:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case DRW_ORDER:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                 }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 switch (item.getItemId())
                 {
                     case NAV_ACC:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
                     case NAV_CART:
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         tag = ConstantsResources.CATEGORY_FRAGMENT;
                         break;
                     case NAV_HOME:
-                        selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) MainActivity.this);
+                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
 
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     .commit();
             return true;
         }else {
-            selectedFragment = new HomeFragment((OnClickRoutes.loadCategoryFromHome) this);
+            selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) this);
             tag = ConstantsResources.HOME_FRAGMENT;
             loadFragments();
         }

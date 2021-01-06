@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CategoriesAdapter;
 import com.dailydealbd.adapter.ProductsAdapter;
-import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.HomeViewModel;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CategoryFragment extends Fragment implements OnClickRoutes.categoryOnClickFromCategoryFragment {
+public class CategoryFragment extends Fragment implements OnClickRoutes.categoryClickListener {
 
 
     private RecyclerView categoryListRView;
@@ -81,7 +79,7 @@ public CategoryFragment(){}
 
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), categories -> {
-            categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryOnClickFromCategoryFragment) this);
+            categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryClickListener) this);
             categoryListRView.setAdapter(categoryListAdapter);
             if (categoryId == 0)
                 if (categories != null)
@@ -129,7 +127,7 @@ public CategoryFragment(){}
                         }
                     }
 
-                    categoryProductsAdapter = new ProductsAdapter(categoryProducts, (OnClickRoutes.loadSingleProduct) getActivity());
+                    categoryProductsAdapter = new ProductsAdapter(categoryProducts, (OnClickRoutes.singleProductClickListener) getActivity());
                     categoryProductsRView.setAdapter(categoryProductsAdapter);
                 }
         });

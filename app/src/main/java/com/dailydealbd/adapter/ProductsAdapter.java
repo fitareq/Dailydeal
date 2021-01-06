@@ -22,12 +22,12 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder> {
 
     private List<Products> products;
-    private OnClickRoutes.loadSingleProduct singleProduct;
+    private OnClickRoutes.singleProductClickListener singleProduct;
     private View view;
 
 
 
-    public ProductsAdapter(List<Products> products, OnClickRoutes.loadSingleProduct singleProduct) {
+    public ProductsAdapter(List<Products> products, OnClickRoutes.singleProductClickListener singleProduct) {
 
         this.singleProduct = singleProduct;
         this.products = products;
