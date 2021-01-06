@@ -20,4 +20,8 @@ public interface OnClickRoutes {
         void deleteCart(Cart cart);
         void updateCart(Cart cart);
     }
+    interface singleProductBackPressed
+    {
+        void singleProductBackPressedListener();
+    }
 }

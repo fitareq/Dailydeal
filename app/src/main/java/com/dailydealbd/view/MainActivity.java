@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.singleProductBackPressed,OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -83,10 +83,12 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     case DRW_ACC:
                         selectedFragment = new AccountFragment();
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
+                        bottomNav.setSelectedItemId(R.id.nav_account);
                         break;
                     case DRW_CART:
                         selectedFragment = new CartFragment();
                         tag = ConstantsResources.CART_FRAGMENT;
+                        bottomNav.setSelectedItemId(R.id.nav_cart);
                         break;
                     case DRW_CONDITION:
                         selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     case DRW_HOME:
                         selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
+                        bottomNav.setSelectedItemId(R.id.nav_home);
                         break;
                     case DRW_WISHLIST:
                         selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
@@ -158,9 +161,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     private boolean loadFragments() {
         if (selectedFragment != null) {
 
-            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT))
+            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.ACCOUNT_FRAGMENT))
+            {
                 bottomNav.setVisibility(View.GONE);
-            else bottomNav.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.GONE);
+            }
+            else {
+                bottomNav.setVisibility(View.VISIBLE);
+                toolbar.setVisibility(View.VISIBLE);
+            }
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, selectedFragment)
@@ -230,9 +239,10 @@ public void onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START))
         drawerLayout.closeDrawer(GravityCompat.START);
 
-    if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)) {
+    if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.ACCOUNT_FRAGMENT)) {
         selectedFragment = new HomeFragment(this);
         tag = ConstantsResources.HOME_FRAGMENT;
+        bottomNav.setSelectedItemId(R.id.nav_home);
         loadFragments();
     }
 
@@ -255,9 +265,16 @@ public void onBackPressed() {
 
     @Override
     public void loadSingleProductData(String slug) {
-        selectedFragment = new SingleProductFragment(slug);
+        selectedFragment = new SingleProductFragment(slug, this);
         tag = ConstantsResources.SINGLE_PRODUCT_FRAGMENT;
         loadFragments();
+    }
+
+
+
+    @Override
+    public void singleProductBackPressedListener() {
+        onBackPressed();
     }
 
 

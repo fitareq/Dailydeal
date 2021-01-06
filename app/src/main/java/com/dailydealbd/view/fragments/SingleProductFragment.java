@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.utils.ConstantsResources;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.SingleProductViewModel;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
@@ -27,7 +28,7 @@ import com.squareup.picasso.Picasso;
 public class SingleProductFragment extends Fragment implements View.OnClickListener {
 
     private SliderView sliderView;
-    private ImageButton productQuantityAdd, productQuantitySub;
+    private ImageButton productQuantityAdd, productQuantitySub, backBtn;
     private TextView singleProductTitle,singleProductStock,
                      singleProductDescription, singleProductSku,
                      singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice;
@@ -46,10 +47,12 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     int productId;
     int stock;
     int quantity = 1;
+    private OnClickRoutes.singleProductBackPressed backPressed;
 
 
-    public SingleProductFragment(String slug) {
+    public SingleProductFragment(String slug, OnClickRoutes.singleProductBackPressed backPressed) {
         this.slug = slug;
+        this.backPressed = backPressed;
     }
 
     @Override
@@ -59,6 +62,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         View v = inflater.inflate(R.layout.fragment_single_product, container, false);
 
 
+        backBtn = v.findViewById(R.id.single_product_back_btn);
         productQuantityAdd = v.findViewById(R.id.quantity_add);
         productQuantitySub = v.findViewById(R.id.quantity_sub);
         sliderView = v.findViewById(R.id.single_product_slider);
@@ -79,6 +83,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         addToCart.setOnClickListener(this);
         productQuantitySub.setOnClickListener(this);
         productQuantityAdd.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
 
         viewModel= new ViewModelProvider(this).get(SingleProductViewModel.class);
 
@@ -176,6 +181,9 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
                 --quantity;
                 singleProductQuantity.setText(String.valueOf(quantity));
             }
+        }else if (v.getId()==R.id.single_product_back_btn)
+        {
+            backPressed.singleProductBackPressedListener();
         }
     }
 

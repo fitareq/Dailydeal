@@ -17,6 +17,13 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <ImageButton
+                android:id="@+id/single_product_back_btn"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:background="@color/white"
+                android:contentDescription="@string/todo" />
             <ImageView
                 android:id="@+id/single_product_image"
                 android:layout_width="match_parent"

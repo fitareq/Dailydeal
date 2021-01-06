@@ -18,11 +18,8 @@
     <string name="name">Name</string>
     <string name="phone_number">Phone number</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="register">Register</string>
     <string name="already_have_account">already have an account?</string>
-    <string name="login">Login</string>
     <string name="welcome_to_daily_deal">Welcome To Daily Deal</string>
     <string name="add_to_cart">Add To Cart</string>
     <string name="my_cart">My Cart</string>
@@ -51,7 +48,6 @@
     <string name="view_order">View Order</string>
     <string name="view_wishlist">View WishList</string>
     <string name="submit">Submit</string>
-    <string name="todo">TODO</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
