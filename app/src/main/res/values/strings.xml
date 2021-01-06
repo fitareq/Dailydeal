@@ -42,4 +42,12 @@
     <string name="todo">TODO</string>
     <string name="total_price">Total Price</string>
     <string name="price_1">Price * 1</string>
+    <string name="username">UserName</string>
+    <string name="total_order">Total Order</string>
+    <string name="total_wishlist">Total WishList</string>
+    <string name="label">label</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="view_order">View Order</string>
+    <string name="view_wishlistt">View WishListt</string>
 </resources>

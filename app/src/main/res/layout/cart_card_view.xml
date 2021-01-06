@@ -97,6 +97,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:text="@string/checkout"
                         android:textAllCaps="false"
+                        style="@style/Widget.AppCompat.Button.Small"
                         android:textSize="@dimen/_10sdp" />
 
                     <ImageView
