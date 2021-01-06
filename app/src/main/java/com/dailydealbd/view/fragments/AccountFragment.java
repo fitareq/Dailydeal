@@ -16,7 +16,7 @@ public class AccountFragment extends Fragment {
 
     private TextView AccountUserName, AccountWishList, AccountOder;
     private ImageView AccountSettingsBtn;
-    private Button AccountWishListBtn, AccountOrderBtn, AccountSubmitBtn;
+    private Button AccountWishListBtn, AccountOrderBtn, AccountRegisterLogin;
 
 
 
@@ -43,7 +43,7 @@ public class AccountFragment extends Fragment {
         AccountSettingsBtn = v.findViewById(R.id.account_settings_btn);
         AccountWishListBtn = v.findViewById(R.id.account_wishlist_btn);
         AccountOrderBtn = v.findViewById(R.id.account_order_btn);
-        AccountSubmitBtn = v.findViewById(R.id.account_submit_btn);
+        AccountRegisterLogin = v.findViewById(R.id.account_register_login);
 
 
         return v;
