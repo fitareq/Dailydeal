@@ -24,7 +24,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/settings_btn"
+                    android:id="@+id/account_settings_btn"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_280sdp"
@@ -33,7 +33,7 @@
                     android:src="@drawable/ic_settings"/>
 
                 <TextView
-                    android:id="@+id/userName"
+                    android:id="@+id/account_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/username"
@@ -54,7 +54,7 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/myWish"
+                    android:id="@+id/account_my_wish"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
@@ -63,7 +63,7 @@
                     android:textSize="@dimen/_14sdp" />
 
                 <TextView
-                    android:id="@+id/myOrder"
+                    android:id="@+id/account_my_order"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.50"
@@ -123,7 +123,7 @@
                 android:textColor="@color/black" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phone_resetPass_layout"
+                android:id="@+id/account_phone_number_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,33 +131,34 @@
                 android:hint="@string/phone_number">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/phone_resetPass"
+                    android:id="@+id/account_phone_number_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/resetPass_layout"
+                android:id="@+id/account_reset_pass_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/phone_resetPass_layout"
+                android:layout_below="@+id/account_phone_number_layout"
                 android:layout_marginTop="@dimen/_14sdp"
                 android:hint="@string/enter_password">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/resetPass"
+                    android:id="@+id/account_resetPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/account_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
-                android:layout_below="@+id/resetPass_layout"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:layout_below="@+id/account_reset_pass_layout"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_centerInParent="true"/>
 
@@ -166,6 +167,12 @@
 
     </androidx.cardview.widget.CardView>
 
+        <ImageView
+            android:id="@+id/account_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg"
+            android:layout_marginTop="@dimen/_100sdp"/>
 
 
 </LinearLayout>

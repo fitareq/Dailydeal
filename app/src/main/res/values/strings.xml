@@ -50,4 +50,5 @@
     <string name="enter_password">Enter Password</string>
     <string name="view_order">View Order</string>
     <string name="view_wishlistt">View WishListt</string>
+    <string name="submit">Submit</string>
 </resources>
