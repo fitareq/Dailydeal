@@ -110,7 +110,8 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_4sdp"
                         android:layout_marginLeft="@dimen/_70sdp"
-                        android:layout_marginStart="@dimen/_70sdp" />
+                        android:layout_marginStart="@dimen/_70sdp"
+                        android:contentDescription="@string/todo" />
 
 
                 </LinearLayout>
