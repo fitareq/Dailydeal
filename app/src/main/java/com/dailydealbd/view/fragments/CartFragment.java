@@ -68,5 +68,13 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartClickLis
 
 
 
+    @Override
+    public void updateCart(Cart cart)
+    {
+        viewModel.updateCart(cart);
+    }
+
+
+
 
 }

@@ -31,6 +31,14 @@ public class CartViewModel extends AndroidViewModel {
     {
         repository.deleteCart(cart);
     }
+    public void updateCart(Cart cart)
+    {
+        repository.updateCart(cart);
+    }
+    public void subCartQuantity(int quantity)
+    {
+        repository.subCartQuantity(quantity);
+    }
 
 
 

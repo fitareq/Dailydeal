@@ -33,6 +33,17 @@ public class CartRepository {
     {
         return this.allCarts;
     }
+    public void updateCart(Cart cart)
+    {
+        LocalDatabase.databaseWriteExecutors.execute(() -> {
+            cartDao.addProductToCart(cart);
+        });
+
+    }
+    public void subCartQuantity(int quantity)
+    {
+
+    }
 
 
 }

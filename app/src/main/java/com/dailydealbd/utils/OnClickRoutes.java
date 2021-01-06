@@ -18,5 +18,6 @@ public interface OnClickRoutes {
     interface cartClickListener
     {
         void deleteCart(Cart cart);
+        void updateCart(Cart cart);
     }
 }

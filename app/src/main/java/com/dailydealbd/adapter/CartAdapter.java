@@ -48,20 +48,49 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         String image = current.getProductImage();
         String title = current.getProductTitle();
         String price = current.getProductPrice();
+        String attributeOption = current.getAttributesOption();
+        int quantity = current.getProductQuantity();
+        String q = String.valueOf(quantity);
+        int userId = 1;
+        int productId = current.getProductId();
+        String p;
+        int totalPrice;
 
 
         if (image!=null)
         {
-            image = ConstantsResources.PRODUCT_IMAGE_BASE_URL+image;
-            Picasso.get().load(image).into(holder.cartProductImage);
+            String img = ConstantsResources.PRODUCT_IMAGE_BASE_URL+image;
+            Picasso.get().load(img).into(holder.cartProductImage);
         }
         holder.cartProductTitle.setText(title);
-        holder.cartProductPrice.setText(price);
+        if (price!=null)
+        {
+            p = price + "*" + quantity;
+            totalPrice = Integer.parseInt(price);
+            totalPrice = totalPrice*quantity;
+        }
+        else {
+            p = "0*" + quantity;
+            totalPrice = 0;
+        }
+        holder.cartProductPrice.setText(p);
+        holder.cartProductQuantity.setText(q);
+        holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
 
-        holder.cartProductDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cartClickListener.deleteCart(current);
+        holder.cartProductDelete.setOnClickListener(v -> cartClickListener.deleteCart(current));
+
+        holder.cartProductQuantityAdd.setOnClickListener(v -> {
+            int n = quantity+1;
+            Cart cart = new Cart(userId, productId,n,price,attributeOption,image,title );
+            //cartClickListener.deleteCart(current);
+            cartClickListener.updateCart(cart);
+        });
+        holder.cartProductQuantitySub.setOnClickListener(v -> {
+            if (quantity>1) {
+                int n = quantity-1;
+                Cart cart = new Cart(userId, productId, n, price, attributeOption, image, title);
+                //cartClickListener.deleteCart(current);
+                cartClickListener.updateCart(cart);
             }
         });
 
