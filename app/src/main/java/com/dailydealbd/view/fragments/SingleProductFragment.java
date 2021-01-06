@@ -48,11 +48,15 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     int stock;
     int quantity = 1;
     private OnClickRoutes.singleProductBackPressed backPressed;
+    private OnClickRoutes.singleProductImageClick imageClick;
+    private OnClickRoutes.singleProductMyCartClick cartClick;
 
 
-    public SingleProductFragment(String slug, OnClickRoutes.singleProductBackPressed backPressed) {
+    public SingleProductFragment(String slug, OnClickRoutes.singleProductMyCartClick cartClick, OnClickRoutes.singleProductBackPressed backPressed,OnClickRoutes.singleProductImageClick imageClick) {
         this.slug = slug;
         this.backPressed = backPressed;
+        this.imageClick = imageClick;
+        this.cartClick = cartClick;
     }
 
     @Override
@@ -84,6 +88,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         productQuantitySub.setOnClickListener(this);
         productQuantityAdd.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+        productImage.setOnClickListener(this);
+        myCart.setOnClickListener(this);
 
         viewModel= new ViewModelProvider(this).get(SingleProductViewModel.class);
 
@@ -184,6 +190,12 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         }else if (v.getId()==R.id.single_product_back_btn)
         {
             backPressed.singleProductBackPressedListener();
+        }else if (v.getId()==R.id.single_product_image)
+        {
+            imageClick.showFullImage(image, slug);
+        }else if (v.getId()==R.id.my_cart)
+        {
+            cartClick.goToMyCart();
         }
     }
 

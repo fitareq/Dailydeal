@@ -13,6 +13,7 @@ import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CartDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;

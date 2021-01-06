@@ -24,4 +24,16 @@ public interface OnClickRoutes {
     {
         void singleProductBackPressedListener();
     }
+    interface fullImageClickListener
+    {
+        void fullImageOnBackClick(String slug);
+    }
+    interface singleProductImageClick
+    {
+        void showFullImage(String image, String slug);
+    }
+    interface singleProductMyCartClick
+    {
+        void goToMyCart();
+    }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageButton
+        android:id="@+id/image_back_btn"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        android:background="@color/white"
+        android:padding="@dimen/_5sdp"
+        android:contentDescription="@string/todo" />
+   <ImageView
+       android:id="@+id/product_full_image"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:src="@drawable/place_holder"
+       android:contentDescription="@string/todo" />
+
+</FrameLayout>

@@ -22,6 +22,7 @@ import com.dailydealbd.view.fragments.AccountFragment;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
+import com.dailydealbd.view.fragments.ImageFragment;
 import com.dailydealbd.view.fragments.SingleProductFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.singleProductBackPressed,OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener, OnClickRoutes.singleProductMyCartClick,OnClickRoutes.singleProductImageClick,OnClickRoutes.fullImageClickListener,OnClickRoutes.singleProductBackPressed,OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
 
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
@@ -265,7 +266,7 @@ public void onBackPressed() {
 
     @Override
     public void loadSingleProductData(String slug) {
-        selectedFragment = new SingleProductFragment(slug, this);
+        selectedFragment = new SingleProductFragment(slug, this, this,this);
         tag = ConstantsResources.SINGLE_PRODUCT_FRAGMENT;
         loadFragments();
     }
@@ -275,6 +276,32 @@ public void onBackPressed() {
     @Override
     public void singleProductBackPressedListener() {
         onBackPressed();
+    }
+
+
+
+    @Override
+    public void fullImageOnBackClick(String slug) {
+        loadSingleProductData(slug);
+    }
+
+
+
+    @Override
+    public void showFullImage(String image, String slug) {
+        selectedFragment = new ImageFragment(image,this,slug);
+        //tag = ConstantsResources.FULL_IMAGE_FRAGMENT;
+        loadFragments();
+    }
+
+
+
+    @Override
+    public void goToMyCart() {
+        selectedFragment = new CartFragment();
+        tag = ConstantsResources.CART_FRAGMENT;
+        bottomNav.setSelectedItemId(R.id.nav_cart);
+        loadFragments();
     }
 
 
