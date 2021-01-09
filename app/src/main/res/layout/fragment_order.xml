@@ -124,6 +124,7 @@
 
 
         <com.reginald.editspinner.EditSpinner
+            android:id="@+id/checkout_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:dropDownDrawableSpacing="@dimen/_15sdp"

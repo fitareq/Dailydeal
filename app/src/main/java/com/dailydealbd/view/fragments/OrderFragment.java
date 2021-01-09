@@ -1,18 +1,25 @@
 package com.dailydealbd.view.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+
+import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
-
+import com.google.android.material.textfield.TextInputEditText;
 
 
 public class OrderFragment extends Fragment {
+
+    private ImageButton OrderBackBtn;
+    private Button PlaceOderBtn;
+    private TextInputEditText CheckoutName, checkoutAddress, checkoutCity, checkoutPhone, checkoutEmail;
+    private Spinner spinner;
 
 
     private int productId, quantity;
@@ -30,14 +37,20 @@ public class OrderFragment extends Fragment {
 
 
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_order, container, false);
+        OrderBackBtn = v.findViewById(R.id.order_back_btn);
+        PlaceOderBtn = v.findViewById(R.id.place_order_btn);
+        CheckoutName = v.findViewById(R.id.checkout_name);
+        checkoutAddress = v.findViewById(R.id.checkout_address);
+        checkoutCity = v.findViewById(R.id.checkout_city);
+        checkoutPhone = v.findViewById(R.id.checkout_contact_number);
+        checkoutEmail = v.findViewById(R.id.checkout_email);
+        spinner = v.findViewById(R.id.checkout_spinner);
+
         return v;
     }
 
