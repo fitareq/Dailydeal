@@ -14,7 +14,6 @@
     <string name="contact_us">Contact Us</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="phone_number">Phone number</string>
     <string name="email">Email</string>
@@ -26,7 +25,6 @@
     <string name="categories">Categories</string>
     <string name="show_all">Show All</string>
     <string name="this_is_splash_activity">This is splash activity</string>
-    <string name="remove">Remove</string>
     <string name="checkout">Checkout</string>
     <string name="price">Price</string>
     <string name="title">Title</string>
@@ -42,12 +40,8 @@
     <string name="username">UserName</string>
     <string name="total_order">Total Order</string>
     <string name="total_wishlist">Total WishList</string>
-    <string name="label">label</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="enter_password">Enter Password</string>
     <string name="view_order">View Order</string>
     <string name="view_wishlist">View WishList</string>
-    <string name="submit">Submit</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>

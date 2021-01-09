@@ -72,6 +72,9 @@ dependencies {
     //fragment
     implementation "androidx.fragment:fragment:1.2.5"
 
+    //aamarpay payment getway
+    implementation 'com.github.rafathossain96:aamarPay-Android-Library:1.0'
+
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

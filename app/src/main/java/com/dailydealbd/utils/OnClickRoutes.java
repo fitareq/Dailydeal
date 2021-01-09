@@ -19,6 +19,7 @@ public interface OnClickRoutes {
     {
         void deleteCart(Cart cart);
         void updateCart(Cart cart);
+        void checkoutCart();
     }
     interface singleProductBackPressed
     {
@@ -36,4 +37,9 @@ public interface OnClickRoutes {
     {
         void goToMyCart();
     }
+    interface registrationClickListener
+    {
+        void goToLoginFromRegistration();
+    }
+
 }

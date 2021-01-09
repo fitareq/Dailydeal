@@ -93,6 +93,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 cartClickListener.updateCart(cart);
             }
         });
+        holder.cartProductCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartClickListener.checkoutCart();
+            }
+        });
 
     }
 

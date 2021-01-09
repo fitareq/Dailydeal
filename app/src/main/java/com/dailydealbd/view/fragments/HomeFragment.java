@@ -117,12 +117,12 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
 
 
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             mViewModel.fetchProductsDataFromRemote();
             mViewModel.fetchSliderDataFromRemote();
             mViewModel.fetchCategoriesDataFromRemote();
             mViewModel.fetchBannerDataFromRemote();
-        }
+        }*/
         return rootView;
     }
 

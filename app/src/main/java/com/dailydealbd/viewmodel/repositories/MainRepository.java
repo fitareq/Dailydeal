@@ -3,7 +3,11 @@ package com.dailydealbd.viewmodel.repositories;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.dailydealbd.network.APIInstance;
+import com.dailydealbd.network.DailyDealApi;
+import com.dailydealbd.roomdata.LocalDatabase;
 import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
@@ -12,9 +16,6 @@ import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
-import com.dailydealbd.network.APIInstance;
-import com.dailydealbd.network.DailyDealApi;
-import com.dailydealbd.roomdata.LocalDatabase;
 
 import java.util.List;
 
@@ -23,56 +24,32 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeRepository {
+public class MainRepository {
 
 
-    private final DailyDealApi api;
-    private LiveData<List<Slider>> sliderList;
-    private LiveData<List<Products>> productsList;
-    private LiveData<List<Categories>> categoriesList;
-    private LiveData<List<Banner>> bannerList;
-    private LiveData<Products> product;
-
-    private LocalDatabase db;
     private SliderDao sliderDao;
     private ProductsDao productsDao;
-    private CategoriesDao categoriesDao;
     private BannerDao bannerDao;
+    private CategoriesDao categoriesDao;
+    private final DailyDealApi api;
+    private final Application application;
 
 
 
-    public HomeRepository(Application application) {
+    public MainRepository(Application application) {
 
+        LocalDatabase db = LocalDatabase.getINSTANCE(application);
+        this.application = application;
         api = APIInstance.retroInstance().create(DailyDealApi.class);
-        db = LocalDatabase.getINSTANCE(application);
         sliderDao = db.sliderDao();
         productsDao = db.productsDao();
-        categoriesDao = db.categoriesDao();
         bannerDao = db.bannerDao();
-        bannerList = bannerDao.getAllBanner();
-        productsList = productsDao.getAllProducts();
-        sliderList = sliderDao.getAllSlider();
-        categoriesList = categoriesDao.getAllCategory();
+        categoriesDao = db.categoriesDao();
+
+
     }
 
 
-    private void fetchSingleProductDataFromRemote(String slug)
-    {
-        Call<Products> call = api.getSingleProduct(slug);
-        call.enqueue(new Callback<Products>() {
-            @Override
-            public void onResponse(Call<Products> call, Response<Products> response) {
-                if (response.isSuccessful())
-                {
-                    //setProducts(response.body());
-                }
-            }
-            @Override
-            public void onFailure(Call<Products> call, Throwable t) {
-
-            }
-        });
-    }
 
     public void fetchSliderDataFromRemote() {
 
@@ -94,13 +71,17 @@ public class HomeRepository {
             }
         });
     }
-    public void fetchBannerDataFromRemote(){
+
+
+
+    public void fetchBannerDataFromRemote() {
+
         Call<List<Banner>> call = api.getAllBanner();
         call.enqueue(new Callback<List<Banner>>() {
             @Override
             public void onResponse(Call<List<Banner>> call, Response<List<Banner>> response) {
-                if (response.isSuccessful())
-                {
+
+                if (response.isSuccessful()) {
                     insertBannerList(response.body());
                 }
             }
@@ -113,6 +94,9 @@ public class HomeRepository {
             }
         });
     }
+
+
+
     public void fetchProductsDataFromRemote() {
 
         Call<List<Products>> call = api.getAllProducts();
@@ -133,6 +117,9 @@ public class HomeRepository {
             }
         });
     }
+
+
+
     public void fetchCategoriesDataFromRemote() {
 
         Call<List<Categories>> call = api.getAllCategories();
@@ -155,49 +142,20 @@ public class HomeRepository {
     }
 
 
-    public LiveData<Products> getProducts(String slug)
-    {
-        product = productsDao.getSingleProduct(slug);
-        return product;
-    }
 
-    public LiveData<List<Slider>> getSliderList() {
-        return sliderList;
+    private void insertBannerList(List<Banner> banners) {
+
+        LocalDatabase.databaseWriteExecutors.execute(() -> bannerDao.insertBannerList(banners));
     }
 
 
 
-    public LiveData<List<Products>> getProductsList() {
-        return productsList;
+    private void insertCategoriesList(List<Categories> categories) {
+
+        LocalDatabase.databaseWriteExecutors.execute(() -> categoriesDao.insertCategoryList(categories));
     }
 
 
-
-    public LiveData<List<Categories>> getCategoriesList() {
-        return categoriesList;
-    }
-
-    public LiveData<List<Banner>> getBannerList(){return bannerList;}
-
-
-    private void insertBannerList(List<Banner> banners)
-    {
-        LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
-            @Override
-            public void run() {
-                bannerDao.insertBannerList(banners);
-            }
-        });
-    }
-    private void insertCategoriesList(List<Categories> categories)
-    {
-        LocalDatabase.databaseWriteExecutors.execute(new Runnable() {
-            @Override
-            public void run() {
-                categoriesDao.insertCategoryList(categories);
-            }
-        });
-    }
 
     private void insertProductsList(List<Products> products) {
 
