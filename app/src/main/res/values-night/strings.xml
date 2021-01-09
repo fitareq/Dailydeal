@@ -6,7 +6,7 @@
     <string name="home">home</string>
     <string name="cart">cart</string>
     <string name="category">category</string>
-    <string name="account">account</string>
+
     <string name="dashboard">Dashboard</string>
     <string name="order">Order</string>
     <string name="wishlist">Wishlist</string>

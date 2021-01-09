@@ -1,211 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c8e6c9"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".view.fragments.AccountFragment">
 
-    <androidx.cardview.widget.CardView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_2sdp">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/account_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/account_back_btn"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@color/white"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_88sdp"
+                android:layout_marginLeft="@dimen/_88sdp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
 
-                <ImageButton
-                    android:id="@+id/single_product_back_btn"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_back"
-                    android:background="@color/white"
-                    android:contentDescription="@string/todo" />
-
-                <ImageView
-                    android:id="@+id/account_settings_btn"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginStart="@dimen/_280sdp"
-                    android:layout_marginLeft="@dimen/_280sdp"
-                    android:src="@drawable/ic_settings"/>
-
-                <TextView
-                    android:id="@+id/account_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_120sdp"
-                    android:layout_marginLeft="@dimen/_120sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:text="@string/username"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15sdp" />
-
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp"
-                android:weightSum="1">
-
-                <TextView
-                    android:id="@+id/account_my_wishList"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:gravity="center"
-                    android:text="@string/total_wishlist"
-                    android:textSize="@dimen/_14sdp" />
-
-                <TextView
-                    android:id="@+id/account_my_order"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:gravity="center"
-                    android:text="@string/total_order"
-                    android:textSize="@dimen/_14sdp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp"
-                android:weightSum="1">
-
-                <Button
-                    android:id="@+id/account_wishlist_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:gravity="center"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:drawableLeft="@drawable/filled_favorite"
-                    android:text="@string/view_wishlist"
-                    android:textSize="@dimen/_14sdp" />
-
-                <Button
-                    android:id="@+id/account_order_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.50"
-                    android:gravity="center"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:drawableLeft="@drawable/order"
-                    android:text="@string/view_order"
-                    android:textSize="@dimen/_14sdp" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/account_settings_btn"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_110sdp"
+                android:layout_marginLeft="@dimen/_110sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_settings" />
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    <!--<androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_2sdp"
-        android:layout_margin="@dimen/_5sdp">
-
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/account_profile_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp">
+            android:layout_below="@+id/account_bar_layout"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_5sdp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/reset_password"
-                android:gravity="center"
-                android:textSize="@dimen/_14sdp"
-                android:textColor="@color/black" />
+                android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/account_phone_number_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:hint="@string/phone_number">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:text="Shumsuzzoha Sunam"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/account_phone_number_pass"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="+8801858085086" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/account_reset_pass_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <RelativeLayout
+                    android:id="@+id/account_wishlist1"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center">
+
+                    <ImageView
+
+                        android:id="@+id/account_wishlist11"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/ic_outline_favorite"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Wish List"
+                        android:textColor="@color/black"
+                        android:layout_below="@+id/account_wishlist11"/>
+
+
+
+                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/account_cart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center">
+
+                        <ImageView
+
+                            android:id="@+id/account_cart1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_25sdp"
+                            android:src="@drawable/ic_outline_shopping_cart"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="My Cart"
+                            android:textColor="@color/black"
+                            android:layout_below="@+id/account_cart1"
+                            android:gravity="center"/>
+
+
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/account_order"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center">
+
+                        <ImageView
+
+                            android:id="@+id/account_order1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_25sdp"
+                            android:src="@drawable/ic_outline_order"/>
+
+                        <TextView
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Order"
+                            android:textColor="@color/black"
+                            android:layout_below="@+id/account_order1"
+                            android:gravity="center"/>
+
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/account_banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_profile_main"
+            android:layout_margin="@dimen/_4sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="20dp"
+            app:cardPreventCornerOverlap="true">
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/account_banner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/account_phone_number_layout"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:hint="@string/enter_password">
+                android:layout_height="@dimen/_110sdp"
+                android:background="@color/white"
+                app:sliderAnimationDuration="1000"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderIndicatorAnimationDuration="800"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="@color/teal_200"
+                app:sliderIndicatorUnselectedColor="#FFF" />
+        </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/account_resetPass"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/Just_for_you_account_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_banner_container"
+            android:layout_margin="@dimen/_5sdp"
+            app:cardElevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#c8e6c9"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="@string/just_for_you"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/just_for_you_account_rview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/account_submit_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/submit"
-                android:textAllCaps="false"
-                android:layout_below="@+id/account_reset_pass_layout"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_centerInParent="true"/>
+    </RelativeLayout>
 
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>-->
-
-    <Button
-        android:id="@+id/account_register_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textColor="@color/white"
-        android:background="@drawable/shape_for_bin"
-        android:text="Click Here to Register/Login"
-        android:textAllCaps="false"/>
-
-
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/bg"
-        android:layout_marginTop="@dimen/_255sdp"/>
-
-
-
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -47,4 +47,9 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account">Don\'t have an Account?</string>
     <string name="register">Register</string>
+    <string name="settings">Settings</string>
+    <string name="sing_out">Sing Out</string>
+    <string name="week_deals">Week Deals</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="just_for_you">Just For You</string>
 </resources>
