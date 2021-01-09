@@ -41,5 +41,9 @@ public interface OnClickRoutes {
     {
         void goToLoginFromRegistration();
     }
+    interface loginClickListener
+    {
+        void loginToRegistration();
+    }
 
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import com.dailydealbd.roomdata.model.Registration;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.repositories.RegisterRepository;
 
 
@@ -16,6 +17,7 @@ public class RegistrationViewModel extends AndroidViewModel {
 
 
     private RegisterRepository repository;
+    private OnClickRoutes.registrationClickListener registrationClickListener;
 
 
 
@@ -26,6 +28,15 @@ public class RegistrationViewModel extends AndroidViewModel {
     }
 
 
+    public void gotoLogin()
+    {
+        registrationClickListener.goToLoginFromRegistration();
+    }
+
+    public void setRegistrationClickListener(OnClickRoutes.registrationClickListener registrationClickListener)
+    {
+        this.registrationClickListener = registrationClickListener;
+    }
 
     void registerNewUser(Registration registration) {
 

@@ -6,6 +6,7 @@ import com.dailydealbd.roomdata.model.Login;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Registration;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.User;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public interface DailyDealApi {
     Call<Registration> registerNewUser(@Body Registration registration);
 
     @POST("login")
-    Call<Login> loginUser(@Body Login login);
+    Call<User> loginUser(@Body Login login);
 
 
 

@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnClickRoutes.singleProductMyCartClick, OnClickRoutes.singleProductImageClick, OnClickRoutes.fullImageClickListener, OnClickRoutes.singleProductBackPressed, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnClickRoutes.registrationClickListener,OnClickRoutes.loginClickListener,OnClickRoutes.singleProductMyCartClick, OnClickRoutes.singleProductImageClick, OnClickRoutes.fullImageClickListener, OnClickRoutes.singleProductBackPressed, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
 
 
     private ActionBarDrawerToggle toggle;
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final CategoryFragment categoryFragment = new CategoryFragment();
     private final CartFragment cartFragment = new CartFragment();
     private final AccountFragment accountFragment = new AccountFragment();
-    private final LoginFragment loginFragment = new LoginFragment();
-    private final RegisterFragment registerFragment = new RegisterFragment();
+    private final LoginFragment loginFragment = new LoginFragment(this);
+    private final RegisterFragment registerFragment = new RegisterFragment(this);
 
 
 
@@ -328,6 +328,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         selectedFragment = new CartFragment();
         tag = ConstantsResources.CART_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_cart);
+        loadFragments();
+    }
+
+
+
+    @Override
+    public void loginToRegistration() {
+        selectedFragment = registerFragment;
+        tag = ConstantsResources.LOGIN_FRAGMENT;
+        loadFragments();
+    }
+
+
+
+    @Override
+    public void goToLoginFromRegistration() {
+        selectedFragment = loginFragment;
+        tag = ConstantsResources.LOGIN_FRAGMENT;
         loadFragments();
     }
 

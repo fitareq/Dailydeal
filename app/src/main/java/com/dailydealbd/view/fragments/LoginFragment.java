@@ -11,15 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
+import com.dailydealbd.roomdata.model.Login;
+import com.dailydealbd.utils.OnClickRoutes;
+import com.dailydealbd.viewmodel.LoginViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 
 public class LoginFragment extends Fragment {
 
 
-    public LoginFragment() {
+    public LoginFragment(OnClickRoutes.loginClickListener loginClickListener) {
+        this.loginClickListener = loginClickListener;
         // Required empty public constructor
     }
 
@@ -29,6 +34,8 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
     private TextView forgotPassword;
     private TextView registerTview;
+    private LoginViewModel viewModel;
+    private OnClickRoutes.loginClickListener loginClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,7 +61,26 @@ public class LoginFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
+        viewModel.setLoginClickListener(loginClickListener);
+        registerTview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.gotoRegistration();
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phone = userPhoneNumber.getText().toString();
+                String password = userPassword.getText().toString();
+
+                Login login = new Login(phone,password);
+                viewModel.authenticateUserFromRemote(login);
+            }
+        });
 
     }
 

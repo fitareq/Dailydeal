@@ -19,6 +19,8 @@ public class ConstantsResources {
     public static final String CART_FRAGMENT = "cart_fragment";
     public static final String ACCOUNT_FRAGMENT = "account_fragment";
     public static final String CATEGORY_FRAGMENT = "category_fragment";
+    public static final String REGISTRATION_FRAGMENT = "registration_fragment";
+    public static final String LOGIN_FRAGMENT = "login_fragment";
     public static final String FULL_IMAGE_FRAGMENT = "image_fragment";
     public static final String STORE_ID = "aamarpay";
     public static final String SIGNATURE_KEY = "28c78bb1f45112f5d40b956fe104645a";

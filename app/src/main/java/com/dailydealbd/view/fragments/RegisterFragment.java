@@ -19,8 +19,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.aamarpay.library.DialogBuilder;
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Registration;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.RegistrationViewModel;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment {
@@ -29,13 +32,15 @@ public class RegisterFragment extends Fragment {
     private Button registerButton;
     private TextView registerLoginTView;
     private RegistrationViewModel viewModel;
+    private OnClickRoutes.registrationClickListener registrationClickListener;
 
 
 
 
 
-    public RegisterFragment() {
+    public RegisterFragment(OnClickRoutes.registrationClickListener registrationClickListener) {
         // Required empty public constructor
+        this.registrationClickListener = registrationClickListener;
     }
 
 
@@ -63,27 +68,29 @@ public class RegisterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        viewModel.setRegistrationClickListener(registrationClickListener);
 
-                ProgressDialog dialog = new ProgressDialog(getContext());
-                dialog.setTitle("Registration");
-                dialog.setMessage("Processing...");
-                dialog.setCancelable(false);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
-                String name, phone, email, password, confirmPassword;
-                name = registerName.getText().toString();
-                phone = registerPhoneNumber.getText().toString();
-                email = registerEmail.getText().toString();
-                password = registerPassword.getText().toString();
-                confirmPassword = registerConfirmPassword.getText().toString();
-                viewModel.userInputValidation(name,phone,email,password,confirmPassword);
-                dialog.dismiss();
-                //viewModel.registerNewUser(user);
+        registerLoginTView.setOnClickListener(v->{
+            viewModel.gotoLogin();
+        });
+        registerButton.setOnClickListener(v -> {
 
-            }
+            ProgressDialog dialog = new ProgressDialog(getContext());
+            dialog.setTitle("Registration");
+            dialog.setMessage("Processing...");
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+            String name, phone, email, password, confirmPassword;
+            name = Objects.requireNonNull(registerName.getText()).toString();
+            phone = Objects.requireNonNull(registerPhoneNumber.getText()).toString();
+            email = Objects.requireNonNull(registerEmail.getText()).toString();
+            password = Objects.requireNonNull(registerPassword.getText()).toString();
+            confirmPassword = Objects.requireNonNull(registerConfirmPassword.getText()).toString();
+            viewModel.userInputValidation(name,phone,email,password,confirmPassword);
+            dialog.dismiss();
+            //viewModel.registerNewUser(user);
+
         });
     }
 
