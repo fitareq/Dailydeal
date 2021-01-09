@@ -25,6 +25,7 @@ import com.dailydealbd.view.fragments.CategoryFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
 import com.dailydealbd.view.fragments.ImageFragment;
 import com.dailydealbd.view.fragments.LoginFragment;
+import com.dailydealbd.view.fragments.OrderFragment;
 import com.dailydealbd.view.fragments.RegisterFragment;
 import com.dailydealbd.view.fragments.SingleProductFragment;
 import com.dailydealbd.viewmodel.HomeViewModel;
@@ -32,11 +33,8 @@ import com.dailydealbd.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnClickRoutes.registrationClickListener,OnClickRoutes.loginClickListener,OnClickRoutes.singleProductMyCartClick, OnClickRoutes.singleProductImageClick, OnClickRoutes.fullImageClickListener, OnClickRoutes.singleProductBackPressed, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnClickRoutes.cartClickListener, OnClickRoutes.registrationClickListener, OnClickRoutes.loginClickListener, OnClickRoutes.singleProductMyCartClick, OnClickRoutes.singleProductImageClick, OnClickRoutes.fullImageClickListener, OnClickRoutes.singleProductBackPressed, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
 
 
     private ActionBarDrawerToggle toggle;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private final HomeFragment homeFragment = new HomeFragment(this);
     private final CategoryFragment categoryFragment = new CategoryFragment();
-    private final CartFragment cartFragment = new CartFragment();
+    private final CartFragment cartFragment = new CartFragment(this);
     private final AccountFragment accountFragment = new AccountFragment();
     private final LoginFragment loginFragment = new LoginFragment(this);
     private final RegisterFragment registerFragment = new RegisterFragment(this);
@@ -325,7 +323,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void goToMyCart() {
 
-        selectedFragment = new CartFragment();
+        selectedFragment = cartFragment;
         tag = ConstantsResources.CART_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_cart);
         loadFragments();
@@ -335,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void loginToRegistration() {
+
         selectedFragment = registerFragment;
         tag = ConstantsResources.LOGIN_FRAGMENT;
         loadFragments();
@@ -344,9 +343,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void goToLoginFromRegistration() {
+
         selectedFragment = loginFragment;
         tag = ConstantsResources.LOGIN_FRAGMENT;
         loadFragments();
+    }
+
+
+
+    @Override
+    public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
+
+        selectedFragment = new OrderFragment(productId, title, image, totalPrice, quantity, attributeOption);
     }
 
 

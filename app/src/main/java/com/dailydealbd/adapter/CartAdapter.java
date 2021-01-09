@@ -23,12 +23,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private List<Cart> cartList;
     private View item;
-    private OnClickRoutes.cartClickListener cartClickListener;
+    private OnClickRoutes.cartAdapterClickListener cartAdapterClickListener;
 
-    public CartAdapter(List<Cart> cartList, OnClickRoutes.cartClickListener cartClickListener)
+    public CartAdapter(List<Cart> cartList, OnClickRoutes.cartAdapterClickListener cartAdapterClickListener)
     {
         this.cartList = cartList;
-        this.cartClickListener = cartClickListener;
+        this.cartAdapterClickListener = cartAdapterClickListener;
     }
 
     @NonNull
@@ -52,6 +52,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         int quantity = current.getProductQuantity();
         String q = String.valueOf(quantity);
         int userId = 1;
+        int pr;
         int productId = current.getProductId();
         String p;
         int totalPrice;
@@ -63,40 +64,53 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             Picasso.get().load(img).into(holder.cartProductImage);
         }
         holder.cartProductTitle.setText(title);
-        if (price!=null)
+        if (attributeOption!=null)
         {
-            p = price + "*" + quantity;
-            totalPrice = Integer.parseInt(price);
-            totalPrice = totalPrice*quantity;
-        }
-        else {
-            p = "0*" + quantity;
-            totalPrice = 0;
-        }
-        holder.cartProductPrice.setText(p);
-        holder.cartProductQuantity.setText(q);
-        holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
 
-        holder.cartProductDelete.setOnClickListener(v -> cartClickListener.deleteCart(current));
+            if (attributeOption.contains("-"))
+            {
+                int b = attributeOption.indexOf('-');
+                int l = attributeOption.length();
+                p = attributeOption.substring(b+1,l-1);
+
+                //s = attributeOption.substring(attributeOption.indexOf('-')-1, attributeOption.indexOf('৳')-1);
+
+            }else {
+                p = attributeOption;
+            }
+            p = p.replaceAll(" ", "");
+            pr = Integer.parseInt(p);
+            totalPrice = pr*quantity;
+            price = pr+"*"+quantity;
+            holder.cartProductPrice.setText(price);
+            holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
+
+        }
+
+        //holder.cartProductPrice.setText(p);
+        holder.cartProductQuantity.setText(q);
+       // holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
+
+        holder.cartProductDelete.setOnClickListener(v -> cartAdapterClickListener.deleteCart(current));
 
         holder.cartProductQuantityAdd.setOnClickListener(v -> {
             int n = quantity+1;
-            Cart cart = new Cart(userId, productId,n,price,attributeOption,image,title );
-            //cartClickListener.deleteCart(current);
-            cartClickListener.updateCart(cart);
+            Cart cart = new Cart(userId, productId,n,"price",attributeOption,image,title );
+            //cartAdapterClickListener.deleteCart(current);
+            cartAdapterClickListener.updateCart(cart);
         });
         holder.cartProductQuantitySub.setOnClickListener(v -> {
             if (quantity>1) {
                 int n = quantity-1;
-                Cart cart = new Cart(userId, productId, n, price, attributeOption, image, title);
-                //cartClickListener.deleteCart(current);
-                cartClickListener.updateCart(cart);
+                Cart cart = new Cart(userId, productId, n, "price", attributeOption, image, title);
+                //cartAdapterClickListener.deleteCart(current);
+                cartAdapterClickListener.updateCart(cart);
             }
         });
         holder.cartProductCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartClickListener.checkoutCart();
+                cartAdapterClickListener.checkoutCart(productId, title, image,holder.cartProductTotalPrice.getText().toString(),quantity,attributeOption);
             }
         });
 

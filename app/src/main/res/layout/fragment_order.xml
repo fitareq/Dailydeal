@@ -123,22 +123,14 @@
         app:cardCornerRadius="@dimen/_5sdp">
 
 
-        <RadioGroup
+        <com.reginald.editspinner.EditSpinner
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <RadioButton
-                android:id="@+id/radio_btn_cod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cash_on_delivery" />
-
-            <RadioButton
-                android:id="@+id/radio_btn_online"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/online_payment" />
-        </RadioGroup>
+            android:layout_height="wrap_content"
+            app:dropDownDrawableSpacing="@dimen/_15sdp"
+            app:dropDownDrawableWidth="@dimen/_30sdp"
+            app:dropDownDrawableHeight="@dimen/_30sdp"
+            app:dropDownDrawable="@drawable/ic_expand_more"
+            android:text="Payment option"/>
 
     </androidx.cardview.widget.CardView>
 

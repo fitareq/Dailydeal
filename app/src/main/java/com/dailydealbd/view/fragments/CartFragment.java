@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,28 +17,23 @@ import com.aamarpay.library.AamarPay;
 import com.aamarpay.library.DialogBuilder;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CartAdapter;
-import com.dailydealbd.adapter.ProductsAdapter;
 import com.dailydealbd.roomdata.model.Cart;
-import com.dailydealbd.roomdata.model.Products;
-import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.CartViewModel;
-import com.dailydealbd.viewmodel.HomeViewModel;
 
 import org.json.JSONObject;
 
-import java.util.List;
-import java.util.Objects;
 
-
-public class CartFragment extends Fragment implements OnClickRoutes.cartClickListener{
+public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterClickListener {
 
 
 
 
 
-    public CartFragment() {
+    public CartFragment(OnClickRoutes.cartClickListener cartClickListener) {
+
         // Required empty public constructor
+        this.cartClickListener = cartClickListener;
     }
 
 
@@ -48,6 +41,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartClickLis
     private CartAdapter adapter;
     private RecyclerView.LayoutManager manager;
     private CartViewModel viewModel;
+    private OnClickRoutes.cartClickListener cartClickListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,8 +78,10 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartClickLis
 
 
     @Override
-    public void checkoutCart() {
+    public void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
 
+
+        cartClickListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);
         AlertDialog alertDialog = null;
         DialogBuilder dialogBuilder = new DialogBuilder(getContext(),alertDialog);
 

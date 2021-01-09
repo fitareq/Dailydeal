@@ -15,10 +15,17 @@ import com.dailydealbd.R;
 public class OrderFragment extends Fragment {
 
 
+    private int productId, quantity;
+    private String title, image, totalPrice, attributeOption;
 
-
-    public OrderFragment() {
+    public OrderFragment(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
         // Required empty public constructor
+        this.productId = productId;
+        this.quantity = quantity;
+        this.title = title;
+        this.image = image;
+        this.totalPrice = totalPrice;
+        this.attributeOption = attributeOption;
         }
 
 

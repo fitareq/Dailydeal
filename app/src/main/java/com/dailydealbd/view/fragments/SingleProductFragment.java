@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,13 +22,18 @@ import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.SingleProductViewModel;
+import com.reginald.editspinner.EditSpinner;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 public class SingleProductFragment extends Fragment implements View.OnClickListener {
 
     private SliderView sliderView;
+    private EditSpinner editSpinner;
     private ImageButton productQuantityAdd, productQuantitySub, backBtn;
     private TextView singleProductTitle,singleProductStock,
                      singleProductDescription, singleProductSku,
@@ -67,6 +73,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
 
 
         backBtn = v.findViewById(R.id.single_product_back_btn);
+        editSpinner = v.findViewById(R.id.price_option_spinner);
         productQuantityAdd = v.findViewById(R.id.quantity_add);
         productQuantitySub = v.findViewById(R.id.quantity_sub);
         sliderView = v.findViewById(R.id.single_product_slider);
@@ -115,6 +122,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
             attribute    = products.getProductAttributeOptions();
             productId    = products.getProductId();
             stock = products.getProductQuantity();
+            spinnerSelect(attribute);
             String qt = "Available: ";
             if (image!=null)
             {
@@ -166,11 +174,18 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     }
 
 
+    private void spinnerSelect(String att) {
 
+        String[] arrayList = att.split(",");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
+        editSpinner.setEditable(false);
+        editSpinner.setAdapter(adapter);
+    }
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.add_to_cart) {
             int q = Integer.parseInt(singleProductQuantity.getText().toString());
+            attribute = editSpinner.getText().toString();
             cart = new Cart(0,productId,q,price,attribute,image,title);
             viewModel.addToCart(cart);
             Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_LONG).show();
@@ -180,7 +195,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
             ++quantity;
             singleProductQuantity.setText(String.valueOf(quantity));
 
-        }else if (v.getId()==R.id.quantity_add)
+        }else if (v.getId()==R.id.quantity_sub)
         {
             if (quantity>1)
             {

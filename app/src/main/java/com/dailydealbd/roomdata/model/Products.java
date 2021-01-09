@@ -112,7 +112,7 @@ public class Products {
     private final String productImage;
 
     @ColumnInfo(name = "attribute_options")
-    @SerializedName("attribute_options")
+    @SerializedName("att")
     private final String productAttributeOptions;
 
 

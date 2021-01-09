@@ -15,11 +15,11 @@ public interface OnClickRoutes {
     {
         void loadSingleProductData(String slug);
     }
-    interface cartClickListener
+    interface cartAdapterClickListener
     {
         void deleteCart(Cart cart);
         void updateCart(Cart cart);
-        void checkoutCart();
+        void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
     }
     interface singleProductBackPressed
     {
@@ -44,6 +44,10 @@ public interface OnClickRoutes {
     interface loginClickListener
     {
         void loginToRegistration();
+    }
+    interface cartClickListener
+    {
+        void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
     }
 
 }
