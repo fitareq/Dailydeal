@@ -44,6 +44,7 @@ public interface OnClickRoutes {
     interface loginClickListener
     {
         void loginToRegistration();
+        void loginToHome();
     }
     interface cartClickListener
     {

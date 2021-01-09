@@ -27,6 +27,7 @@ public class LoginViewModel extends AndroidViewModel {
     public void setLoginClickListener(OnClickRoutes.loginClickListener loginClickListener) {
 
         this.loginClickListener = loginClickListener;
+        repository.setLoginClickListener(loginClickListener);
     }
 
 

@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.dailydealbd.network.APIInstance;
 import com.dailydealbd.network.DailyDealApi;
 import com.dailydealbd.roomdata.model.Registration;
+import com.dailydealbd.utils.OnClickRoutes;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,6 +18,7 @@ public class RegisterRepository
     private final DailyDealApi api;
     private final Application application;
     private String code;
+    private OnClickRoutes.registrationClickListener registrationClickListener;
 
     public RegisterRepository(Application application)
     {
@@ -26,6 +28,10 @@ public class RegisterRepository
 
 
 
+    public void setRegistrationClickListener(OnClickRoutes.registrationClickListener registrationClickListener)
+    {
+        this.registrationClickListener = registrationClickListener;
+    }
     public void rUser(Registration registration){registerNewUser(registration);}
     void registerNewUser(Registration registration)
     {
@@ -35,7 +41,12 @@ public class RegisterRepository
             @Override
             public void onResponse(Call<Registration> call, Response<Registration> response) {
                 if (response.isSuccessful()) {
-                    setCode(response.message());
+                    if (response.code()==201)
+
+                    {
+                        registrationClickListener.goToLoginFromRegistration();
+                        setCode(response.message());
+                    }
                 }
             }
             @Override

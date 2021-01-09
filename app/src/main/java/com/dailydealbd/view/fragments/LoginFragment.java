@@ -64,6 +64,8 @@ public class LoginFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         viewModel.setLoginClickListener(loginClickListener);
+
+
         registerTview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +84,14 @@ public class LoginFragment extends Fragment {
             }
         });
 
+
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginClickListener.loginToHome();
+            }
+        });
     }
 
 

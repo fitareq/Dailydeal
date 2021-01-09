@@ -9,6 +9,7 @@ import com.dailydealbd.roomdata.LocalDatabase;
 import com.dailydealbd.roomdata.model.Login;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.roomdata.model.dao.UserDao;
+import com.dailydealbd.utils.OnClickRoutes;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +21,7 @@ public class LoginRepository {
     private final DailyDealApi api;
     private UserDao userDao;
     private Application application;
+    private OnClickRoutes.loginClickListener loginClickListener;
     public LoginRepository(Application application) {
         this.application = application;
         api = APIInstance.retroInstance().create(DailyDealApi.class);
@@ -27,7 +29,10 @@ public class LoginRepository {
         userDao = db.userDao();
     }
 
+    public void setLoginClickListener(OnClickRoutes.loginClickListener loginClickListener) {
 
+        this.loginClickListener = loginClickListener;
+    }
 
     public void authenticateUserFromRemote(Login login) {
 
@@ -41,6 +46,7 @@ public class LoginRepository {
                     {
                         Toast.makeText(application.getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
                         saveAuthenticatedUserToLocal(response.body());
+                        loginClickListener.loginToHome();
                     }else Toast.makeText(application.getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
             }
 
@@ -55,6 +61,7 @@ public class LoginRepository {
 
     private void saveAuthenticatedUserToLocal(User user)
     {
+
         LocalDatabase.databaseWriteExecutors.execute(() -> userDao.insertUser(user));
     }
     public User getUser()

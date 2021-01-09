@@ -76,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 //s = attributeOption.substring(attributeOption.indexOf('-')-1, attributeOption.indexOf('৳')-1);
 
             }else {
-                p = attributeOption;
+                p = attributeOption.replaceAll("[a-zA-Z]", "");
             }
             p = p.replaceAll(" ", "");
             pr = Integer.parseInt(p);

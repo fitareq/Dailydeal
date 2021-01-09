@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (item.getItemId()) {
                     case DRW_ACC:
-                        selectedFragment = accountFragment;
+                        selectedFragment = loginFragment;
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         bottomNav.setSelectedItemId(R.id.nav_account);
                         break;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (item.getItemId()) {
                     case NAV_ACC:
-                        selectedFragment = accountFragment;
+                        selectedFragment = loginFragment;
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         break;
                     case NAV_CART:
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (selectedFragment != null) {
 
-            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)) {
+            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.ACCOUNT_FRAGMENT)) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
             } else {
@@ -244,14 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    /**
-     * Called when the activity has detected the user's press of the back
-     * key. The {@link #getOnBackPressedDispatcher() OnBackPressedDispatcher} will be given a
-     * chance to handle the back button before the default behavior of
-     * {@link Activity#onBackPressed()} is invoked.
-     *
-     * @see #getOnBackPressedDispatcher()
-     */
+
     @Override
     public void onBackPressed() {
 
@@ -259,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
 
-        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) || tag.equals(ConstantsResources.ACCOUNT_FRAGMENT)) {
+        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) || tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||tag.equals(ConstantsResources.LOGIN_FRAGMENT)) {
             selectedFragment = new HomeFragment(this);
             tag = ConstantsResources.HOME_FRAGMENT;
             bottomNav.setSelectedItemId(R.id.nav_home);
@@ -335,7 +328,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loginToRegistration() {
 
         selectedFragment = registerFragment;
-        tag = ConstantsResources.LOGIN_FRAGMENT;
+        tag = ConstantsResources.REGISTRATION_FRAGMENT;
+        loadFragments();
+    }
+
+
+
+    @Override
+    public void loginToHome() {
+        selectedFragment = homeFragment;
+        tag = ConstantsResources.HOME_FRAGMENT;
+        bottomNav.setSelectedItemId(R.id.nav_home);
         loadFragments();
     }
 
@@ -355,6 +358,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
 
         selectedFragment = new OrderFragment(productId, title, image, totalPrice, quantity, attributeOption);
+        tag = ConstantsResources.ORDER_FRAGMENT;
+        loadFragments();
     }
 
 

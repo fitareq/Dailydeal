@@ -3,6 +3,7 @@ package com.dailydealbd.network;
 import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Login;
+import com.dailydealbd.roomdata.model.Order;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Registration;
 import com.dailydealbd.roomdata.model.Slider;
@@ -40,6 +41,9 @@ public interface DailyDealApi {
 
     @POST("login")
     Call<User> loginUser(@Body Login login);
+
+    @POST("checkout")
+    Call<Order> checkoutProduct(@Body Order checkOut);
 
 
 

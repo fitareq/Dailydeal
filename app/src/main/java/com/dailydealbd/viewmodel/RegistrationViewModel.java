@@ -36,6 +36,7 @@ public class RegistrationViewModel extends AndroidViewModel {
     public void setRegistrationClickListener(OnClickRoutes.registrationClickListener registrationClickListener)
     {
         this.registrationClickListener = registrationClickListener;
+        repository.setRegistrationClickListener(registrationClickListener);
     }
 
     void registerNewUser(Registration registration) {

@@ -79,63 +79,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
 
     @Override
     public void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
-
-
         cartClickListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);
-        AlertDialog alertDialog = null;
-        DialogBuilder dialogBuilder = new DialogBuilder(getContext(),alertDialog);
-
-        dialogBuilder.showLoading();
-        AamarPay aamarPay = new AamarPay(getContext(), "aamarpay","28c78bb1f45112f5d40b956fe104645a");
-        aamarPay.testMode(true);
-        aamarPay.autoGenerateTransactionID(true);
-        String trxId = aamarPay.generate_trx_id();
-        //aamarPay.setTransactionID(trxId);
-        String trAmount = "100";
-        aamarPay.setTransactionParameter("100","BDT","description");
-        aamarPay.setCustomerDetails("tareq","fitareq@gmail.com", "01647167559", "mirpur", "dhaka", "Bangladesh");
-
-        aamarPay.initPGW(new AamarPay.onInitListener() {
-            @Override
-            public void onInitFailure(Boolean error, String message) {
-
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                dialogBuilder.errorPopUp(message);
-                //dialogBuilder.dismissDialog();
-            }
-
-
-
-            @Override
-            public void onPaymentSuccess(JSONObject jsonObject) {
-
-                Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
-                dialogBuilder.dismissDialog();
-            }
-
-
-
-            @Override
-            public void onPaymentFailure(JSONObject jsonObject) {
-
-                dialogBuilder.errorPopUp(jsonObject.toString());
-            }
-
-
-
-            @Override
-            public void onPaymentProcessingFailed(JSONObject jsonObject) {
-
-            }
-
-
-
-            @Override
-            public void onPaymentCancel(JSONObject jsonObject) {
-
-                dialogBuilder.errorPopUp(jsonObject.toString());
-            }
-        });
     }
 
 
