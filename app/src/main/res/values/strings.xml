@@ -7,7 +7,7 @@
     <string name="category">category</string>
     <string name="account">account</string>
     <string name="dashboard">Dashboard</string>
-    <string name="order">Order</string>
+
     <string name="wishlist">Wishlist</string>
     <string name="terms_conditions">Terms and Conditions</string>
     <string name="communicate">Communicate</string>
@@ -52,4 +52,7 @@
     <string name="week_deals">Week Deals</string>
     <string name="top_rated">Top Rated</string>
     <string name="just_for_you">Just For You</string>
+    <string name="order">Order</string>
+    <string name="cash_on_delivery">Cash on Delivery</string>
+    <string name="online_payment">Online payment</string>
 </resources>
