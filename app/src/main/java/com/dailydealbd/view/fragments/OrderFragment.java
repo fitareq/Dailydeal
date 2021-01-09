@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 
 import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
 import com.google.android.material.textfield.TextInputEditText;
+import com.reginald.editspinner.EditSpinner;
 
 
 public class OrderFragment extends Fragment {
@@ -19,7 +19,7 @@ public class OrderFragment extends Fragment {
     private ImageButton OrderBackBtn;
     private Button PlaceOderBtn;
     private TextInputEditText CheckoutName, checkoutAddress, checkoutCity, checkoutPhone, checkoutEmail;
-    private Spinner spinner;
+    private EditSpinner spinner;
 
 
     private int productId, quantity;
