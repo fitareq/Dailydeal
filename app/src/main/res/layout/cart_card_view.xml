@@ -112,9 +112,9 @@
 
                     <ImageView
                         android:id="@+id/cart_product_delete"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
-                        android:src="@drawable/bin2"
+                        android:src="@drawable/ic_outline_delete"
                         android:layout_gravity="center"
                         android:padding="@dimen/_4sdp"
                         android:layout_marginLeft="@dimen/_70sdp"

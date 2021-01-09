@@ -39,13 +39,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
-        AccountUserName = v.findViewById(R.id.account_user_name);
-        AccountWishList = v.findViewById(R.id.account_my_wishList);
-        AccountOder = v.findViewById(R.id.account_my_order);
-        AccountSettingsBtn = v.findViewById(R.id.account_settings_btn);
-        AccountWishListBtn = v.findViewById(R.id.account_wishlist_btn);
-        AccountOrderBtn = v.findViewById(R.id.account_order_btn);
-        AccountRegisterLogin = v.findViewById(R.id.account_register_login);
+
 
 
         return v;

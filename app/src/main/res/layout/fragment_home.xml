@@ -2,7 +2,8 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#66bb6a">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
                 android:id="@+id/slider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_170sdp"
-                android:background="@color/white"
+                android:background="#e8f5e9"
                 app:sliderAnimationDuration="1000"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
@@ -30,7 +31,7 @@
                 app:sliderIndicatorOrientation="horizontal"
                 app:sliderIndicatorPadding="3dp"
                 app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="@color/blue_light"
+                app:sliderIndicatorSelectedColor="@color/green_900"
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="3"
                 app:sliderStartAutoCycle="true" />
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="#81c784"
                 android:padding="@dimen/_5sdp">
 
                 <TextView
@@ -75,7 +77,8 @@
                     android:id="@+id/categories_recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="vertical" />
+                    android:scrollbars="vertical"
+                    android:background="#c8e6c9"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -120,13 +123,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#c8e6c9"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="week Deals"
+                    android:text="@string/week_deals"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
@@ -151,13 +155,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#c8e6c9"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Top Rated"
+                    android:text="@string/top_rated"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
@@ -183,13 +188,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#c8e6c9"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Just For You"
+                    android:text="@string/just_for_you"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
