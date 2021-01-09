@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (item.getItemId()) {
                     case NAV_ACC:
-                        selectedFragment = loginFragment;
+                        selectedFragment = accountFragment;
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         break;
                     case NAV_CART:
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (selectedFragment != null) {
 
-            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) || tag.equals(ConstantsResources.ACCOUNT_FRAGMENT)) {
+            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
             } else {
