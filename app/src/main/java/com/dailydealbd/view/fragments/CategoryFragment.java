@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CategoryFragment extends Fragment implements OnClickRoutes.categoryClickListener {
+public class CategoryFragment extends Fragment implements OnClickRoutes.categoryListener {
 
 
     private RecyclerView categoryListRView;
@@ -79,7 +79,7 @@ public CategoryFragment(){}
 
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), categories -> {
-            categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryClickListener) this);
+            categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryListener) this);
             categoryListRView.setAdapter(categoryListAdapter);
             if (categoryId == 0)
                 if (categories != null)

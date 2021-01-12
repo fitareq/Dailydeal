@@ -64,4 +64,6 @@
     <string name="option">Option</string>
     <string name="message">Message</string>
     <string name="payment_option">Payment option</string>
+    <string name="total">Total: ৳</string>
+    <string name="bdt">৳</string>
 </resources>

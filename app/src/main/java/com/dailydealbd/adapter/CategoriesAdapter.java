@@ -20,10 +20,10 @@ import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
     private List<Categories> categories;
-    private OnClickRoutes.categoryClickListener onClickFromCategoryFragment;
+    private OnClickRoutes.categoryListener onClickFromCategoryFragment;
     private View itemV;
 
-    public CategoriesAdapter(List<Categories> categories, OnClickRoutes.categoryClickListener onClickFromCategoryFragment)
+    public CategoriesAdapter(List<Categories> categories, OnClickRoutes.categoryListener onClickFromCategoryFragment)
     {
         this.categories = categories;
         this.onClickFromCategoryFragment = onClickFromCategoryFragment;

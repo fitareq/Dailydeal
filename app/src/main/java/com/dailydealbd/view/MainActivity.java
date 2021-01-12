@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -29,10 +29,12 @@ import com.dailydealbd.view.fragments.RegisterFragment;
 import com.dailydealbd.view.fragments.SettingsFragment;
 import com.dailydealbd.view.fragments.SingleProductFragment;
 import com.dailydealbd.viewmodel.AccountViewModel;
-import com.dailydealbd.viewmodel.HomeViewModel;
 import com.dailydealbd.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 
 public class MainActivity extends AppCompatActivity
@@ -51,16 +53,12 @@ public class MainActivity extends AppCompatActivity
 {
 
 
-    private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private SearchView searchView;
-    private NavigationView navigationDrawer;
     private BottomNavigationView bottomNav;
-    private HomeViewModel homeViewModel;
     private Fragment selectedFragment;
+    private Deque<Fragment> loadedFragment = new ArrayDeque<>();
     private String tag;
-    private MainViewModel viewModel;
 
     private final int NAV_HOME = R.id.nav_home;
     private final int DRW_HOME = R.id.nav_home1;
@@ -74,12 +72,12 @@ public class MainActivity extends AppCompatActivity
     private final int DRW_CONDITION = R.id.nav_conditions;
     private final int NAV_CATEGORY = R.id.nav_category;
 
-    private  HomeFragment homeFragment = new HomeFragment(this);
-    private  CategoryFragment categoryFragment = new CategoryFragment();
-    private  CartFragment cartFragment = new CartFragment(this);
-    private  AccountFragment accountFragment = new AccountFragment(this);
-    private  LoginFragment loginFragment = new LoginFragment(this);
-    private  RegisterFragment registerFragment = new RegisterFragment(this);
+    private final HomeFragment homeFragment = new HomeFragment(this);
+    private final CategoryFragment categoryFragment = new CategoryFragment();
+    private final CartFragment cartFragment = new CartFragment(this);
+    private final AccountFragment accountFragment = new AccountFragment(this);
+    private final LoginFragment loginFragment = new LoginFragment(this);
+    private final RegisterFragment registerFragment = new RegisterFragment(this);
 
 
 
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.fetchProductsDataFromRemote();
         viewModel.fetchSliderDataFromRemote();
         viewModel.fetchCategoriesDataFromRemote();
@@ -97,87 +95,88 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerLayoutId);
-        navigationDrawer = findViewById(R.id.navigation_drawer);
+        NavigationView navigationDrawer = findViewById(R.id.navigation_drawer);
         bottomNav = findViewById(R.id.bottom_nav);
 
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationDrawer.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigationDrawer.setNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case DRW_ACC:
-                        selectedFragment = new AccountFragment(MainActivity.this);
-                        tag = ConstantsResources.ACCOUNT_FRAGMENT;
-                        bottomNav.setSelectedItemId(R.id.nav_account);
-                        break;
-                    case DRW_CART:
-                        selectedFragment = cartFragment;
-                        tag = ConstantsResources.CART_FRAGMENT;
-                        bottomNav.setSelectedItemId(R.id.nav_cart);
-                        break;
-                    case DRW_HOME:
-                    case DRW_CONDITION:
-                    case DRW_CONTACT:
-                    case DRW_WISHLIST:
-                    case DRW_ORDER:
-                        selectedFragment = homeFragment;
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        break;
-                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;*/
+            switch (item.getItemId()) {
+                case DRW_ACC:
+                    selectedFragment = accountFragment;
+                    loadedFragment.push(selectedFragment);
+                    tag = ConstantsResources.ACCOUNT_FRAGMENT;
+                    bottomNav.setSelectedItemId(R.id.nav_account);
+                    break;
+                case DRW_CART:
+                    selectedFragment = cartFragment;
+                    loadedFragment.push(selectedFragment);
+                    tag = ConstantsResources.CART_FRAGMENT;
+                    bottomNav.setSelectedItemId(R.id.nav_cart);
+                    break;
+                case DRW_HOME:
+                case DRW_CONDITION:
+                case DRW_CONTACT:
+                case DRW_WISHLIST:
+                case DRW_ORDER:
+                    selectedFragment = homeFragment;
+                    loadedFragment.push(selectedFragment);
+                    toolbar.setTitle("Home");
+                    tag = ConstantsResources.HOME_FRAGMENT;
+                    break;
+                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                    tag = ConstantsResources.HOME_FRAGMENT;*/
 
-                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        bottomNav.setSelectedItemId(R.id.nav_home);
-                        break;*/
+                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                    tag = ConstantsResources.HOME_FRAGMENT;
+                    bottomNav.setSelectedItemId(R.id.nav_home);
+                    break;*/
 
-                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        break;*/
+                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                    tag = ConstantsResources.HOME_FRAGMENT;
+                    break;*/
 
-                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        break;*/
-                }
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return loadFragments();
+                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                    tag = ConstantsResources.HOME_FRAGMENT;
+                    break;*/
             }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return loadFragments();
         });
 
 
-        bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNav.setOnNavigationItemSelectedListener(item -> {
 
-                switch (item.getItemId()) {
-                    case NAV_ACC:
-                        selectedFragment = new AccountFragment(MainActivity.this);
-                        tag = ConstantsResources.ACCOUNT_FRAGMENT;
-                        break;
-                    case NAV_CART:
+            switch (item.getItemId()) {
+                case NAV_ACC:
+                    selectedFragment = new AccountFragment(MainActivity.this);
+                    loadedFragment.push(selectedFragment);
+                    tag = ConstantsResources.ACCOUNT_FRAGMENT;
+                    break;
+                case NAV_CART:
+                    selectedFragment = cartFragment;
+                    loadedFragment.push(selectedFragment);
+                    tag = ConstantsResources.CART_FRAGMENT;
+                    break;
+                case NAV_CATEGORY:
+                    selectedFragment = categoryFragment;
+                    loadedFragment.push(selectedFragment);
+                    toolbar.setTitle("Category");
+                    tag = ConstantsResources.CATEGORY_FRAGMENT;
+                    break;
+                case NAV_HOME:
+                    selectedFragment = homeFragment;
+                    loadedFragment.push(selectedFragment);
+                    toolbar.setTitle("Home");
+                    tag = ConstantsResources.HOME_FRAGMENT;
+                    break;
 
-                        selectedFragment = cartFragment;
-                        tag = ConstantsResources.CART_FRAGMENT;
-                        break;
-                    case NAV_CATEGORY:
-
-                        selectedFragment = categoryFragment;
-                        tag = ConstantsResources.CATEGORY_FRAGMENT;
-                        break;
-                    case NAV_HOME:
-
-                        selectedFragment = homeFragment;
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        break;
-
-                }
-                return loadFragments();
             }
+            return loadFragments();
         });
 
 
@@ -191,6 +190,7 @@ public class MainActivity extends AppCompatActivity
 
         if (selectedFragment != null) {
 
+            Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
             if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
@@ -215,6 +215,9 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else {
             selectedFragment = homeFragment;
+
+
+            loadedFragment.push(selectedFragment);
             tag = ConstantsResources.HOME_FRAGMENT;
             loadFragments();
         }
@@ -232,7 +235,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.toolbar_search_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
 
-        searchView = (SearchView) menuItem.getActionView();
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint("What would you like to buy?");
 
 
@@ -272,21 +275,33 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
-        getSupportFragmentManager().popBackStack();
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
 
-        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) || tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||tag.equals(ConstantsResources.LOGIN_FRAGMENT)) {
+        if (loadedFragment.size()>1) {
+            //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
+
+            loadedFragment.pop();
+            selectedFragment = loadedFragment.pop();
+            loadFragments();
+        }
+        else super.onBackPressed();
+
+        /*if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||
+                    tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
+                    tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
+                    tag.equals(ConstantsResources.LOGIN_FRAGMENT))
+        {
             selectedFragment = new HomeFragment(this);
             tag = ConstantsResources.HOME_FRAGMENT;
             bottomNav.setSelectedItemId(R.id.nav_home);
             loadFragments();
         }
+        else super.onBackPressed();*/
 
    /* else if (getSupportFragmentManager().getBackStackEntryCount()>0)
         getSupportFragmentManager().popBackStack();*/
-        else super.onBackPressed();
+
     }
 
 
@@ -295,6 +310,7 @@ public class MainActivity extends AppCompatActivity
     public void homeToCategory(int cId, String cTitle) {
 
         selectedFragment = new CategoryFragment(cId, cTitle);
+        loadedFragment.push(selectedFragment);
         bottomNav.setSelectedItemId(NAV_CATEGORY);
         tag = ConstantsResources.CATEGORY_FRAGMENT;
         loadFragments();
@@ -306,6 +322,7 @@ public class MainActivity extends AppCompatActivity
     public void loadSingleProductData(String slug) {
 
         selectedFragment = new SingleProductFragment(slug, this, this, this);
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.SINGLE_PRODUCT_FRAGMENT;
         loadFragments();
     }
@@ -332,7 +349,8 @@ public class MainActivity extends AppCompatActivity
     public void showFullImage(String image, String slug) {
 
         selectedFragment = new ImageFragment(image, this, slug);
-        //tag = ConstantsResources.FULL_IMAGE_FRAGMENT;
+        loadedFragment.push(selectedFragment);
+        tag = ConstantsResources.FULL_IMAGE_FRAGMENT;
         loadFragments();
     }
 
@@ -342,6 +360,7 @@ public class MainActivity extends AppCompatActivity
     public void goToMyCart() {
 
         selectedFragment = cartFragment;
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.CART_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_cart);
         loadFragments();
@@ -353,6 +372,7 @@ public class MainActivity extends AppCompatActivity
     public void loginToRegistration() {
 
         selectedFragment = registerFragment;
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.REGISTRATION_FRAGMENT;
         loadFragments();
     }
@@ -362,6 +382,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void loginToHome() {
         selectedFragment = homeFragment;
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.HOME_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_home);
         loadFragments();
@@ -373,6 +394,7 @@ public class MainActivity extends AppCompatActivity
     public void goToLoginFromRegistration() {
 
         selectedFragment = loginFragment;
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.LOGIN_FRAGMENT;
         loadFragments();
     }
@@ -388,8 +410,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
-
         selectedFragment = new OrderFragment(this,productId, title, image, totalPrice, quantity, attributeOption);
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.ORDER_FRAGMENT;
         loadFragments();
     }
@@ -406,6 +428,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void accountToSettings(AccountViewModel viewModel) {
         selectedFragment = new SettingsFragment(viewModel);
+        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.SETTINGS_FRAGMENT;
         loadFragments();
     }

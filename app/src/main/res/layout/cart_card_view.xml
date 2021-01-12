@@ -34,61 +34,82 @@
                     android:layout_height="wrap_content"
                     android:text="@string/title"
                     android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed"
                     android:textSize="@dimen/_12sdp" />
-
-                <TextView
-                    android:id="@+id/cart_product_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:text="@string/price_1" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal">
-
                     <TextView
-                        android:id="@+id/cart_product_total_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/total_price" />
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/bdt"/>
+                    <TextView
+                        android:id="@+id/cart_product_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@string/price_1" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:weightSum="4"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_weight="1.80"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/bdt"/>
+                        <TextView
+                            android:id="@+id/cart_product_total_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/red"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/total_price" />
+                    </LinearLayout>
+
+
 
                     <ImageView
                         android:id="@+id/cart_product_quantity_sub"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="0.70"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_40sdp"
-                        android:background="@drawable/circular_back"
                         android:src="@drawable/ic_remove"
-                        android:padding="@dimen/_5sdp"
                         android:contentDescription="@string/todo" />
 
                     <TextView
                         android:id="@+id/cart_product_quantity"
-                        android:layout_width="@dimen/_40sdp"
+                        android:layout_weight="0.80"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
                         android:gravity="center"
                         android:text="@string/_1"
                         android:textColor="@color/black"
-                        android:padding="@dimen/_5sdp"
                         android:textSize="@dimen/_12sdp" />
 
                     <ImageView
                         android:id="@+id/cart_product_quantity_add"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="0.70"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:background="@drawable/circular_back"
                         android:src="@drawable/ic_add"
-                        android:padding="@dimen/_5sdp"
                         android:contentDescription="@string/todo" />
                 </LinearLayout>
 
@@ -106,8 +127,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:text="@string/checkout"
                         android:textAllCaps="false"
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                        android:textSize="@dimen/_10sdp"
+                        android:fontFamily="sans-serif-condensed"
                         android:background="@drawable/rounded_shape2"/>
 
                     <ImageView

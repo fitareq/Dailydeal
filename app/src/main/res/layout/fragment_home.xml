@@ -70,6 +70,7 @@
                     android:layout_gravity="end"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/show_all"
+                    android:textStyle="bold"
                     android:textSize="@dimen/_10sdp" />
 
 
@@ -78,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"
-                    android:background="#c8e6c9"/>
+                    android:background="#81c784"/>
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -132,13 +133,13 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/week_deals"
                     android:textColor="@color/black"
+                    android:padding="@dimen/_5sdp"
                     android:textSize="@dimen/_14sdp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/week_deals_rview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -164,6 +165,7 @@
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/top_rated"
                     android:textColor="@color/black"
+                    android:padding="@dimen/_5sdp"
                     android:textSize="@dimen/_14sdp" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -196,6 +198,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:text="@string/just_for_you"
+                    android:padding="@dimen/_5sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 

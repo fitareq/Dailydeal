@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnClickRoutes.categoryClickListener {
+public class HomeFragment extends Fragment implements OnClickRoutes.categoryListener {
 
 
     private SliderView sliderView;
@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
     private RecyclerView.LayoutManager categoriesManager;
 
     private List<Products> allProducts;
-    private List<Products> topRatedProducts = new ArrayList<>();
-    private List<Products> weekDealsProducts = new ArrayList<>();
+    private List<Products> topRatedProducts;
+    private List<Products> weekDealsProducts;
 
     private OnClickRoutes.homeClickListener loadcategory;
     //private LiveData<List<Slider>> sliderList;
@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
 
 
     public HomeFragment(OnClickRoutes.homeClickListener loadcategory) {
+
         this.loadcategory = loadcategory;
 
     }
@@ -106,13 +107,13 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
         CategoryRView.setNestedScrollingEnabled(false);
 
 
-        categoriesManager = new GridLayoutManager(getContext(),1,RecyclerView.HORIZONTAL,false);
+        categoriesManager = new GridLayoutManager(getContext(), 1, RecyclerView.HORIZONTAL, false);
         CategoryRView.setLayoutManager(categoriesManager);
         productsManager = new GridLayoutManager(getContext(), 2);
         ProductsRView.setLayoutManager(productsManager);
-        weekDealsManager = new GridLayoutManager(getContext(),2);
+        weekDealsManager = new GridLayoutManager(getContext(), 2);
         weekDealsRView.setLayoutManager(weekDealsManager);
-        topRatedManager = new GridLayoutManager(getContext(),2);
+        topRatedManager = new GridLayoutManager(getContext(), 2);
         topRatedRView.setLayoutManager(topRatedManager);
 
 
@@ -147,9 +148,9 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
             sliderView.setSliderAdapter(adapter);
         });
 
-        mViewModel.getCategoriesList().observe(getViewLifecycleOwner(),categories-> {
-                categoriesAdapter = new CategoriesAdapter(categories, this);
-                CategoryRView.setAdapter(categoriesAdapter);
+        mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), categories -> {
+            categoriesAdapter = new CategoriesAdapter(categories, this);
+            CategoryRView.setAdapter(categoriesAdapter);
 
         });
 
@@ -157,6 +158,7 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
         mViewModel.getBannerList().observe(getViewLifecycleOwner(), new Observer<List<Banner>>() {
             @Override
             public void onChanged(List<Banner> bannerList) {
+
                 bannerAdapter = new BannerAdapter(bannerList);
                 bannerView.setSliderAdapter(bannerAdapter);
             }
@@ -170,27 +172,29 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
 
 
 
-    private void initializeProducts(List<Products> products)
-    {
-        for (Products p: products)
-        {
-            if (p.getProductToprated()==1)
+    private void initializeProducts(List<Products> products) {
+
+        topRatedProducts = new ArrayList<>();
+        weekDealsProducts = new ArrayList<>();
+        for (Products p : products) {
+            if (p.getProductToprated() == 1)
                 topRatedProducts.add(p);
-            if (p.getProductWeekDeals()==1)
+            if (p.getProductWeekDeals() == 1)
                 weekDealsProducts.add(p);
         }
         weekDealsAdapter = new ProductsAdapter(weekDealsProducts, (OnClickRoutes.singleProductClickListener) getActivity());
         topRatedAdapter = new ProductsAdapter(topRatedProducts, (OnClickRoutes.singleProductClickListener) getActivity());
-        if (weekDealsProducts!=null)
-        weekDealsRView.setAdapter(weekDealsAdapter);
-        if (topRatedProducts!=null)
-        topRatedRView.setAdapter(topRatedAdapter);
+        if (weekDealsProducts != null)
+            weekDealsRView.setAdapter(weekDealsAdapter);
+        if (topRatedProducts != null)
+            topRatedRView.setAdapter(topRatedAdapter);
     }
 
 
 
     @Override
     public void onDestroy() {
+
         mViewModel.getSliderList().removeObservers(this);
         mViewModel.getProductsList().removeObservers(this);
         mViewModel.getCategoriesList().removeObservers(this);
@@ -201,12 +205,9 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryClic
 
     @Override
     public void categoryClickFCAdapterTCFragment(int cId, String cTitle) {
-        loadcategory.homeToCategory(cId,cTitle);
+
+        loadcategory.homeToCategory(cId, cTitle);
     }
-
-
-
-
 
 
 

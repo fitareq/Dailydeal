@@ -5,7 +5,7 @@ import com.dailydealbd.viewmodel.AccountViewModel;
 
 
 public interface OnClickRoutes {
-    interface categoryClickListener
+    interface categoryListener
     {
         void categoryClickFCAdapterTCFragment(int cId,String cTitle);
     }
@@ -19,8 +19,9 @@ public interface OnClickRoutes {
     interface cartAdapterClickListener
     {
         void deleteCart(Cart cart);
-        void updateCart(Cart cart);
+        void updateCart(Cart cart, int position);
         void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
+        void cartAllPrice(int price);
     }
     interface singleProductBackPressed
     {

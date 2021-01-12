@@ -24,6 +24,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private List<Cart> cartList;
     private View item;
     private OnClickRoutes.cartAdapterClickListener cartAdapterClickListener;
+    private int totPrice = 0;
 
     public CartAdapter(List<Cart> cartList, OnClickRoutes.cartAdapterClickListener cartAdapterClickListener)
     {
@@ -47,12 +48,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Cart current = cartList.get(position);
         String image = current.getProductImage();
         String title = current.getProductTitle();
+
         String price;
         String attributeOption = current.getAttributesOption();
         int quantity = current.getProductQuantity();
         String q = String.valueOf(quantity);
         int userId = 1;
-        int pr;
+        int pr=0;
         int productId = current.getProductId();
         String p;
         int totalPrice;
@@ -81,6 +83,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             p = p.replaceAll(" ", "");
             pr = Integer.parseInt(p);
             totalPrice = pr*quantity;
+            totPrice = totPrice+totalPrice;
             price = pr+"*"+quantity;
             holder.cartProductPrice.setText(price);
             holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
@@ -97,14 +100,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             int n = quantity+1;
             Cart cart = new Cart(userId, productId,n,"price",attributeOption,image,title );
             //cartAdapterClickListener.deleteCart(current);
-            cartAdapterClickListener.updateCart(cart);
+            cartAdapterClickListener.updateCart(cart, position);
         });
         holder.cartProductQuantitySub.setOnClickListener(v -> {
             if (quantity>1) {
                 int n = quantity-1;
                 Cart cart = new Cart(userId, productId, n, "price", attributeOption, image, title);
                 //cartAdapterClickListener.deleteCart(current);
-                cartAdapterClickListener.updateCart(cart);
+                cartAdapterClickListener.updateCart(cart, position);
             }
         });
         holder.cartProductCheckout.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +116,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 cartAdapterClickListener.checkoutCart(productId, title, image,holder.cartProductTotalPrice.getText().toString(),quantity,attributeOption);
             }
         });
+
+        cartAdapterClickListener.cartAllPrice(totPrice);
 
     }
 

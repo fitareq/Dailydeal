@@ -1,7 +1,11 @@
 package com.dailydealbd.view.fragments;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -9,13 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.aamarpay.library.AamarPay;
-import com.aamarpay.library.DialogBuilder;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CartAdapter;
 import com.dailydealbd.roomdata.model.Cart;
@@ -23,7 +20,7 @@ import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.CartViewModel;
 
-import org.json.JSONObject;
+import java.util.List;
 
 
 public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterClickListener {
@@ -43,13 +40,21 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
     private CartAdapter adapter;
     private RecyclerView.LayoutManager manager;
     private CartViewModel viewModel;
+    private Button cartAllCheckout;
+    private TextView cartAllPrice;
+    private String  price;
     private OnClickRoutes.cartClickListener cartClickListener;
+
+    private boolean isUserLoggedIn = false;
+    private int position = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.fragment_cart, container, false);
        recyclerView = v.findViewById(R.id.cart_recycler_view);
+       cartAllCheckout = v.findViewById(R.id.cart_all_product_checkout);
+       cartAllPrice = v.findViewById(R.id.cart_all_product_total_price);
 
        manager = new LinearLayoutManager(getContext());
        recyclerView.setHasFixedSize(true);
@@ -58,19 +63,23 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
        viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
            @Override
            public void onChanged(User user) {
-               if (user==null)
+               if (user!=null)
                {
-                   cartClickListener.cartToLogin();
+                   isUserLoggedIn = true;
+                   //cartClickListener.cartToLogin();
                }
            }
        });
        viewModel.getAllCart().observe(getViewLifecycleOwner(), carts -> {
            adapter = new CartAdapter(carts, CartFragment.this);
            recyclerView.setAdapter(adapter);
+           if (position!=0)
+               recyclerView.scrollToPosition(position);
        });
 
         return v;
     }
+
 
 
 
@@ -82,8 +91,9 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
 
 
     @Override
-    public void updateCart(Cart cart)
+    public void updateCart(Cart cart, int position)
     {
+        this.position = position;
         viewModel.updateCart(cart);
     }
 
@@ -91,7 +101,18 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
 
     @Override
     public void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
-        cartClickListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);
+
+        if (isUserLoggedIn)
+            cartClickListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);
+        else cartClickListener.cartToLogin();
+    }
+
+
+
+    @Override
+    public void cartAllPrice(int totPrice) {
+        this.price = String.valueOf(totPrice);
+        cartAllPrice.setText(price);
     }
 
 
