@@ -90,11 +90,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         }
 
+
         //holder.cartProductPrice.setText(p);
         holder.cartProductQuantity.setText(q);
        // holder.cartProductTotalPrice.setText(String.valueOf(totalPrice));
 
         holder.cartProductDelete.setOnClickListener(v -> cartAdapterClickListener.deleteCart(current));
+
 
         holder.cartProductQuantityAdd.setOnClickListener(v -> {
             int n = quantity+1;

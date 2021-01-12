@@ -2,11 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#c8e6c9"
-    android:weightSum="1"
     android:orientation="vertical">
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_10sdp">
+        <LinearLayout
+            android:id="@+id/cart_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/cart_back_btn"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@color/white"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/my_cart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/cart_recycler_view"
     android:layout_weight="0.92"
@@ -39,7 +68,7 @@
             android:fontFamily="sans-serif-condensed"
             android:textSize="@dimen/_12sdp"
             android:textColor="@color/red"
-            android:text="@string/price"/>
+            android:text="0"/>
         <Button
             android:id="@+id/cart_all_product_checkout"
             android:layout_weight="0.45"
