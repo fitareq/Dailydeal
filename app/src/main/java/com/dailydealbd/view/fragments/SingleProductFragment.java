@@ -203,8 +203,11 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         if (v.getId()==R.id.add_to_cart) {
             int q = Integer.parseInt(singleProductQuantity.getText().toString());
             attribute = editSpinner.getText().toString();
-            if (attribute.equals("Option"))
+            if (attribute.equals("Price option"))
+            {
+                editSpinner.setError("Required field");
                 Toast.makeText(getContext(), "Select an option", Toast.LENGTH_LONG).show();
+            }
             else {
                 cart = new Cart(0, productId, q, price, attribute, image, title);
                 viewModel.addToCart(cart);

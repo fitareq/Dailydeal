@@ -6,29 +6,36 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp"
-        android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/single_product_back_btn"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:src="@drawable/ic_back"
-            android:background="@color/white"
-            android:contentDescription="@string/todo" />
-        <TextView
-            android:layout_width="wrap_content"
+        app:cardElevation="@dimen/_10sdp">
+        <LinearLayout
+            android:id="@+id/single_product_bar_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/product_details"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"/>
-    </LinearLayout>
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/single_product_back_btn"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:background="@color/white"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/product_details"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
     <ScrollView
@@ -101,8 +108,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:dropDownDrawableSpacing="@dimen/_15sdp"
-                    app:dropDownDrawableWidth="@dimen/_30sdp"
-                    app:dropDownDrawableHeight="@dimen/_30sdp"
+                    app:dropDownDrawableWidth="@dimen/_20sdp"
+                    app:dropDownDrawableHeight="@dimen/_20sdp"
                     app:dropDownDrawable="@drawable/ic_expand_more"
                     android:background="@drawable/rounded_shape2"
                     android:text="@string/option"
