@@ -13,5 +13,6 @@
     <color name="green_light">#81c784</color>
     <color name="green_300">#66bb6a</color>
     <color name="green_900">#2e7d32</color>
+    <color name="red">#ff0000</color>
 
 </resources>

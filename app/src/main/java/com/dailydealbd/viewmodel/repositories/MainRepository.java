@@ -12,10 +12,12 @@ import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
+import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
+import com.dailydealbd.roomdata.model.dao.UserDao;
 
 import java.util.List;
 
@@ -31,6 +33,8 @@ public class MainRepository {
     private ProductsDao productsDao;
     private BannerDao bannerDao;
     private CategoriesDao categoriesDao;
+    private UserDao userDao;
+    private LiveData<User> user;
     private final DailyDealApi api;
     private final Application application;
 
@@ -45,8 +49,16 @@ public class MainRepository {
         productsDao = db.productsDao();
         bannerDao = db.bannerDao();
         categoriesDao = db.categoriesDao();
+        userDao = db.userDao();
+        user = userDao.getCurrentUser();
+
+    }
 
 
+
+    public LiveData<User> getUser() {
+
+        return user;
     }
 
 

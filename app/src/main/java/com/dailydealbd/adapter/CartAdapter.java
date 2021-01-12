@@ -47,7 +47,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         Cart current = cartList.get(position);
         String image = current.getProductImage();
         String title = current.getProductTitle();
-        String price = current.getProductPrice();
+        String price;
         String attributeOption = current.getAttributesOption();
         int quantity = current.getProductQuantity();
         String q = String.valueOf(quantity);

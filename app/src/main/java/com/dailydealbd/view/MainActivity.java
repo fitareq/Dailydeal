@@ -1,6 +1,5 @@
 package com.dailydealbd.view;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,14 +26,29 @@ import com.dailydealbd.view.fragments.ImageFragment;
 import com.dailydealbd.view.fragments.LoginFragment;
 import com.dailydealbd.view.fragments.OrderFragment;
 import com.dailydealbd.view.fragments.RegisterFragment;
+import com.dailydealbd.view.fragments.SettingsFragment;
 import com.dailydealbd.view.fragments.SingleProductFragment;
+import com.dailydealbd.viewmodel.AccountViewModel;
 import com.dailydealbd.viewmodel.HomeViewModel;
 import com.dailydealbd.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnClickRoutes.cartClickListener, OnClickRoutes.registrationClickListener, OnClickRoutes.loginClickListener, OnClickRoutes.singleProductMyCartClick, OnClickRoutes.singleProductImageClick, OnClickRoutes.fullImageClickListener, OnClickRoutes.singleProductBackPressed, OnClickRoutes.singleProductClickListener, OnClickRoutes.homeClickListener {
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener,
+                           OnClickRoutes.cartClickListener,
+                           OnClickRoutes.registrationClickListener,
+                           OnClickRoutes.loginClickListener,
+                           OnClickRoutes.singleProductMyCartClick,
+                           OnClickRoutes.singleProductImageClick,
+                           OnClickRoutes.fullImageClickListener,
+                           OnClickRoutes.singleProductBackPressed,
+                           OnClickRoutes.singleProductClickListener,
+                           OnClickRoutes.homeClickListener,
+                           OnClickRoutes.accountFragmentListener,
+                OnClickRoutes.orderFragmentListener
+{
 
 
     private ActionBarDrawerToggle toggle;
@@ -60,12 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final int DRW_CONDITION = R.id.nav_conditions;
     private final int NAV_CATEGORY = R.id.nav_category;
 
-    private final HomeFragment homeFragment = new HomeFragment(this);
-    private final CategoryFragment categoryFragment = new CategoryFragment();
-    private final CartFragment cartFragment = new CartFragment(this);
-    private final AccountFragment accountFragment = new AccountFragment();
-    private final LoginFragment loginFragment = new LoginFragment(this);
-    private final RegisterFragment registerFragment = new RegisterFragment(this);
+    private  HomeFragment homeFragment = new HomeFragment(this);
+    private  CategoryFragment categoryFragment = new CategoryFragment();
+    private  CartFragment cartFragment = new CartFragment(this);
+    private  AccountFragment accountFragment = new AccountFragment(this);
+    private  LoginFragment loginFragment = new LoginFragment(this);
+    private  RegisterFragment registerFragment = new RegisterFragment(this);
 
 
 
@@ -75,14 +89,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.fetchProductsDataFromRemote();
         viewModel.fetchSliderDataFromRemote();
         viewModel.fetchCategoriesDataFromRemote();
         viewModel.fetchBannerDataFromRemote();
-
-
         toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerLayoutId);
@@ -100,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (item.getItemId()) {
                     case DRW_ACC:
-                        selectedFragment = loginFragment;
+                        selectedFragment = new AccountFragment(MainActivity.this);
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         bottomNav.setSelectedItemId(R.id.nav_account);
                         break;
@@ -109,27 +120,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tag = ConstantsResources.CART_FRAGMENT;
                         bottomNav.setSelectedItemId(R.id.nav_cart);
                         break;
+                    case DRW_HOME:
                     case DRW_CONDITION:
+                    case DRW_CONTACT:
+                    case DRW_WISHLIST:
+                    case DRW_ORDER:
                         selectedFragment = homeFragment;
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
-                    case DRW_CONTACT:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                        tag = ConstantsResources.HOME_FRAGMENT;
-                        break;
-                    case DRW_HOME:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                        tag = ConstantsResources.HOME_FRAGMENT;*/
+
+                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
                         bottomNav.setSelectedItemId(R.id.nav_home);
-                        break;
-                    case DRW_WISHLIST:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                        break;*/
+
+                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
-                        break;
-                    case DRW_ORDER:
-                        selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
+                        break;*/
+
+                        /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
                         tag = ConstantsResources.HOME_FRAGMENT;
-                        break;
+                        break;*/
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return loadFragments();
@@ -143,18 +156,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch (item.getItemId()) {
                     case NAV_ACC:
-                        selectedFragment = loginFragment;
+                        selectedFragment = new AccountFragment(MainActivity.this);
                         tag = ConstantsResources.ACCOUNT_FRAGMENT;
                         break;
                     case NAV_CART:
+
                         selectedFragment = cartFragment;
                         tag = ConstantsResources.CART_FRAGMENT;
                         break;
                     case NAV_CATEGORY:
+
                         selectedFragment = categoryFragment;
                         tag = ConstantsResources.CATEGORY_FRAGMENT;
                         break;
                     case NAV_HOME:
+
                         selectedFragment = homeFragment;
                         tag = ConstantsResources.HOME_FRAGMENT;
                         break;
@@ -165,8 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        loadFragments();
-
+       loadFragments();
     }
 
 
@@ -176,10 +191,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (selectedFragment != null) {
 
-            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||tag.equals(ConstantsResources.ACCOUNT_FRAGMENT)) {
+            if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
+                        tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
+                        tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
+                        tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
+                        tag.equals(ConstantsResources.REGISTRATION_FRAGMENT)
+            ) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
-            } else {
+            } else if (tag.equals(ConstantsResources.CART_FRAGMENT))
+            {
+                toolbar.setVisibility(View.GONE);
+                bottomNav.setVisibility(View.VISIBLE);
+            }
+            else {
                 bottomNav.setVisibility(View.VISIBLE);
                 toolbar.setVisibility(View.VISIBLE);
             }
@@ -355,11 +380,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
+    public void cartToLogin() {
+        goToLoginFromRegistration();
+    }
+
+
+
+    @Override
     public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
 
-        selectedFragment = new OrderFragment(productId, title, image, totalPrice, quantity, attributeOption);
+        selectedFragment = new OrderFragment(this,productId, title, image, totalPrice, quantity, attributeOption);
         tag = ConstantsResources.ORDER_FRAGMENT;
         loadFragments();
+    }
+
+
+
+    @Override
+    public void accountToLogin() {
+        goToLoginFromRegistration();
+    }
+
+
+
+    @Override
+    public void accountToSettings(AccountViewModel viewModel) {
+        selectedFragment = new SettingsFragment(viewModel);
+        tag = ConstantsResources.SETTINGS_FRAGMENT;
+        loadFragments();
+    }
+
+
+
+    @Override
+    public void orderToCart() {
+        goToMyCart();
     }
 
 

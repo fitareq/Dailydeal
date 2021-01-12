@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.dailydealbd.utils.ConstantsResources;
+import com.google.gson.annotations.SerializedName;
 
 
 @Entity(tableName = ConstantsResources.TABLE_LOGGED_IN_USER)
@@ -15,39 +16,51 @@ public class User {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
+    @SerializedName("id")
     private final Integer userId;
 
     @ColumnInfo(name = "name")
+    @SerializedName("name")
     private final String userName;
 
     @ColumnInfo(name = "email")
+    @SerializedName("email")
     private final String userEmail;
 
     @ColumnInfo(name = "phone_number")
+    @SerializedName("phone_number")
     private final String phoneNumber;
 
     @ColumnInfo(name = "otp")
+    @SerializedName("otp")
     private final String otp;
 
     @ColumnInfo(name = "address")
+    @SerializedName("address")
     private final String address;
 
     @ColumnInfo(name = "delivery_phone")
+    @SerializedName("delivery_phone")
     private final String delivery_phone;
 
     @ColumnInfo(name = "delivery_address")
+    @SerializedName("delivery_address")
     private final String delivery_address;
 
     @ColumnInfo(name = "city_id")
+    @SerializedName("city_id")
     private final Integer city_id;
 
     @ColumnInfo(name = "gender")
+    @SerializedName("gender")
     private final Integer gender;
 
     @ColumnInfo(name = "status")
+    @SerializedName("status")
     private final Integer status;
 
     @ColumnInfo(name = "email_verified_at")
+    @SerializedName("email_verified_at")
     private final String email_verified_at;
 
 

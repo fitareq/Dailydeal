@@ -1,8 +1,10 @@
 package com.dailydealbd.roomdata.model.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.dailydealbd.roomdata.model.User;
@@ -13,14 +15,14 @@ import com.dailydealbd.utils.ConstantsResources;
 public interface UserDao {
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUser(User user);
 
-    @Delete
-    void deleteUser(User user);
+    @Query("DELETE FROM "+ConstantsResources.TABLE_LOGGED_IN_USER)
+    void deleteUser();
 
     @Query("SELECT * FROM " + ConstantsResources.TABLE_LOGGED_IN_USER)
-    User getCurrentUser();
+    LiveData<User> getCurrentUser();
 
 
 

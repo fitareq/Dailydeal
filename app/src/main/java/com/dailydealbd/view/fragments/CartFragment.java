@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.aamarpay.library.DialogBuilder;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CartAdapter;
 import com.dailydealbd.roomdata.model.Cart;
+import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.CartViewModel;
 
@@ -53,10 +55,20 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
        recyclerView.setHasFixedSize(true);
        recyclerView.setLayoutManager(manager);
        viewModel = new ViewModelProvider(this).get(CartViewModel.class);
+       viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+           @Override
+           public void onChanged(User user) {
+               if (user==null)
+               {
+                   cartClickListener.cartToLogin();
+               }
+           }
+       });
        viewModel.getAllCart().observe(getViewLifecycleOwner(), carts -> {
            adapter = new CartAdapter(carts, CartFragment.this);
            recyclerView.setAdapter(adapter);
        });
+
         return v;
     }
 

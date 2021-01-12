@@ -1,20 +1,25 @@
 package com.dailydealbd.view.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Login;
+import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.LoginViewModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -63,6 +68,16 @@ public class LoginFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
+        viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user!=null)
+                    if (!user.getUserName().isEmpty())
+                    {
+
+                    }
+            }
+        });
         viewModel.setLoginClickListener(loginClickListener);
 
 
@@ -78,9 +93,19 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String phone = userPhoneNumber.getText().toString();
                 String password = userPassword.getText().toString();
+                if (TextUtils.isEmpty(phone))
+                {
+                    userPhoneNumber.setError("Enter a valid number.");
 
-                Login login = new Login(phone,password);
-                viewModel.authenticateUserFromRemote(login);
+                }else if (TextUtils.isEmpty(phone))
+                {
+                    userPassword.setError("Enter a valid password.");
+
+                }else {
+                    Login login = new Login(phone, password);
+                    viewModel.authenticateUserFromRemote(login);
+
+                }
             }
         });
 

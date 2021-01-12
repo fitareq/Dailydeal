@@ -18,35 +18,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <ImageButton
                 android:id="@+id/account_back_btn"
-                android:layout_width="@dimen/_50sdp"
+                android:layout_weight="0.20"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_35sdp"
                 android:background="@color/white"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_back" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_88sdp"
-                android:layout_marginLeft="@dimen/_88sdp"
+                android:layout_weight="0.70"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:fontFamily="sans-serif-condensed"
                 android:text="@string/account"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_14sdp"
+                android:gravity="center_vertical"/>
 
-            <ImageView
+            <ImageButton
+                android:layout_weight="0.10"
                 android:id="@+id/account_settings_btn"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginStart="@dimen/_110sdp"
-                android:layout_marginLeft="@dimen/_110sdp"
-                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:contentDescription="@string/todo"
+                android:background="@color/white"
                 android:src="@drawable/ic_settings" />
 
         </LinearLayout>
@@ -65,33 +65,35 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/account_username"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:text="Shumsuzzoha Sunam"
+                    android:text="@string/username"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/account_user_phone"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:text="+8801858085086" />
+                    android:text="@string/phone_number" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="3"
-                    android:visibility="gone">
+                    android:visibility="visible"
+                    android:baselineAligned="false">
 
                 <RelativeLayout
-                    android:id="@+id/account_wishlist1"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -99,11 +101,11 @@
                     android:gravity="center">
 
                     <ImageView
-
-                        android:id="@+id/account_wishlist11"
+                        android:id="@+id/account_user_wish_list_image_view"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_25sdp"
-                        android:src="@drawable/ic_outline_favorite"/>
+                        android:src="@drawable/ic_outline_favorite"
+                        android:contentDescription="@string/todo" />
 
                     <TextView
                         android:gravity="center"
@@ -111,10 +113,7 @@
                         android:layout_height="wrap_content"
                         android:text="Wish List"
                         android:textColor="@color/black"
-                        android:layout_below="@+id/account_wishlist11"/>
-
-
-
+                        android:layout_below="@+id/account_user_wish_list_image_view"/>
                 </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/account_cart"

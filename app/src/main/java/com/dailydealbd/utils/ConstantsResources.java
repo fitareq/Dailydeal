@@ -25,6 +25,7 @@ public class ConstantsResources {
     public static final String FULL_IMAGE_FRAGMENT = "image_fragment";
     public static final String STORE_ID = "aamarpay";
     public static final String SIGNATURE_KEY = "28c78bb1f45112f5d40b956fe104645a";
+    public static final String SETTINGS_FRAGMENT = "settings_fragment";
 
 
 

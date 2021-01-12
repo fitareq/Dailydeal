@@ -1,6 +1,7 @@
 package com.dailydealbd.utils;
 
 import com.dailydealbd.roomdata.model.Cart;
+import com.dailydealbd.viewmodel.AccountViewModel;
 
 
 public interface OnClickRoutes {
@@ -48,7 +49,18 @@ public interface OnClickRoutes {
     }
     interface cartClickListener
     {
+        void cartToLogin();
         void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
+    }
+    interface accountFragmentListener
+    {
+        void accountToLogin();
+        void accountToSettings(AccountViewModel viewModel);
+
+    }
+    interface orderFragmentListener
+    {
+        void orderToCart();
     }
 
 }

@@ -1,7 +1,10 @@
 package com.dailydealbd.viewmodel.repositories;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.widget.Toast;
+
+import androidx.lifecycle.LiveData;
 
 import com.dailydealbd.network.APIInstance;
 import com.dailydealbd.network.DailyDealApi;
@@ -17,37 +20,58 @@ import retrofit2.Response;
 
 
 public class LoginRepository {
-    private User user;
+
+
+    private LiveData<User> user;
     private final DailyDealApi api;
     private UserDao userDao;
     private Application application;
     private OnClickRoutes.loginClickListener loginClickListener;
+
+
+
     public LoginRepository(Application application) {
+
         this.application = application;
         api = APIInstance.retroInstance().create(DailyDealApi.class);
         LocalDatabase db = LocalDatabase.getINSTANCE(application);
         userDao = db.userDao();
+        user = userDao.getCurrentUser();
     }
+
+
+
+    public LiveData<User> getUser() {
+
+        return user;
+    }
+
+
 
     public void setLoginClickListener(OnClickRoutes.loginClickListener loginClickListener) {
 
         this.loginClickListener = loginClickListener;
     }
 
+
+
     public void authenticateUserFromRemote(Login login) {
+
 
         Call<User> call = api.loginUser(login);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-                if (response.isSuccessful())
-                    if (response.code()==201)
-                    {
-                        Toast.makeText(application.getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
-                        saveAuthenticatedUserToLocal(response.body());
-                        loginClickListener.loginToHome();
-                    }else Toast.makeText(application.getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+                if (response.isSuccessful()) {
+
+                    Toast.makeText(application.getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
+                    saveAuthenticatedUserToLocal(response.body());
+                    loginClickListener.loginToHome();
+                } else {
+                    Toast.makeText(application.getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
+                }
+
             }
 
 
@@ -59,16 +83,14 @@ public class LoginRepository {
         });
     }
 
-    private void saveAuthenticatedUserToLocal(User user)
-    {
+
+
+    private void saveAuthenticatedUserToLocal(User user) {
 
         LocalDatabase.databaseWriteExecutors.execute(() -> userDao.insertUser(user));
     }
-    public User getUser()
-    {
-        user = userDao.getCurrentUser();
-        return user;
-    }
+
+
 
 
 }

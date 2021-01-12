@@ -23,6 +23,7 @@ import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.SingleProductViewModel;
 import com.reginald.editspinner.EditSpinner;
+import com.skyhope.showmoretextview.ShowMoreTextView;
 import com.smarteist.autoimageslider.SliderView;
 import com.squareup.picasso.Picasso;
 
@@ -32,11 +33,12 @@ import java.util.List;
 
 public class SingleProductFragment extends Fragment implements View.OnClickListener {
 
+
+    private ShowMoreTextView singleProductDescription;
     private SliderView sliderView;
     private EditSpinner editSpinner;
     private ImageButton productQuantityAdd, productQuantitySub, backBtn;
-    private TextView singleProductTitle,singleProductStock,
-                     singleProductDescription, singleProductSku,
+    private TextView singleProductTitle,singleProductStock, singleProductSku,
                      singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice;
     private ImageView ivWishlist, productImage;
     private Button myCart, addToCart;
@@ -91,6 +93,9 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         ivWishlist = v.findViewById(R.id.ivWishlist);
 
 
+
+
+
         addToCart.setOnClickListener(this);
         productQuantitySub.setOnClickListener(this);
         productQuantityAdd.setOnClickListener(this);
@@ -134,7 +139,18 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
             else singleProductTitle.setVisibility(View.GONE);
 
             if (description!=null)
+            {
+                description = description.replaceAll("<.*?>", "");
+
+                singleProductDescription.setShowingLine(3);
+                singleProductDescription.addShowMoreText("Read more");
+                singleProductDescription.addShowLessText("Read less");
+                singleProductDescription.setShowMoreColor(R.color.purple_700);
+                singleProductDescription.setShowLessTextColor(R.color.purple_700);
                 singleProductDescription.setText(description);
+
+
+            }
             else singleProductDescription.setVisibility(View.GONE);
 
             if (sku!=null) {
@@ -180,6 +196,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
         editSpinner.setEditable(false);
         editSpinner.setAdapter(adapter);
+        editSpinner.setListSelection(1);
     }
     @Override
     public void onClick(View v) {

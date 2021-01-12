@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c8e6c9"
-    android:orientation="vertical">
+    android:background="#c8e6c9">
 
     <LinearLayout
         android:id="@+id/settings_bar_layout"
@@ -23,10 +22,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_88sdp"
-            android:layout_marginLeft="@dimen/_88sdp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/settings"
             android:textColor="@color/black"
@@ -123,7 +120,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/settings_btn"
+        android:id="@+id/settings_sign_out_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rate_layout"
@@ -138,7 +135,7 @@
         android:id="@+id/settings_logo"
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/_70sdp"
-        android:layout_below="@+id/settings_btn"
+        android:layout_below="@+id/settings_sign_out_btn"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/_20sdp"
         android:src="@drawable/splash_remv_background"/>

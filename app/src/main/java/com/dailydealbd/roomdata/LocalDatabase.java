@@ -2,11 +2,9 @@ package com.dailydealbd.roomdata;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Cart;
@@ -23,7 +21,6 @@ import com.dailydealbd.roomdata.model.dao.UserDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 @Database(entities = {Slider.class, Products.class, Cart.class, Categories.class, Banner.class, User.class}, version = 1, exportSchema = false)
