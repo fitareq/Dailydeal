@@ -49,8 +49,7 @@ public class MainActivity extends AppCompatActivity
                            OnClickRoutes.singleProductClickListener,
                            OnClickRoutes.homeClickListener,
                            OnClickRoutes.accountFragmentListener,
-                OnClickRoutes.orderFragmentListener
-{
+                           OnClickRoutes.orderFragmentListener {
 
 
     private DrawerLayout drawerLayout;
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-       loadFragments();
+        loadFragments();
     }
 
 
@@ -190,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 
         if (selectedFragment != null) {
 
-            Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
+
             if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
@@ -199,12 +198,10 @@ public class MainActivity extends AppCompatActivity
             ) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
-            } else if (tag.equals(ConstantsResources.CART_FRAGMENT))
-            {
+            } else if (tag.equals(ConstantsResources.CART_FRAGMENT)) {
                 toolbar.setVisibility(View.GONE);
                 bottomNav.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 bottomNav.setVisibility(View.VISIBLE);
                 toolbar.setVisibility(View.VISIBLE);
             }
@@ -215,8 +212,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else {
             selectedFragment = homeFragment;
-
-
             loadedFragment.push(selectedFragment);
             tag = ConstantsResources.HOME_FRAGMENT;
             loadFragments();
@@ -272,20 +267,19 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     @Override
     public void onBackPressed() {
+
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
 
-        if (loadedFragment.size()>1) {
+        if (loadedFragment.size() >= 1) {
             //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
 
-            loadedFragment.pop();
+            //loadedFragment.pop();
             selectedFragment = loadedFragment.pop();
             loadFragments();
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
 
         /*if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||
                     tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
@@ -381,6 +375,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void loginToHome() {
+
         selectedFragment = homeFragment;
         loadedFragment.push(selectedFragment);
         tag = ConstantsResources.HOME_FRAGMENT;
@@ -403,6 +398,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void cartToLogin() {
+
         goToLoginFromRegistration();
     }
 
@@ -410,7 +406,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
-        selectedFragment = new OrderFragment(this,productId, title, image, totalPrice, quantity, attributeOption);
+
+        selectedFragment = new OrderFragment(this, productId, title, image, totalPrice, quantity, attributeOption);
         loadedFragment.push(selectedFragment);
         tag = ConstantsResources.ORDER_FRAGMENT;
         loadFragments();
@@ -420,6 +417,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void accountToLogin() {
+
         goToLoginFromRegistration();
     }
 
@@ -427,6 +425,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void accountToSettings(AccountViewModel viewModel) {
+
         selectedFragment = new SettingsFragment(viewModel);
         loadedFragment.push(selectedFragment);
         tag = ConstantsResources.SETTINGS_FRAGMENT;
@@ -437,6 +436,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void orderToCart() {
+
         goToMyCart();
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -38,8 +39,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     private SliderView sliderView;
     private EditSpinner editSpinner;
     private ImageButton productQuantityAdd, productQuantitySub, backBtn;
-    private TextView singleProductTitle,singleProductStock, singleProductSku,
-                     singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice;
+    private TextView singleProductTitle, singleProductStock, singleProductSku,
+            singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice;
     private ImageView ivWishlist, productImage;
     private Button myCart, addToCart;
     private final String slug;
@@ -60,12 +61,16 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     private OnClickRoutes.singleProductMyCartClick cartClick;
 
 
-    public SingleProductFragment(String slug, OnClickRoutes.singleProductMyCartClick cartClick, OnClickRoutes.singleProductBackPressed backPressed,OnClickRoutes.singleProductImageClick imageClick) {
+
+    public SingleProductFragment(String slug, OnClickRoutes.singleProductMyCartClick cartClick, OnClickRoutes.singleProductBackPressed backPressed, OnClickRoutes.singleProductImageClick imageClick) {
+
         this.slug = slug;
         this.backPressed = backPressed;
         this.imageClick = imageClick;
         this.cartClick = cartClick;
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,9 +98,6 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         ivWishlist = v.findViewById(R.id.ivWishlist);
 
 
-
-
-
         addToCart.setOnClickListener(this);
         productQuantitySub.setOnClickListener(this);
         productQuantityAdd.setOnClickListener(this);
@@ -103,7 +105,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         productImage.setOnClickListener(this);
         myCart.setOnClickListener(this);
 
-        viewModel= new ViewModelProvider(this).get(SingleProductViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SingleProductViewModel.class);
 
         return v;
 
@@ -113,33 +115,32 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         viewModel.setProduct(slug);
 
         viewModel.getProduct().observe(getViewLifecycleOwner(), products -> {
-            title        = products.getProductTitle();
-            description  = products.getProductDescription();
-            sku          = products.getProductSku();
-            price        = products.getProductPrice();
-            offerPrice   = products.getProductOfferPrice();
-            image        = products.getProductImage();
-            attribute    = products.getProductAttributeOptions();
-            productId    = products.getProductId();
+            title = products.getProductTitle();
+            description = products.getProductDescription();
+            sku = products.getProductSku();
+            price = products.getProductPrice();
+            offerPrice = products.getProductOfferPrice();
+            image = products.getProductImage();
+            attribute = products.getProductAttributeOptions();
+            productId = products.getProductId();
             stock = products.getProductQuantity();
             spinnerSelect(attribute);
             String qt = "Available: ";
-            if (image!=null)
-            {
-                String img = ConstantsResources.PRODUCT_IMAGE_BASE_URL+image;
+            if (image != null) {
+                String img = ConstantsResources.PRODUCT_IMAGE_BASE_URL + image;
                 Picasso.get().load(img).into(productImage);
             }
-            if (title!=null)
+            if (title != null)
                 singleProductTitle.setText(title);
             else singleProductTitle.setVisibility(View.GONE);
 
-            if (description!=null)
-            {
+            if (description != null) {
                 description = description.replaceAll("<.*?>", "");
 
                 singleProductDescription.setShowingLine(3);
@@ -150,44 +151,38 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
                 singleProductDescription.setText(description);
 
 
-            }
-            else singleProductDescription.setVisibility(View.GONE);
+            } else singleProductDescription.setVisibility(View.GONE);
 
-            if (sku!=null) {
+            if (sku != null) {
                 sku = "SKU: " + sku;
                 singleProductSku.setText(sku);
-            }
-            else singleProductSku.setText("SKU: null");
+            } else singleProductSku.setText("SKU: null");
 
-            if (price!=null)
+            if (price != null)
                 singleProductPrice.setText(price);
             else singleProductPrice.setText("null");
 
-            if (offerPrice!=null){
+            if (offerPrice != null) {
                 singleProductOfferPrice.setText(offerPrice);
                 singleProductPrice.setText(price);
                 singleProductPrice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            }else {
+            } else {
                 singleProductPrice.setText(price);
                 singleProductOfferPrice.setVisibility(View.GONE);
             }
 
 
-            if (stock >0)
+            if (stock > 0)
                 qt = qt + stock + " piece(s).";
             else qt = "Out of Stock";
             singleProductStock.setText(qt);
 
 
-
         });
 
 
-
-
-
-
     }
+
 
 
     private void spinnerSelect(String att) {
@@ -195,45 +190,44 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         String[] arrayList = att.split(",");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, arrayList);
         editSpinner.setEditable(false);
+        editSpinner.setText(arrayList[0]);
         editSpinner.setAdapter(adapter);
-        editSpinner.setListSelection(1);
+
     }
+
+
+
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.add_to_cart) {
+
+        if (v.getId() == R.id.add_to_cart) {
             int q = Integer.parseInt(singleProductQuantity.getText().toString());
+
             attribute = editSpinner.getText().toString();
-            if (attribute.equals("Price option"))
-            {
-                editSpinner.setError("Required field");
-                Toast.makeText(getContext(), "Select an option", Toast.LENGTH_LONG).show();
-            }
-            else {
-                cart = new Cart(0, productId, q, price, attribute, image, title);
-                viewModel.addToCart(cart);
-                Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_LONG).show();
-            }
-        }
-        else if (v.getId()==R.id.quantity_add)
-        {
+            if (attribute.contains("-")) {
+                int b = attribute.indexOf("-");
+                int l = attribute.length();
+                price = attribute.substring(b + 1, l - 1).replaceAll(" ", "");
+            } else price = attribute.replaceAll("[a-zA-Z]", "").replaceAll(" ", "");
+
+            String totalPrice = String.valueOf(Integer.parseInt(price)*q);
+            cart = new Cart(0, productId, q, price, attribute, image, title,totalPrice);
+            viewModel.addToCart(cart);
+            Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_LONG).show();
+        } else if (v.getId() == R.id.quantity_add) {
             ++quantity;
             singleProductQuantity.setText(String.valueOf(quantity));
 
-        }else if (v.getId()==R.id.quantity_sub)
-        {
-            if (quantity>1)
-            {
+        } else if (v.getId() == R.id.quantity_sub) {
+            if (quantity > 1) {
                 --quantity;
                 singleProductQuantity.setText(String.valueOf(quantity));
             }
-        }else if (v.getId()==R.id.single_product_back_btn)
-        {
+        } else if (v.getId() == R.id.single_product_back_btn) {
             backPressed.singleProductBackPressedListener();
-        }else if (v.getId()==R.id.single_product_image)
-        {
+        } else if (v.getId() == R.id.single_product_image) {
             imageClick.showFullImage(image, slug);
-        }else if (v.getId()==R.id.my_cart)
-        {
+        } else if (v.getId() == R.id.my_cart) {
             cartClick.goToMyCart();
         }
     }

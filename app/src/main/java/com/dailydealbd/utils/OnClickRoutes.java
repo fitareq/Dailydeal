@@ -20,8 +20,7 @@ public interface OnClickRoutes {
     {
         void deleteCart(Cart cart);
         void updateCart(Cart cart, int position);
-        void checkoutCart(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
-        void cartAllPrice(int price);
+        void checkoutCart(Cart cart);
     }
     interface singleProductBackPressed
     {

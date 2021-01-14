@@ -43,10 +43,13 @@ private final String productImage;
 @SerializedName("product_title")
 private final String productTitle;
 
+@ColumnInfo(name = "total_price")
+private final String productTotalPrice;
+
 
 
 public Cart(Integer userId, @NonNull Integer productId, Integer productQuantity,
-            String productPrice, String attributesOption, String productImage, String productTitle) {
+            String productPrice, String attributesOption, String productImage, String productTitle, String productTotalPrice) {
 
     this.userId = userId;
     this.productId = productId;
@@ -55,6 +58,7 @@ public Cart(Integer userId, @NonNull Integer productId, Integer productQuantity,
     this.attributesOption = attributesOption;
     this.productImage = productImage;
     this.productTitle = productTitle;
+    this.productTotalPrice = productTotalPrice;
 }
 
 
@@ -107,6 +111,10 @@ public String getProductTitle() {
     return productTitle;
 }
 
+public String getProductTotalPrice()
+{
+    return productTotalPrice;
+}
 
 
 

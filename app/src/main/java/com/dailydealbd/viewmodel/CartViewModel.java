@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.dailydealbd.roomdata.model.Cart;
+import com.dailydealbd.roomdata.model.Order;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.roomdata.model.dao.CartDao;
 import com.dailydealbd.viewmodel.repositories.CartRepository;
@@ -42,9 +43,9 @@ public class CartViewModel extends AndroidViewModel {
     {
         repository.updateCart(cart);
     }
-    public void subCartQuantity(int quantity)
+    public void checkOut(Order order)
     {
-        repository.subCartQuantity(quantity);
+        repository.placeOrder(order);
     }
 
 

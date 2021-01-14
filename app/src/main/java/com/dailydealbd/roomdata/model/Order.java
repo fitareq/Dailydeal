@@ -47,9 +47,26 @@ public class Order {
     private String price;
     private String shipping_cost;
     private String payment_method;
+    private String transaction_id;
 
 
     public Order(){};
+
+
+
+    public String getTransaction_id() {
+
+        return transaction_id;
+    }
+
+
+
+    public void setTransaction_id(String transaction_id) {
+
+        this.transaction_id = transaction_id;
+    }
+
+
 
     public void setProduct_id(Integer product_id) {
 

@@ -23,6 +23,7 @@
     <string name="show_all">Show All</string>
     <string name="this_is_splash_activity">This is splash activity</string>
     <string name="checkout">Checkout</string>
+    <string name="checkout_all">Checkout All</string>
     <string name="price">Price</string>
     <string name="title">Title</string>
     <string name="offer_price">Offer Price</string>

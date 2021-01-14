@@ -2,6 +2,7 @@ package com.dailydealbd.network;
 
 import com.dailydealbd.roomdata.model.Banner;
 import com.dailydealbd.roomdata.model.Categories;
+import com.dailydealbd.roomdata.model.City;
 import com.dailydealbd.roomdata.model.Login;
 import com.dailydealbd.roomdata.model.Order;
 import com.dailydealbd.roomdata.model.Products;
@@ -20,6 +21,9 @@ import retrofit2.http.Path;
 
 public interface DailyDealApi {
 
+
+    @GET("register/form")
+    Call<List<City>> getAllCity();
 
     @GET("products")
     Call<List<Products>> getAllProducts();

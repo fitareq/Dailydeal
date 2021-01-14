@@ -112,7 +112,7 @@
                     app:dropDownDrawableHeight="@dimen/_20sdp"
                     app:dropDownDrawable="@drawable/ic_expand_more"
                     android:background="@drawable/rounded_shape2"
-                    android:text="@string/option"
+
                     android:padding="@dimen/_5sdp"/>
             </androidx.cardview.widget.CardView>
 
