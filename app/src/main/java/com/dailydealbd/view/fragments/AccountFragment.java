@@ -14,11 +14,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dailydealbd.R;
+import com.dailydealbd.adapter.BannerAdapter;
+import com.dailydealbd.adapter.ProductsAdapter;
+import com.dailydealbd.adapter.SliderAdapter;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.AccountViewModel;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 
 public class AccountFragment extends Fragment {
@@ -27,12 +35,17 @@ public class AccountFragment extends Fragment {
     private TextView userName, userPhone;
     private Button AccountWishListBtn, AccountOrderBtn, AccountRegisterLogin;
     private AccountViewModel viewModel;
-    private ImageButton accountSettingsButton;
+    private ImageButton accountSettingsButton, accountBackBtn;
 
     private String user_name, user_phone;
 
     private OnClickRoutes.accountFragmentListener accountFragmentListener;
 
+    private SliderView sliderView;
+    private BannerAdapter adapter;
+    private RecyclerView recyclerView;
+    private ProductsAdapter productsAdapter;
+    private RecyclerView.LayoutManager productsManager;
 
 
     public AccountFragment(OnClickRoutes.accountFragmentListener accountFragmentListener) {
@@ -50,10 +63,27 @@ public class AccountFragment extends Fragment {
 
         userName = v.findViewById(R.id.account_username);
         userPhone = v.findViewById(R.id.account_user_phone);
+        accountBackBtn = v.findViewById(R.id.account_back_btn);
         accountSettingsButton = v.findViewById(R.id.account_settings_btn);
+        sliderView = v.findViewById(R.id.account_banner);
+        recyclerView = v.findViewById(R.id.just_for_you_account_rview);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.startAutoCycle();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
 
 
+        productsManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(productsManager);
 
+        accountBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountFragmentListener.accountToHome();
+            }
+        });
         return v;
     }
 
@@ -66,6 +96,16 @@ public class AccountFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(AccountViewModel.class);
         viewModel.setAccountFragmentListener(accountFragmentListener);
+
+
+        viewModel.getBanners().observe(getViewLifecycleOwner(),bannerList -> {
+            adapter = new BannerAdapter(bannerList);
+            sliderView.setSliderAdapter(adapter);
+        });
+        viewModel.getProducts().observe(getViewLifecycleOwner(),products -> {
+            productsAdapter = new ProductsAdapter(products, (OnClickRoutes.singleProductClickListener) getActivity());
+            recyclerView.setAdapter(productsAdapter);
+        });
         viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
 
             if (user != null) {

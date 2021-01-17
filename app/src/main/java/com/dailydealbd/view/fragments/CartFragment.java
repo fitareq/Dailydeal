@@ -75,7 +75,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
     private List<Cart> cartList;
     private LinearLayout cartContainer, checkoutContainer;
 
-    private ImageButton OrderBackBtn;
+    private ImageButton OrderBackBtn, cartBackBtn;
     private Button PlaceOderBtn;
     private EditText checkoutName, checkoutAddress, checkoutPhone, checkoutEmail, checkoutMessage;
     private EditSpinner spinner, checkoutCity;
@@ -115,7 +115,15 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
         checkoutEmail = v.findViewById(R.id.checkout_email);
         checkoutMessage = v.findViewById(R.id.checkout_message);
         spinner = v.findViewById(R.id.checkout_spinner);
+        cartBackBtn = v.findViewById(R.id.cart_back_btn);
 
+
+        cartBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cartClickListener.cartToHome();
+            }
+        });
 
         String[] arrayListCity = {"Dhaka", "Dhaka (outside)","Chittagong","Chittagong (outside)","Rajshahi","Rajshahi (outside)","Khulna","Khulna (outside)"};
         ArrayAdapter<String> cityOptionAdapter = new ArrayAdapter<>(getContext(), R.layout.support_simple_spinner_dropdown_item, arrayListCity);

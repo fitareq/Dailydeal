@@ -9,6 +9,7 @@ import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Registration;
 import com.dailydealbd.roomdata.model.Slider;
 import com.dailydealbd.roomdata.model.User;
+import com.dailydealbd.roomdata.model.WishList;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ import retrofit2.http.Path;
 
 public interface DailyDealApi {
 
+
+    @GET("user/wishlists/{id}")
+    Call<WishList> getWishList(@Path("id") int id);
 
     @GET("register/form")
     Call<List<City>> getAllCity();
@@ -48,6 +52,9 @@ public interface DailyDealApi {
 
     @POST("checkout")
     Call<Order> checkoutProduct(@Body Order checkOut);
+
+    @POST("user/wishlists/add")
+    Call<WishList> addToWishList(@Body WishList wishList);
 
 
 

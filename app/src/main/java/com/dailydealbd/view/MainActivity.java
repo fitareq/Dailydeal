@@ -13,9 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
+import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.view.fragments.AccountFragment;
@@ -35,6 +37,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
@@ -56,7 +59,6 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private BottomNavigationView bottomNav;
     private Fragment selectedFragment;
-    private Deque<Fragment> loadedFragment = new ArrayDeque<>();
     private String tag;
 
     private final int NAV_HOME = R.id.nav_home;
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity
         bottomNav = findViewById(R.id.bottom_nav);
 
 
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -107,13 +111,11 @@ public class MainActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case DRW_ACC:
                     selectedFragment = accountFragment;
-                    loadedFragment.push(selectedFragment);
                     tag = ConstantsResources.ACCOUNT_FRAGMENT;
                     bottomNav.setSelectedItemId(R.id.nav_account);
                     break;
                 case DRW_CART:
                     selectedFragment = cartFragment;
-                    loadedFragment.push(selectedFragment);
                     tag = ConstantsResources.CART_FRAGMENT;
                     bottomNav.setSelectedItemId(R.id.nav_cart);
                     break;
@@ -123,7 +125,6 @@ public class MainActivity extends AppCompatActivity
                 case DRW_WISHLIST:
                 case DRW_ORDER:
                     selectedFragment = homeFragment;
-                    loadedFragment.push(selectedFragment);
                     toolbar.setTitle("Home");
                     tag = ConstantsResources.HOME_FRAGMENT;
                     break;
@@ -153,23 +154,19 @@ public class MainActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case NAV_ACC:
                     selectedFragment = new AccountFragment(MainActivity.this);
-                    loadedFragment.push(selectedFragment);
                     tag = ConstantsResources.ACCOUNT_FRAGMENT;
                     break;
                 case NAV_CART:
                     selectedFragment = cartFragment;
-                    loadedFragment.push(selectedFragment);
                     tag = ConstantsResources.CART_FRAGMENT;
                     break;
                 case NAV_CATEGORY:
                     selectedFragment = categoryFragment;
-                    loadedFragment.push(selectedFragment);
                     toolbar.setTitle("Category");
                     tag = ConstantsResources.CATEGORY_FRAGMENT;
                     break;
                 case NAV_HOME:
                     selectedFragment = homeFragment;
-                    loadedFragment.push(selectedFragment);
                     toolbar.setTitle("Home");
                     tag = ConstantsResources.HOME_FRAGMENT;
                     break;
@@ -178,6 +175,20 @@ public class MainActivity extends AppCompatActivity
             return loadFragments();
         });
 
+        viewModel.getCarts().observe(this, new Observer<List<Cart>>() {
+            @Override
+            public void onChanged(List<Cart> cartList) {
+
+                if (cartList!=null)
+                {
+                    int size = cartList.size();
+                    if (size>0)
+                        bottomNav.getOrCreateBadge(R.id.nav_cart).setNumber(size);
+                    else
+                        bottomNav.removeBadge(R.id.nav_cart);
+                }
+            }
+        });
 
         loadFragments();
     }
@@ -194,14 +205,13 @@ public class MainActivity extends AppCompatActivity
                         tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
                         tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
-                        tag.equals(ConstantsResources.REGISTRATION_FRAGMENT)
+                        tag.equals(ConstantsResources.REGISTRATION_FRAGMENT)||
+                        tag.equals(ConstantsResources.CART_FRAGMENT)
             ) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
-            } else if (tag.equals(ConstantsResources.CART_FRAGMENT)) {
-                toolbar.setVisibility(View.GONE);
-                bottomNav.setVisibility(View.VISIBLE);
-            } else {
+            }
+             else {
                 bottomNav.setVisibility(View.VISIBLE);
                 toolbar.setVisibility(View.VISIBLE);
             }
@@ -212,7 +222,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else {
             selectedFragment = homeFragment;
-            loadedFragment.push(selectedFragment);
             tag = ConstantsResources.HOME_FRAGMENT;
             loadFragments();
         }
@@ -272,26 +281,24 @@ public class MainActivity extends AppCompatActivity
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-
-        if (loadedFragment.size() >= 1) {
             //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
 
             //loadedFragment.pop();
-            selectedFragment = loadedFragment.pop();
-            loadFragments();
-        } else super.onBackPressed();
+            /*loadFragments();
+        } else super.onBackPressed();*/
 
-        /*if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||
+        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||
                     tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
                     tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
-                    tag.equals(ConstantsResources.LOGIN_FRAGMENT))
+                    tag.equals(ConstantsResources.LOGIN_FRAGMENT)||
+                    tag.equals(ConstantsResources.CART_FRAGMENT))
         {
             selectedFragment = new HomeFragment(this);
             tag = ConstantsResources.HOME_FRAGMENT;
             bottomNav.setSelectedItemId(R.id.nav_home);
             loadFragments();
         }
-        else super.onBackPressed();*/
+        else super.onBackPressed();
 
    /* else if (getSupportFragmentManager().getBackStackEntryCount()>0)
         getSupportFragmentManager().popBackStack();*/
@@ -304,7 +311,6 @@ public class MainActivity extends AppCompatActivity
     public void homeToCategory(int cId, String cTitle) {
 
         selectedFragment = new CategoryFragment(cId, cTitle);
-        loadedFragment.push(selectedFragment);
         bottomNav.setSelectedItemId(NAV_CATEGORY);
         tag = ConstantsResources.CATEGORY_FRAGMENT;
         loadFragments();
@@ -316,7 +322,6 @@ public class MainActivity extends AppCompatActivity
     public void loadSingleProductData(String slug) {
 
         selectedFragment = new SingleProductFragment(slug, this, this, this);
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.SINGLE_PRODUCT_FRAGMENT;
         loadFragments();
     }
@@ -343,7 +348,6 @@ public class MainActivity extends AppCompatActivity
     public void showFullImage(String image, String slug) {
 
         selectedFragment = new ImageFragment(image, this, slug);
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.FULL_IMAGE_FRAGMENT;
         loadFragments();
     }
@@ -354,7 +358,6 @@ public class MainActivity extends AppCompatActivity
     public void goToMyCart() {
 
         selectedFragment = cartFragment;
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.CART_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_cart);
         loadFragments();
@@ -366,7 +369,6 @@ public class MainActivity extends AppCompatActivity
     public void loginToRegistration() {
 
         selectedFragment = registerFragment;
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.REGISTRATION_FRAGMENT;
         loadFragments();
     }
@@ -377,7 +379,6 @@ public class MainActivity extends AppCompatActivity
     public void loginToHome() {
 
         selectedFragment = homeFragment;
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.HOME_FRAGMENT;
         bottomNav.setSelectedItemId(R.id.nav_home);
         loadFragments();
@@ -389,7 +390,6 @@ public class MainActivity extends AppCompatActivity
     public void goToLoginFromRegistration() {
 
         selectedFragment = loginFragment;
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.LOGIN_FRAGMENT;
         loadFragments();
     }
@@ -405,10 +405,16 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
+    public void cartToHome() {
+        loginToHome();
+    }
+
+
+
+    @Override
     public void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption) {
 
         selectedFragment = new OrderFragment(this, productId, title, image, totalPrice, quantity, attributeOption);
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.ORDER_FRAGMENT;
         loadFragments();
     }
@@ -427,9 +433,15 @@ public class MainActivity extends AppCompatActivity
     public void accountToSettings(AccountViewModel viewModel) {
 
         selectedFragment = new SettingsFragment(viewModel);
-        loadedFragment.push(selectedFragment);
         tag = ConstantsResources.SETTINGS_FRAGMENT;
         loadFragments();
+    }
+
+
+
+    @Override
+    public void accountToHome() {
+        loginToHome();
     }
 
 

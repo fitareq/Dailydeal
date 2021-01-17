@@ -12,22 +12,25 @@ import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.Slider;
 import com.dailydealbd.roomdata.model.User;
+import com.dailydealbd.roomdata.model.WishList;
 import com.dailydealbd.roomdata.model.dao.BannerDao;
 import com.dailydealbd.roomdata.model.dao.CartDao;
 import com.dailydealbd.roomdata.model.dao.CategoriesDao;
 import com.dailydealbd.roomdata.model.dao.ProductsDao;
 import com.dailydealbd.roomdata.model.dao.SliderDao;
 import com.dailydealbd.roomdata.model.dao.UserDao;
+import com.dailydealbd.roomdata.model.dao.WishListDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Slider.class, Products.class, Cart.class, Categories.class, Banner.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {WishList.class,Slider.class, Products.class, Cart.class, Categories.class, Banner.class, User.class}, version = 1, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
 
 
     public abstract SliderDao sliderDao();
+    public abstract WishListDao wishListDao();
 
     public abstract ProductsDao productsDao();
 

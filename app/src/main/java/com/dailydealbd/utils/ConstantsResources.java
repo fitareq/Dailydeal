@@ -9,6 +9,7 @@ public class ConstantsResources {
     public static final String SLIDER_IMAGE_BASE_URL = "http://dailydeal.com.bd/public/images/sliders/";
     public static final String BANNER_IMAGE_BASE_URL = "http://dailydeal.com.bd/public/images/";
     public static final String TABLE_LOGGED_IN_USER = "user_logged_in";
+    public static final String TABLE_WISHLIST = "wishlist";
     public static final String TABLE_CART_USER = "cart";
     public static final String TABLE_ALL_PRODUCT = "all_products";
     public static final String TABLE_HOMEPAGE_BANNER = "homepage_banner";

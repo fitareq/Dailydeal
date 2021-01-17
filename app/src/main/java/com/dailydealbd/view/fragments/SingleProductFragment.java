@@ -16,10 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.Cart;
+import com.dailydealbd.roomdata.model.WishList;
 import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.SingleProductViewModel;
@@ -40,8 +42,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     private EditSpinner editSpinner;
     private ImageButton productQuantityAdd, productQuantitySub, backBtn;
     private TextView singleProductTitle, singleProductStock, singleProductSku,
-            singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice;
-    private ImageView ivWishlist, productImage;
+            singleProductQuantityTview, singleProductQuantity, singleProductPrice, singleProductOfferPrice, cartBadge;
+    private ImageView ivWishlist, ivWishlistAdded, productImage;
     private Button myCart, addToCart;
     private final String slug;
     private SingleProductViewModel viewModel;
@@ -53,7 +55,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
     String offerPrice;
     String image;
     String attribute;
-    int productId;
+    int userId = 0;
+    int productId = 0;
     int stock;
     int quantity = 1;
     private OnClickRoutes.singleProductBackPressed backPressed;
@@ -79,6 +82,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         View v = inflater.inflate(R.layout.fragment_single_product, container, false);
 
 
+        cartBadge = v.findViewById(R.id.cart_badge);
         backBtn = v.findViewById(R.id.single_product_back_btn);
         editSpinner = v.findViewById(R.id.price_option_spinner);
         productQuantityAdd = v.findViewById(R.id.quantity_add);
@@ -96,6 +100,7 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         myCart = v.findViewById(R.id.my_cart);
         addToCart = v.findViewById(R.id.add_to_cart);
         ivWishlist = v.findViewById(R.id.ivWishlist);
+        ivWishlistAdded = v.findViewById(R.id.ivWishlist_added);
 
 
         addToCart.setOnClickListener(this);
@@ -104,6 +109,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         backBtn.setOnClickListener(this);
         productImage.setOnClickListener(this);
         myCart.setOnClickListener(this);
+        ivWishlist.setOnClickListener(this);
+        ivWishlistAdded.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this).get(SingleProductViewModel.class);
 
@@ -119,6 +126,30 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
         super.onViewCreated(view, savedInstanceState);
 
         viewModel.setProduct(slug);
+
+
+        viewModel.getCarts().observe(getViewLifecycleOwner(), new Observer<List<Cart>>() {
+            @Override
+            public void onChanged(List<Cart> cartList) {
+                if (cartList!=null)
+                {
+                    int size = cartList.size();
+                    if (size>0)
+                    {
+                        cartBadge.setVisibility(View.VISIBLE);
+                        cartBadge.setText(String.valueOf(size));
+                    }
+                    else cartBadge.setVisibility(View.GONE);
+
+                }
+            }
+        });
+        viewModel.getUser().observe(getViewLifecycleOwner(), user ->
+        {
+            if (user != null) {
+                userId = user.getUserId();
+            }
+        });
 
         viewModel.getProduct().observe(getViewLifecycleOwner(), products -> {
             title = products.getProductTitle();
@@ -177,11 +208,25 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
             else qt = "Out of Stock";
             singleProductStock.setText(qt);
 
+        });
 
+        viewModel.getWishlist().observe(getViewLifecycleOwner(),wishLists -> {
+            if (wishLists!=null)
+            {
+                for (WishList w: wishLists)
+                {
+                    if (w.getProductId()==productId)
+                    {
+                        ivWishlist.setVisibility(View.GONE);
+                        ivWishlistAdded.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
         });
 
 
     }
+
 
 
 
@@ -210,8 +255,8 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
                 price = attribute.substring(b + 1, l - 1).replaceAll(" ", "");
             } else price = attribute.replaceAll("[a-zA-Z]", "").replaceAll(" ", "");
 
-            String totalPrice = String.valueOf(Integer.parseInt(price)*q);
-            cart = new Cart(0, productId, q, price, attribute, image, title,totalPrice);
+            String totalPrice = String.valueOf(Integer.parseInt(price) * q);
+            cart = new Cart(0, productId, q, price, attribute, image, title, totalPrice);
             viewModel.addToCart(cart);
             Toast.makeText(requireContext(), "Added to Cart", Toast.LENGTH_LONG).show();
         } else if (v.getId() == R.id.quantity_add) {
@@ -229,6 +274,20 @@ public class SingleProductFragment extends Fragment implements View.OnClickListe
             imageClick.showFullImage(image, slug);
         } else if (v.getId() == R.id.my_cart) {
             cartClick.goToMyCart();
+        } else if (v.getId() == R.id.ivWishlist) {
+            if (userId == 0) {
+                Toast.makeText(getContext(), "Please Login to add WishList", Toast.LENGTH_SHORT).show();
+            } else {
+                WishList wishList = new WishList(userId, productId, title, image, slug);
+                viewModel.addToWishlist(wishList);
+                ivWishlist.setVisibility(View.GONE);
+                ivWishlistAdded.setVisibility(View.VISIBLE);
+            }
+        } else if (v.getId() == R.id.ivWishlist_added) {
+            WishList wishList = new WishList(userId, productId, title, image, slug);
+            viewModel.deleteFromWishList(wishList);
+            ivWishlistAdded.setVisibility(View.GONE);
+            ivWishlist.setVisibility(View.VISIBLE);
         }
     }
 

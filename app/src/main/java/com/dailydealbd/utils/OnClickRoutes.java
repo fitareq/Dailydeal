@@ -50,12 +50,14 @@ public interface OnClickRoutes {
     interface cartClickListener
     {
         void cartToLogin();
+        void cartToHome();
         void cartToOrder(int productId, String title, String image, String totalPrice, int quantity, String attributeOption);
     }
     interface accountFragmentListener
     {
         void accountToLogin();
         void accountToSettings(AccountViewModel viewModel);
+        void accountToHome();
 
     }
     interface orderFragmentListener

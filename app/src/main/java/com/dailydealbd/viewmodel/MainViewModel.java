@@ -11,10 +11,13 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.dailydealbd.R;
+import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.ConstantsResources;
 import com.dailydealbd.viewmodel.repositories.MainRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 
 public class MainViewModel extends AndroidViewModel {
@@ -22,6 +25,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private MainRepository repository;
     private LiveData<User> user;
+    private LiveData<List<Cart>> carts;
 
 
     public MainViewModel(@NonNull Application application) {
@@ -29,6 +33,14 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
         repository = new MainRepository(application);
         user = repository.getUser();
+        carts = repository.getCarts();
+    }
+
+
+
+    public LiveData<List<Cart>> getCarts() {
+
+        return carts;
     }
 
 

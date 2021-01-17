@@ -7,9 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.dailydealbd.roomdata.model.Banner;
+import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.repositories.AccountRepository;
+
+import java.util.List;
 
 
 public class AccountViewModel extends AndroidViewModel {
@@ -17,6 +21,8 @@ public class AccountViewModel extends AndroidViewModel {
 
     private AccountRepository repository;
     private LiveData<User> user;
+    private LiveData<List<Products>> products;
+    private LiveData<List<Banner>> banners;
     private OnClickRoutes.accountFragmentListener accountFragmentListener;
 
 
@@ -26,6 +32,22 @@ public class AccountViewModel extends AndroidViewModel {
         super(application);
         repository = new AccountRepository(application);
         user = repository.getUserInfo();
+        products = repository.getProducts();
+        banners = repository.getBanners();
+    }
+
+
+
+    public LiveData<List<Products>> getProducts() {
+
+        return products;
+    }
+
+
+
+    public LiveData<List<Banner>> getBanners() {
+
+        return banners;
     }
 
 
