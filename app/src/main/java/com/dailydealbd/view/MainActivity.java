@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -30,6 +31,7 @@ import com.dailydealbd.view.fragments.OrderFragment;
 import com.dailydealbd.view.fragments.RegisterFragment;
 import com.dailydealbd.view.fragments.SettingsFragment;
 import com.dailydealbd.view.fragments.SingleProductFragment;
+import com.dailydealbd.view.fragments.WishlistFragment;
 import com.dailydealbd.viewmodel.AccountViewModel;
 import com.dailydealbd.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -100,8 +102,6 @@ public class MainActivity extends AppCompatActivity
         bottomNav = findViewById(R.id.bottom_nav);
 
 
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -119,13 +119,17 @@ public class MainActivity extends AppCompatActivity
                     tag = ConstantsResources.CART_FRAGMENT;
                     bottomNav.setSelectedItemId(R.id.nav_cart);
                     break;
+                case DRW_WISHLIST:
+                    selectedFragment = new WishlistFragment();
+                    tag = ConstantsResources.WISHLIST_FRAGMENT;
+                    break;
                 case DRW_HOME:
                 case DRW_CONDITION:
                 case DRW_CONTACT:
-                case DRW_WISHLIST:
+
                 case DRW_ORDER:
                     selectedFragment = homeFragment;
-                    toolbar.setTitle("Home");
+                    //toolbar.setTitle("Home");
                     tag = ConstantsResources.HOME_FRAGMENT;
                     break;
                     /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
@@ -175,14 +179,19 @@ public class MainActivity extends AppCompatActivity
             return loadFragments();
         });
 
+        bottomNav.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+        });
         viewModel.getCarts().observe(this, new Observer<List<Cart>>() {
             @Override
             public void onChanged(List<Cart> cartList) {
 
-                if (cartList!=null)
-                {
+                if (cartList != null) {
                     int size = cartList.size();
-                    if (size>0)
+                    if (size > 0)
                         bottomNav.getOrCreateBadge(R.id.nav_cart).setNumber(size);
                     else
                         bottomNav.removeBadge(R.id.nav_cart);
@@ -205,13 +214,12 @@ public class MainActivity extends AppCompatActivity
                         tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
                         tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
-                        tag.equals(ConstantsResources.REGISTRATION_FRAGMENT)||
+                        tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
                         tag.equals(ConstantsResources.CART_FRAGMENT)
             ) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
-            }
-             else {
+            } else {
                 bottomNav.setVisibility(View.VISIBLE);
                 toolbar.setVisibility(View.VISIBLE);
             }
@@ -281,24 +289,22 @@ public class MainActivity extends AppCompatActivity
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-            //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
 
-            //loadedFragment.pop();
+        //loadedFragment.pop();
             /*loadFragments();
         } else super.onBackPressed();*/
 
-        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT)||
+        if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
                     tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
                     tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
-                    tag.equals(ConstantsResources.LOGIN_FRAGMENT)||
-                    tag.equals(ConstantsResources.CART_FRAGMENT))
-        {
+                    tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
+                    tag.equals(ConstantsResources.CART_FRAGMENT)) {
             selectedFragment = new HomeFragment(this);
             tag = ConstantsResources.HOME_FRAGMENT;
             bottomNav.setSelectedItemId(R.id.nav_home);
             loadFragments();
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
 
    /* else if (getSupportFragmentManager().getBackStackEntryCount()>0)
         getSupportFragmentManager().popBackStack();*/
@@ -406,6 +412,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void cartToHome() {
+
         loginToHome();
     }
 
@@ -441,7 +448,33 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void accountToHome() {
+
         loginToHome();
+    }
+
+
+
+    @Override
+    public void accountToCart() {
+
+        goToMyCart();
+    }
+
+
+
+    @Override
+    public void accountToOrder() {
+
+    }
+
+
+
+    @Override
+    public void accountToWishList() {
+
+        selectedFragment = new WishlistFragment();
+        tag = ConstantsResources.WISHLIST_FRAGMENT;
+        loadFragments();
     }
 
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.dailydealbd.roomdata.model.Banner;
+import com.dailydealbd.roomdata.model.Cart;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
@@ -23,6 +24,7 @@ public class AccountViewModel extends AndroidViewModel {
     private LiveData<User> user;
     private LiveData<List<Products>> products;
     private LiveData<List<Banner>> banners;
+    private LiveData<List<Cart>> carts;
     private OnClickRoutes.accountFragmentListener accountFragmentListener;
 
 
@@ -34,6 +36,14 @@ public class AccountViewModel extends AndroidViewModel {
         user = repository.getUserInfo();
         products = repository.getProducts();
         banners = repository.getBanners();
+        carts = repository.getCarts();
+    }
+
+
+
+    public LiveData<List<Cart>> getCarts() {
+
+        return carts;
     }
 
 

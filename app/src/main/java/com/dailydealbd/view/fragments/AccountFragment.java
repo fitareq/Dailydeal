@@ -33,7 +33,7 @@ public class AccountFragment extends Fragment {
 
 
     private TextView userName, userPhone;
-    private Button AccountWishListBtn, AccountOrderBtn, AccountRegisterLogin;
+    private ImageButton AccountWishListBtn, AccountOrderBtn, AccountCartBtn;
     private AccountViewModel viewModel;
     private ImageButton accountSettingsButton, accountBackBtn;
 
@@ -61,6 +61,10 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account, container, false);
 
+
+        AccountWishListBtn = v.findViewById(R.id.account_user_wish_list_image_view);
+        AccountOrderBtn = v.findViewById(R.id.account_order_ib);
+        AccountCartBtn = v.findViewById(R.id.account_cart_ib);
         userName = v.findViewById(R.id.account_username);
         userPhone = v.findViewById(R.id.account_user_phone);
         accountBackBtn = v.findViewById(R.id.account_back_btn);
@@ -82,6 +86,24 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 accountFragmentListener.accountToHome();
+            }
+        });
+        AccountCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountFragmentListener.accountToCart();
+            }
+        });
+        AccountOrderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountFragmentListener.accountToOrder();
+            }
+        });
+        AccountWishListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accountFragmentListener.accountToWishList();
             }
         });
         return v;

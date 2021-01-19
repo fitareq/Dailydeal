@@ -16,6 +16,7 @@ public class ConstantsResources {
     public static final String TABLE_HOMEPAGE_SLIDER = "homepage_slider";
     public static final String TABLE_CATEGORIES = "categories";
     public static final String SINGLE_PRODUCT_FRAGMENT = "single_product_fragment";
+    public static final String WISHLIST_FRAGMENT = "wishlist_fragment";
     public static final String HOME_FRAGMENT = "home_fragment";
     public static final String CART_FRAGMENT = "cart_fragment";
     public static final String ACCOUNT_FRAGMENT = "account_fragment";

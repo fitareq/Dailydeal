@@ -58,6 +58,9 @@ public interface OnClickRoutes {
         void accountToLogin();
         void accountToSettings(AccountViewModel viewModel);
         void accountToHome();
+        void accountToCart();
+        void accountToOrder();
+        void accountToWishList();
 
     }
     interface orderFragmentListener
