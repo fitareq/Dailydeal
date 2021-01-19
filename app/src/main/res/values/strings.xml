@@ -65,4 +65,9 @@
     <string name="bdt">৳</string>
     <string name="product_details">Product Details</string>
     <string name="my_wishlist">My WishList</string>
+    <string name="dailydeal_address">32 Sultan Ahmed Plaza ,Purana Paltan 1000 Dhaka, Dhaka Division, Bangladesh</string>
+    <string name="dailydeal_email">support@dailydeal.com.bd</string>
+    <string name="customer_care">Customer Care</string>
+    <string name="customer_care_number">01705401056</string>
+
 </resources>
