@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dailydealbd.R;
 import com.dailydealbd.roomdata.model.WishList;
 import com.dailydealbd.utils.ConstantsResources;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,12 +23,14 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
 
 
     private List<WishList> wishLists;
+    private OnClickRoutes.wishlistAdapterListener wishlistAdapterListener;
 
 
 
-    public WishlistAdapter(List<WishList> wishLists) {
+    public WishlistAdapter(List<WishList> wishLists, OnClickRoutes.wishlistAdapterListener wishlistAdapterListener) {
 
         this.wishLists = wishLists;
+        this.wishlistAdapterListener = wishlistAdapterListener;
     }
 
 
@@ -49,6 +52,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
 
         String image = current.getProductImage();
         String title = current.getProductTitle();
+        String slug = current.getProductSlug();
 
         if (image != null) {
             String img = ConstantsResources.PRODUCT_IMAGE_BASE_URL + image;
@@ -57,6 +61,24 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.Wishli
         if (title != null) {
             holder.productTitleTView.setText(title);
         }
+        holder.deleteIBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wishlistAdapterListener.wishlistDeleteBtnClickListener(current);
+            }
+        });
+        holder.productTitleTView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wishlistAdapterListener.wishlistItemClickListener(slug);
+            }
+        });
+        holder.productIView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wishlistAdapterListener.wishlistItemClickListener(slug);
+            }
+        });
     }
 
 

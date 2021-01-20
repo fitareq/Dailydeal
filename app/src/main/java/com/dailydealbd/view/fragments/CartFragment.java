@@ -1,8 +1,5 @@
 package com.dailydealbd.view.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,37 +22,26 @@ import com.aamarpay.library.AamarPay;
 import com.aamarpay.library.DialogBuilder;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CartAdapter;
-import com.dailydealbd.network.APIInstance;
-import com.dailydealbd.network.DailyDealApi;
 import com.dailydealbd.roomdata.model.Cart;
-import com.dailydealbd.roomdata.model.City;
 import com.dailydealbd.roomdata.model.Order;
 import com.dailydealbd.roomdata.model.User;
 import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.CartViewModel;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.snackbar.Snackbar;
 import com.reginald.editspinner.EditSpinner;
 
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterClickListener {
 
 
-    public CartFragment(OnClickRoutes.cartClickListener cartClickListener) {
+    public CartFragment(OnClickRoutes.cartFragmentListener cartFragmentListener) {
 
         // Required empty public constructor
-        this.cartClickListener = cartClickListener;
+        this.cartFragmentListener = cartFragmentListener;
     }
 
 
@@ -67,7 +53,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
     private Button cartAllCheckout;
     private TextView cartAllPrice;
     private String price;
-    private OnClickRoutes.cartClickListener cartClickListener;
+    private OnClickRoutes.cartFragmentListener cartFragmentListener;
 
     private boolean isUserLoggedIn = false;
     private int position = 0;
@@ -121,7 +107,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
         cartBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cartClickListener.cartToHome();
+                cartFragmentListener.cartToHome();
             }
         });
 
@@ -149,7 +135,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
                 if (user != null) {
                     isUserLoggedIn = true;
                     cUser = user;
-                    //cartClickListener.cartToLogin();
+                    //cartFragmentListener.cartToLogin();
                 }
             }
         });
@@ -341,7 +327,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
     public void checkoutCart(Cart cart) {
 
 
-        /*cartClickListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);*/
+        /*cartFragmentListener.cartToOrder(productId, title, image, totalPrice, quantity,attributeOption);*/
         this.cart = cart;
         isCheckoutAll = false;
         initializeCheckout();
@@ -383,7 +369,7 @@ public class CartFragment extends Fragment implements OnClickRoutes.cartAdapterC
             checkoutName.setText(cUser.getUserName());
             checkoutEmail.setText(cUser.getUserEmail());
             checkoutPhone.setText(cUser.getPhoneNumber());
-        } else cartClickListener.cartToLogin();
+        } else cartFragmentListener.cartToLogin();
     }
 
 

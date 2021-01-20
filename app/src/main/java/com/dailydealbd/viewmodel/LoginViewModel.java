@@ -17,7 +17,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     private LoginRepository repository;
     private LiveData<User> user;
-    private OnClickRoutes.loginClickListener loginClickListener;
+    private OnClickRoutes.loginFragmentListener loginFragmentListener;
     public LoginViewModel(@NonNull Application application) {
 
         super(application);
@@ -34,10 +34,10 @@ public class LoginViewModel extends AndroidViewModel {
 
 
 
-    public void setLoginClickListener(OnClickRoutes.loginClickListener loginClickListener) {
+    public void setLoginFragmentListener(OnClickRoutes.loginFragmentListener loginFragmentListener) {
 
-        this.loginClickListener = loginClickListener;
-        repository.setLoginClickListener(loginClickListener);
+        this.loginFragmentListener = loginFragmentListener;
+        repository.setLoginFragmentListener(loginFragmentListener);
     }
 
 
@@ -50,6 +50,6 @@ public class LoginViewModel extends AndroidViewModel {
 
     public  void gotoRegistration()
     {
-        loginClickListener.loginToRegistration();
+        loginFragmentListener.loginToRegistration();
     }
 }

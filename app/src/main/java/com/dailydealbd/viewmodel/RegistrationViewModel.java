@@ -3,6 +3,7 @@ package com.dailydealbd.viewmodel;
 import android.app.Application;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,7 @@ public class RegistrationViewModel extends AndroidViewModel {
         repository.setRegistrationClickListener(registrationClickListener);
     }
 
-    void registerNewUser(Registration registration) {
+    public void registerNewUser(Registration registration) {
 
         repository.rUser(registration);
         showProgress();
@@ -55,28 +56,7 @@ public class RegistrationViewModel extends AndroidViewModel {
 
 
 
-    public void userInputValidation(String name, String phone, String email, String password, String confirmPassword) {
 
-        if (TextUtils.isEmpty(name)) {
-            Toast.makeText(getApplication().getApplicationContext(), "Enter a name", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(phone)) {
-            Toast.makeText(getApplication().getApplicationContext(), "Enter a phone number", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplication().getApplicationContext(), "Enter an email", Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplication().getApplicationContext(), "Enter a password", Toast.LENGTH_LONG).show();
-        } else if (!TextUtils.equals(password, confirmPassword)) {
-            Toast toast = new Toast(getApplication().getApplicationContext());
-            toast.setGravity(Gravity.CENTER,0, 0);
-            toast.setText("Password didn't match");
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.show();
-            //Toast.makeText(getApplication().getApplicationContext(), "Password didn't match", Toast.LENGTH_LONG).show();
-        } else {
-            Registration user = new Registration(name, email, password, phone);
-            registerNewUser(user);
-        }
-    }
 
 
 

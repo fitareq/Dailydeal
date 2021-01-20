@@ -14,10 +14,12 @@ import android.widget.ImageButton;
 
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.WishlistAdapter;
+import com.dailydealbd.roomdata.model.WishList;
+import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.viewmodel.WishlistViewModel;
 
 
-public class WishlistFragment extends Fragment {
+public class WishlistFragment extends Fragment implements OnClickRoutes.wishlistAdapterListener {
 
 
     private RecyclerView wishlistRView;
@@ -25,11 +27,13 @@ public class WishlistFragment extends Fragment {
     private ImageButton wishlistBackBtn;
     private RecyclerView.LayoutManager manager;
     private WishlistViewModel viewModel;
+    private OnClickRoutes.wishlistFragmentListener wishlistFragmentListener;
 
 
 
-    public WishlistFragment() {
+    public WishlistFragment(OnClickRoutes.wishlistFragmentListener wishlistFragmentListener) {
         // Required empty public constructor
+        this.wishlistFragmentListener = wishlistFragmentListener;
     }
 
 
@@ -49,10 +53,31 @@ public class WishlistFragment extends Fragment {
 
 
         viewModel.getWishList().observe(getViewLifecycleOwner(),wishLists -> {
-            adapter = new WishlistAdapter(wishLists);
+            adapter = new WishlistAdapter(wishLists, this);
             wishlistRView.setAdapter(adapter);
         });
+
+        wishlistBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wishlistFragmentListener.wishlishtBackBtnPressed();
+            }
+        });
         return v;
+    }
+
+
+
+    @Override
+    public void wishlistDeleteBtnClickListener(WishList wishList) {
+        viewModel.deleteWishlist(wishList);
+    }
+
+
+
+    @Override
+    public void wishlistItemClickListener(String slug) {
+        wishlistFragmentListener.wishlistToSingleProduct(slug);
     }
 
 

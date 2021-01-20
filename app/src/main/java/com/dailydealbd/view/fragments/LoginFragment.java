@@ -1,6 +1,5 @@
 package com.dailydealbd.view.fragments;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,8 +26,8 @@ import com.google.android.material.textfield.TextInputEditText;
 public class LoginFragment extends Fragment {
 
 
-    public LoginFragment(OnClickRoutes.loginClickListener loginClickListener) {
-        this.loginClickListener = loginClickListener;
+    public LoginFragment(OnClickRoutes.loginFragmentListener loginFragmentListener) {
+        this.loginFragmentListener = loginFragmentListener;
         // Required empty public constructor
     }
 
@@ -40,7 +38,7 @@ public class LoginFragment extends Fragment {
     private TextView forgotPassword;
     private TextView registerTview;
     private LoginViewModel viewModel;
-    private OnClickRoutes.loginClickListener loginClickListener;
+    private OnClickRoutes.loginFragmentListener loginFragmentListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +64,7 @@ public class LoginFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         viewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
@@ -78,7 +77,7 @@ public class LoginFragment extends Fragment {
                     }
             }
         });
-        viewModel.setLoginClickListener(loginClickListener);
+        viewModel.setLoginFragmentListener(loginFragmentListener);
 
 
         registerTview.setOnClickListener(new View.OnClickListener() {
@@ -91,19 +90,23 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginButton.setText("Processing...");
                 String phone = userPhoneNumber.getText().toString();
                 String password = userPassword.getText().toString();
                 if (TextUtils.isEmpty(phone))
                 {
                     userPhoneNumber.setError("Enter a valid number.");
+                    loginButton.setText("Login");
 
                 }else if (TextUtils.isEmpty(phone))
                 {
                     userPassword.setError("Enter a valid password.");
+                    loginButton.setText("Login");
 
                 }else {
                     Login login = new Login(phone, password);
                     viewModel.authenticateUserFromRemote(login);
+                    //loginButton.setText("Login");
 
                 }
             }
@@ -114,7 +117,7 @@ public class LoginFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginClickListener.loginToHome();
+                loginFragmentListener.loginToHome();
             }
         });
     }

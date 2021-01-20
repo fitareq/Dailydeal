@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,15 +17,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dailydealbd.R;
 import com.dailydealbd.adapter.CategoriesAdapter;
 import com.dailydealbd.adapter.ProductsAdapter;
+import com.dailydealbd.roomdata.model.Categories;
 import com.dailydealbd.roomdata.model.Products;
 import com.dailydealbd.utils.OnClickRoutes;
+import com.dailydealbd.viewmodel.CategoryViewModel;
 import com.dailydealbd.viewmodel.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CategoryFragment extends Fragment implements OnClickRoutes.categoryListener {
+public class CategoryFragment extends Fragment implements OnClickRoutes.categoryAdapterListener {
 
 
     private RecyclerView categoryListRView;
@@ -36,18 +39,16 @@ public class CategoryFragment extends Fragment implements OnClickRoutes.category
     private RecyclerView.LayoutManager categoryProductsManager;
 
     private TextView categoryTitle;
+    private CategoryViewModel viewModel;
 
-    private HomeViewModel mViewModel;
-    private int categoryId = 0;
-    private String cTitle;
+    private int cid;
+    private String title;
 
 
-public CategoryFragment(){}
 
-    public CategoryFragment(int categoryId, String cTitle) {
-
-        this.categoryId = categoryId;
-        this.cTitle = cTitle;
+    public CategoryFragment(int cid, String title) {
+        this.cid = cid;
+        this.title = title;
     }
 
 
@@ -67,6 +68,7 @@ public CategoryFragment(){}
         categoryProductsRView.setHasFixedSize(true);
         categoryProductsManager = new GridLayoutManager(getContext(), 2, RecyclerView.VERTICAL, false);
         categoryProductsRView.setLayoutManager(categoryProductsManager);
+        viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         return v;
     }
 
@@ -77,47 +79,32 @@ public CategoryFragment(){}
 
         super.onViewCreated(view, savedInstanceState);
 
-        mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        mViewModel.getCategoriesList().observe(getViewLifecycleOwner(), categories -> {
-            categoryListAdapter = new CategoriesAdapter(categories, (OnClickRoutes.categoryListener) this);
-            categoryListRView.setAdapter(categoryListAdapter);
-            if (categoryId == 0)
-                if (categories != null)
-                    if (categories.size() > 0) {
-                        categoryId = categories.get(0).getCategoryId();
-                        cTitle = categories.get(0).getCategoryName();
-                        LoadCategoryProducts(categoryId, cTitle);
-                    }
-        });
 
-        if (categoryId!=0)
-        {
-            LoadCategoryProducts(categoryId,cTitle);
-        }
+       viewModel.getCategories().observe(getViewLifecycleOwner(),categories -> {
+           categoryListAdapter = new CategoriesAdapter(categories, this);
+           categoryListRView.setAdapter(categoryListAdapter);
+           if (cid==0||title==null) {
+               if (categories != null)
+                   if (categories.size() > 0) {
+                       LoadCategoryProducts(categories.get(0).getCategoryId(), categories.get(0).getCategoryName());
+                   }
+           }else LoadCategoryProducts(cid,title);
+       });
+
+
 
     }
 
 
 
-    private void setCategoryTitleText(String titleText) {
 
-        categoryTitle.setText(titleText);
-    }
-
-
-
-    @Override
-    public void categoryClickFCAdapterTCFragment(int cId, String title) {
-
-        LoadCategoryProducts(cId, title);
-    }
 
 
 
     private void LoadCategoryProducts(int cId, String title) {
 
-        setCategoryTitleText(title);
-        mViewModel.getProductsList().observe(getViewLifecycleOwner(), product -> {
+        categoryTitle.setText(title);
+        viewModel.getProducts().observe(getViewLifecycleOwner(), product -> {
             List<Products> categoryProducts = new ArrayList<>();
             if (product != null)
                 if (product.size() > 0) {
@@ -131,6 +118,13 @@ public CategoryFragment(){}
                     categoryProductsRView.setAdapter(categoryProductsAdapter);
                 }
         });
+    }
+
+
+
+    @Override
+    public void categoryClick(int cId, String title) {
+        LoadCategoryProducts(cId,title);
     }
 
 

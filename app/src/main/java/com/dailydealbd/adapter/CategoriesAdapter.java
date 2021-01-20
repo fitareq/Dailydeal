@@ -20,13 +20,12 @@ import java.util.List;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
     private List<Categories> categories;
-    private OnClickRoutes.categoryListener onClickFromCategoryFragment;
-    private View itemV;
+    private OnClickRoutes.categoryAdapterListener categoryAdapterListener;
 
-    public CategoriesAdapter(List<Categories> categories, OnClickRoutes.categoryListener onClickFromCategoryFragment)
+    public CategoriesAdapter(List<Categories> categories, OnClickRoutes.categoryAdapterListener categoryAdapterListener)
     {
         this.categories = categories;
-        this.onClickFromCategoryFragment = onClickFromCategoryFragment;
+        this.categoryAdapterListener = categoryAdapterListener;
 
     }
 
@@ -58,13 +57,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             holder.categoryTitle.setText(title);
         }else holder.categoryTitle.setVisibility(View.GONE);
 
-        itemV.setOnClickListener(new View.OnClickListener() {
+        holder.categoryImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickFromCategoryFragment.categoryClickFCAdapterTCFragment(id,title);
+                categoryAdapterListener.categoryClick(id,title);
             }
         });
 
+        holder.categoryTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryAdapterListener.categoryClick(id,title);
+            }
+        });
     }
 
 
@@ -87,7 +92,6 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         super(itemView);
         categoryImage = itemView.findViewById(R.id.category_image);
         categoryTitle = itemView.findViewById(R.id.category_title);
-        itemV = itemView;
     }
 
 
