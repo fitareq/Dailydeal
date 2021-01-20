@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -212,7 +213,7 @@ public class MainActivity extends AppCompatActivity
             }
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, selectedFragment)
+                    .replace(R.id.fragment_container, selectedFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .commit();
             return true;
         } else {

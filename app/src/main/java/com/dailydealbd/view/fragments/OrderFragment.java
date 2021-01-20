@@ -196,8 +196,8 @@ public class OrderFragment extends Fragment {
             AlertDialog alertDialog = null;
             DialogBuilder dialogBuilder = new DialogBuilder(getContext(), alertDialog);
             dialogBuilder.showLoading();
-            AamarPay aamarPay = new AamarPay(getContext(), "aamarpay", "28c78bb1f45112f5d40b956fe104645a");
-            aamarPay.testMode(true);
+            AamarPay aamarPay = new AamarPay(getContext(), "dailydeal", "4e7e973fafe5aaac2e0b84fc3ee666c6");
+            aamarPay.testMode(false);
             aamarPay.autoGenerateTransactionID(true);
             String trxId = aamarPay.generate_trx_id();
             aamarPay.setTransactionID(trxId);
