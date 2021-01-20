@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class ContactUsFragment extends Fragment {
 
     private TextView callbtn;
     private ImageView mapbtn;
+    private ImageButton contactUsBackBtn;
 
     private OnClickRoutes.contactUsFragmentListener contactUsFragmentListener;
 
@@ -34,8 +36,9 @@ public class ContactUsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.contact_us,container,false);
-        callbtn = v.findViewById(R.id.map);
-        mapbtn = v.findViewById(R.id.phone_number);
+        callbtn = v.findViewById(R.id.phone_number);
+        mapbtn = v.findViewById(R.id.map);
+        contactUsBackBtn = v.findViewById(R.id.contact_us_back_btn);
 
         mapbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +51,12 @@ public class ContactUsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 contactUsFragmentListener.conctactUsPhoneClickListener();
+            }
+        });
+        contactUsBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contactUsFragmentListener.contactUsBackPressed();
             }
         });
 

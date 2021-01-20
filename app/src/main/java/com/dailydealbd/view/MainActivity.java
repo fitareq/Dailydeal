@@ -46,7 +46,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
-OnClickRoutes.contactUsFragmentListener,
+                           OnClickRoutes.contactUsFragmentListener,
                            OnClickRoutes.cartFragmentListener,
                            OnClickRoutes.registrationClickListener,
                            OnClickRoutes.loginFragmentListener,
@@ -192,15 +192,14 @@ OnClickRoutes.contactUsFragmentListener,
             tag = selectedFragment.getClass().getCanonicalName();
 
 
-            Toast.makeText(this, tag, Toast.LENGTH_SHORT).show();
-
             if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
                         tag.equals(ConstantsResources.ORDER_FRAGMENT) ||
                         tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
                         tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
                         tag.equals(ConstantsResources.CART_FRAGMENT) ||
-                        tag.equals(ConstantsResources.WISHLIST_FRAGMENT)
+                        tag.equals(ConstantsResources.WISHLIST_FRAGMENT) ||
+                        tag.equals(ConstantsResources.CONTACTUS_FRAGMENT)
             ) {
                 bottomNav.setVisibility(View.GONE);
                 toolbar.setVisibility(View.GONE);
@@ -472,7 +471,8 @@ OnClickRoutes.contactUsFragmentListener,
 
     @Override
     public void conctactUsMapClickListener() {
-        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("geo:0,0?q=Sultan Ahmed Plaza, Dhaka"));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=Sultan Ahmed Plaza, Dhaka"));
         startActivity(intent);
     }
 
@@ -480,8 +480,17 @@ OnClickRoutes.contactUsFragmentListener,
 
     @Override
     public void conctactUsPhoneClickListener() {
+
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01705401056"));
         startActivity(intent);
+    }
+
+
+
+    @Override
+    public void contactUsBackPressed() {
+
+        onBackPressed();
     }
 
 

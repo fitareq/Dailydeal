@@ -25,6 +25,7 @@ public class ConstantsResources {
     public static final String ORDER_FRAGMENT = "com.dailydealbd.view.fragments.OrderFragment";
     public static final String REGISTRATION_FRAGMENT = "com.dailydealbd.view.fragments.RegisterFragment";
     public static final String LOGIN_FRAGMENT = "com.dailydealbd.view.fragments.LoginFragment";
+    public static final String CONTACTUS_FRAGMENT = "com.dailydealbd.view.fragments.ContactUsFragment";
     public static final String FULL_IMAGE_FRAGMENT = "com.dailydealbd.view.fragments.ImageFragment";
     public static final String SETTINGS_FRAGMENT = "com.dailydealbd.view.fragments.SettingsFragment";
 
