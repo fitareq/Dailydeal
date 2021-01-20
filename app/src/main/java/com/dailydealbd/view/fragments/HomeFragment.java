@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnClickRoutes.categoryListener {
+public class HomeFragment extends Fragment implements OnClickRoutes.categoryAdapterListener {
 
 
     private SliderView sliderView;
@@ -59,14 +59,14 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryList
     private List<Products> topRatedProducts;
     private List<Products> weekDealsProducts;
 
-    private OnClickRoutes.homeClickListener loadcategory;
+    private OnClickRoutes.homeFragmentListener homeFragmentListener;
     //private LiveData<List<Slider>> sliderList;
 
 
 
-    public HomeFragment(OnClickRoutes.homeClickListener loadcategory) {
+    public HomeFragment(OnClickRoutes.homeFragmentListener homeFragmentListener) {
 
-        this.loadcategory = loadcategory;
+        this.homeFragmentListener = homeFragmentListener;
 
     }
 
@@ -193,20 +193,9 @@ public class HomeFragment extends Fragment implements OnClickRoutes.categoryList
 
 
     @Override
-    public void onDestroy() {
+    public void categoryClick(int cId, String title) {
 
-        mViewModel.getSliderList().removeObservers(this);
-        mViewModel.getProductsList().removeObservers(this);
-        mViewModel.getCategoriesList().removeObservers(this);
-        super.onDestroy();
-    }
-
-
-
-    @Override
-    public void categoryClickFCAdapterTCFragment(int cId, String cTitle) {
-
-        loadcategory.homeToCategory(cId, cTitle);
+        homeFragmentListener.homeToCategory(cId, title);
     }
 
 

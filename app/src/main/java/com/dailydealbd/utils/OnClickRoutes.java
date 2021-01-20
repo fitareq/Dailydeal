@@ -1,15 +1,19 @@
 package com.dailydealbd.utils;
 
 import com.dailydealbd.roomdata.model.Cart;
+import com.dailydealbd.roomdata.model.WishList;
 import com.dailydealbd.viewmodel.AccountViewModel;
 
 
 public interface OnClickRoutes {
-    interface categoryListener
+
+
+
+    interface categoryAdapterListener
     {
-        void categoryClickFCAdapterTCFragment(int cId,String cTitle);
+        void categoryClick(int cId, String title);
     }
-    interface homeClickListener {
+    interface homeFragmentListener {
         void homeToCategory(int cId, String cTitle);
     }
     interface singleProductClickListener
@@ -42,12 +46,12 @@ public interface OnClickRoutes {
     {
         void goToLoginFromRegistration();
     }
-    interface loginClickListener
+    interface loginFragmentListener
     {
         void loginToRegistration();
         void loginToHome();
     }
-    interface cartClickListener
+    interface cartFragmentListener
     {
         void cartToLogin();
         void cartToHome();
@@ -57,7 +61,7 @@ public interface OnClickRoutes {
     {
         void accountToLogin();
         void accountToSettings(AccountViewModel viewModel);
-        void accountToHome();
+        void accountBackBtnPressed();
         void accountToCart();
         void accountToOrder();
         void accountToWishList();
@@ -66,6 +70,16 @@ public interface OnClickRoutes {
     interface orderFragmentListener
     {
         void orderToCart();
+    }
+    interface wishlistFragmentListener
+    {
+        void wishlishtBackBtnPressed();
+        void wishlistToSingleProduct(String slug);
+    }
+    interface wishlistAdapterListener
+    {
+        void wishlistDeleteBtnClickListener(WishList wishList);
+        void wishlistItemClickListener(String slug);
     }
 
 }

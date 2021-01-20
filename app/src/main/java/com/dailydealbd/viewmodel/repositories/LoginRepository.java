@@ -1,7 +1,6 @@
 package com.dailydealbd.viewmodel.repositories;
 
 import android.app.Application;
-import android.app.ProgressDialog;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -26,7 +25,7 @@ public class LoginRepository {
     private final DailyDealApi api;
     private UserDao userDao;
     private Application application;
-    private OnClickRoutes.loginClickListener loginClickListener;
+    private OnClickRoutes.loginFragmentListener loginFragmentListener;
 
 
 
@@ -48,9 +47,9 @@ public class LoginRepository {
 
 
 
-    public void setLoginClickListener(OnClickRoutes.loginClickListener loginClickListener) {
+    public void setLoginFragmentListener(OnClickRoutes.loginFragmentListener loginFragmentListener) {
 
-        this.loginClickListener = loginClickListener;
+        this.loginFragmentListener = loginFragmentListener;
     }
 
 
@@ -67,7 +66,7 @@ public class LoginRepository {
 
                     Toast.makeText(application.getApplicationContext(), "Login Successful", Toast.LENGTH_LONG).show();
                     saveAuthenticatedUserToLocal(response.body());
-                    loginClickListener.loginToHome();
+                    loginFragmentListener.loginToHome();
                 } else {
                     Toast.makeText(application.getApplicationContext(), response.message(), Toast.LENGTH_LONG).show();
                 }

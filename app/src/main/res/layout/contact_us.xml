@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal">
-
             <ImageButton
                 android:id="@+id/contact_us_back_btn"
                 android:layout_width="@dimen/_50sdp"
