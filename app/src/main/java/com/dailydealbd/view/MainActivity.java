@@ -1,5 +1,6 @@
 package com.dailydealbd.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity
                            OnClickRoutes.accountFragmentListener,
                            OnClickRoutes.orderFragmentListener,
                            OnClickRoutes.wishlistFragmentListener {
+
 
 
     private DrawerLayout drawerLayout;
@@ -282,7 +285,27 @@ public class MainActivity extends AppCompatActivity
                 bottomNav.setSelectedItemId(R.id.nav_category);
             }
             loadFragments();
-        } else super.onBackPressed();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to close the app?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    MainActivity.this.finish();
+                }
+            });
+            builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
 
 
     }
