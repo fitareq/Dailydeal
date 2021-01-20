@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -37,8 +36,6 @@ import com.dailydealbd.viewmodel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.List;
 
 
@@ -56,6 +53,9 @@ public class MainActivity extends AppCompatActivity
                            OnClickRoutes.accountFragmentListener,
                            OnClickRoutes.orderFragmentListener {
 
+
+    //private ImageView mapbtn;
+    //private TextView callbtn;
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -90,6 +90,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //mapbtn = findViewById(R.id.map);
+        //callbtn = findViewById(R.id.phone_number);
+
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         viewModel.fetchProductsDataFromRemote();
         viewModel.fetchSliderDataFromRemote();
@@ -100,6 +103,23 @@ public class MainActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.drawerLayoutId);
         NavigationView navigationDrawer = findViewById(R.id.navigation_drawer);
         bottomNav = findViewById(R.id.bottom_nav);
+
+       /* callbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01705401056"));
+                startActivity(intent);
+            }
+        });
+
+
+        mapbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=Sultan Ahmed Plaza, Dhaka"));
+                startActivity(intent);
+            }
+        });*/
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.start, R.string.close);

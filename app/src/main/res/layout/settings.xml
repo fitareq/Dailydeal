@@ -128,7 +128,7 @@
         android:layout_centerVertical="false"
         android:layout_marginTop="@dimen/_8sdp"
         android:background="@color/green_light"
-        android:text="@string/sing_out"
+        android:text="@string/log_out"
         android:textAllCaps="false" />
 
     <ImageView

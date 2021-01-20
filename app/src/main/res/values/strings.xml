@@ -69,5 +69,6 @@
     <string name="dailydeal_email">support@dailydeal.com.bd</string>
     <string name="customer_care">Customer Care</string>
     <string name="customer_care_number">01705401056</string>
+    <string name="log_out">Log Out</string>
 
 </resources>
