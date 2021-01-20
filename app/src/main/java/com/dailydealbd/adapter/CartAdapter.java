@@ -61,8 +61,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         String title = current.getProductTitle();
         holder.cartProductTitle.setText(title);
 
+        int quantity = current.getProductQuantity();
         String price = current.getProductPrice();
-        holder.cartProductPrice.setText(price);
+        String pq = price+"*"+quantity;
+        holder.cartProductPrice.setText(pq);
 
 
         String p;
@@ -81,7 +83,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         else p = "0";
 
 
-        int quantity = current.getProductQuantity();
+
         holder.cartProductQuantity.setText(String.valueOf(quantity));
 
 
