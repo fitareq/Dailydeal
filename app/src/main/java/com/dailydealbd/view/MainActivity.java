@@ -126,23 +126,8 @@ public class MainActivity extends AppCompatActivity
 
                 case DRW_ORDER:
                     selectedFragment = homeFragment;
-                    //toolbar.setTitle("Home");
                     break;
-                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                    tag = ConstantsResources.HOME_FRAGMENT;*/
 
-                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                    tag = ConstantsResources.HOME_FRAGMENT;
-                    bottomNav.setSelectedItemId(R.id.nav_home);
-                    break;*/
-
-                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                    tag = ConstantsResources.HOME_FRAGMENT;
-                    break;*/
-
-                    /*selectedFragment = new HomeFragment((OnClickRoutes.homeClickListener) MainActivity.this);
-                    tag = ConstantsResources.HOME_FRAGMENT;
-                    break;*/
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return loadFragments();
@@ -279,11 +264,6 @@ public class MainActivity extends AppCompatActivity
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-        //Toast.makeText(this, String.valueOf(loadedFragment.size()), Toast.LENGTH_SHORT).show();
-
-        //loadedFragment.pop();
-            /*loadFragments();
-        } else super.onBackPressed();*/
 
         if (fragmentDeque.size() > 1) {
             fragmentDeque.pop();
@@ -296,20 +276,6 @@ public class MainActivity extends AppCompatActivity
             loadFragments();
         } else super.onBackPressed();
 
-       /* if (tag.equals(ConstantsResources.SINGLE_PRODUCT_FRAGMENT) ||
-                    tag.equals(ConstantsResources.REGISTRATION_FRAGMENT) ||
-                    tag.equals(ConstantsResources.ACCOUNT_FRAGMENT) ||
-                    tag.equals(ConstantsResources.LOGIN_FRAGMENT) ||
-                    tag.equals(ConstantsResources.CART_FRAGMENT)) {
-            selectedFragment = new HomeFragment(this);
-            tag = ConstantsResources.HOME_FRAGMENT;
-            bottomNav.setSelectedItemId(R.id.nav_home);
-            loadFragments();
-        }*/
-
-
-   /* else if (getSupportFragmentManager().getBackStackEntryCount()>0)
-        getSupportFragmentManager().popBackStack();*/
 
     }
 
