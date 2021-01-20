@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.dailydealbd.R;
+import com.dailydealbd.utils.OnClickRoutes;
 
 
 public class ContactUsFragment extends Fragment {
@@ -21,6 +22,12 @@ public class ContactUsFragment extends Fragment {
     private TextView callbtn;
     private ImageView mapbtn;
 
+    private OnClickRoutes.contactUsFragmentListener contactUsFragmentListener;
+
+    public ContactUsFragment(OnClickRoutes.contactUsFragmentListener contactUsFragmentListener)
+    {
+        this.contactUsFragmentListener = contactUsFragmentListener;
+    }
 
     @Nullable
     @Override
@@ -33,16 +40,14 @@ public class ContactUsFragment extends Fragment {
         mapbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01705401056"));
-                startActivity(intent);
+                contactUsFragmentListener.conctactUsMapClickListener();
             }
         });
 
         callbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("geo:0,0?q=Sultan Ahmed Plaza, Dhaka"));
-                startActivity(intent);
+                contactUsFragmentListener.conctactUsPhoneClickListener();
             }
         });
 

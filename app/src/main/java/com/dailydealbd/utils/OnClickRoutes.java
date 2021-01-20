@@ -82,4 +82,9 @@ public interface OnClickRoutes {
         void wishlistItemClickListener(String slug);
     }
 
+    interface contactUsFragmentListener
+    {
+        void conctactUsMapClickListener();
+        void conctactUsPhoneClickListener();
+    }
 }

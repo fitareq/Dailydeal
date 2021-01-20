@@ -1,5 +1,7 @@
 package com.dailydealbd.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import com.dailydealbd.utils.OnClickRoutes;
 import com.dailydealbd.view.fragments.AccountFragment;
 import com.dailydealbd.view.fragments.CartFragment;
 import com.dailydealbd.view.fragments.CategoryFragment;
+import com.dailydealbd.view.fragments.ContactUsFragment;
 import com.dailydealbd.view.fragments.HomeFragment;
 import com.dailydealbd.view.fragments.ImageFragment;
 import com.dailydealbd.view.fragments.LoginFragment;
@@ -43,6 +46,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener,
+OnClickRoutes.contactUsFragmentListener,
                            OnClickRoutes.cartFragmentListener,
                            OnClickRoutes.registrationClickListener,
                            OnClickRoutes.loginFragmentListener,
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity
     private final AccountFragment accountFragment = new AccountFragment(this);
     private final LoginFragment loginFragment = new LoginFragment(this);
     private final RegisterFragment registerFragment = new RegisterFragment(this);
+    private final ContactUsFragment contactUsFragment = new ContactUsFragment(this);
+    private final WishlistFragment wishlistFragment = new WishlistFragment(this);
 
 
 
@@ -118,11 +124,14 @@ public class MainActivity extends AppCompatActivity
                     selectedFragment = cartFragment;
                     break;
                 case DRW_WISHLIST:
-                    selectedFragment = new WishlistFragment(this);
+                    selectedFragment = wishlistFragment;
+                    break;
+                case DRW_CONTACT:
+                    selectedFragment = contactUsFragment;
                     break;
                 case DRW_HOME:
                 case DRW_CONDITION:
-                case DRW_CONTACT:
+
 
                 case DRW_ORDER:
                     selectedFragment = homeFragment;
@@ -138,7 +147,7 @@ public class MainActivity extends AppCompatActivity
 
             switch (item.getItemId()) {
                 case NAV_ACC:
-                    selectedFragment = new AccountFragment(MainActivity.this);
+                    selectedFragment = accountFragment;
                     break;
                 case NAV_CART:
                     selectedFragment = cartFragment;
@@ -430,7 +439,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void accountToWishList() {
 
-        selectedFragment = new WishlistFragment(this);
+        selectedFragment = wishlistFragment;
         loadFragments();
     }
 
@@ -457,6 +466,22 @@ public class MainActivity extends AppCompatActivity
 
         selectedFragment = new SingleProductFragment(slug, this, this, this);
         loadFragments();
+    }
+
+
+
+    @Override
+    public void conctactUsMapClickListener() {
+        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("geo:0,0?q=Sultan Ahmed Plaza, Dhaka"));
+        startActivity(intent);
+    }
+
+
+
+    @Override
+    public void conctactUsPhoneClickListener() {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01705401056"));
+        startActivity(intent);
     }
 
 
